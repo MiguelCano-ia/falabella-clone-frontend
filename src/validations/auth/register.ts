@@ -11,7 +11,7 @@ export const registerFormSchema = z.object({
       /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
       "Ingresa un nombre sin símbolos ni caracteres especiales.s"
     ),
-  lastName: z
+  lastname: z
     .string()
     .min(2, {
       message: "El nombre debe tener al menos 2 caracteres.",
@@ -20,8 +20,8 @@ export const registerFormSchema = z.object({
       /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/,
       "Ingresa un nombre sin símbolos ni caracteres especiales.s"
     ),
-  documentType: z.string(),
-  document: z.string().min(4, { message: "Ingresa un Carnet." }),
+  id_type: z.string(),
+  id_number: z.string().min(4, { message: "Ingresa un Carnet." }),
   phone: z.string().refine((value) => value.length === 10, {
     message: "Ingresa número de celular válido",
   }),
@@ -40,8 +40,12 @@ export const registerFormSchema = z.object({
 export type FormState =
   | {
       errors?: {
-        name?: string[];
         email?: string[];
+        name?: string[];
+        lastname?: string[];
+        id_type?: string[];
+        id_number?: string[];
+        phone?: string[];
         password?: string[];
       };
       message?: string;

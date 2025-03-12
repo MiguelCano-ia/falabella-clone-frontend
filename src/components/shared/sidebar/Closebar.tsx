@@ -1,6 +1,6 @@
 "use client";
 
-import { useUIStore } from "@/store/ui/indext";
+import { useUIStore } from "@/store/ui";
 import { ChevronLeft, X } from "lucide-react";
 
 interface Props {

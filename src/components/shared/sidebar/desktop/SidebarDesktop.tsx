@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { Closebar } from "../Closebar";
 import { Categories } from "./Categories";
 import { SubCategories } from "./SubCategories";
-import { useUIStore } from "@/store/ui/indext";
+import { useUIStore } from "@/store/ui";
 import { CategoryTitlte } from "./CategoryTitlte";
 
 interface Props {
@@ -19,7 +19,7 @@ export const SidebarDesktop = ({ categories }: Props) => {
   return (
     <div
       className={clsx(
-        "fixed w-auto left-0 top-0 bottom-0 z-10 shadow-lg transition-transform duration-500 ease-in-out hidden lg:flex",
+        "fixed w-auto left-0 top-0 bottom-0 z-20 shadow-lg transition-transform duration-500 ease-in-out hidden lg:flex",
         {
           "translate-x-0": isSidebarOpen,
           "-translate-x-full": !isSidebarOpen,

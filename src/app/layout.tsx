@@ -5,6 +5,7 @@ import { Header } from "@/components/shared/header/Header";
 import { LoginForm } from "@/components/auth/login/LoginForm";
 import { Sidebar } from "@/components/shared/sidebar/Sidebar";
 import "./globals.css";
+import { Overlay } from "@/components/shared/header/header-navbar/right-section/user-section/Overlay";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
         <Sidebar />
         <LoginForm />
         {children}
+        <Overlay />
         <Footer />
       </body>
     </html>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useUIStore } from "@/store/ui/indext";
+import { useUIStore } from "@/store/ui";
 
 export const Overlay = () => {
   const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
@@ -10,7 +10,7 @@ export const Overlay = () => {
     <>
       {isSidebarOpen && (
         <div
-          className="fixed w-full h-full bg-[#4A4A4A80] z-8"
+          className="fixed w-full h-full bg-[#4A4A4A80] z-10"
           onClick={closeSidebar}
         />
       )}

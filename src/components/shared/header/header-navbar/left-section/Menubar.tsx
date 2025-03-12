@@ -1,6 +1,6 @@
 "use client";
 
-import { useUIStore } from "@/store/ui/indext";
+import { useUIStore } from "@/store/ui";
 import clsx from "clsx";
 import { Menu, X } from "lucide-react";
 

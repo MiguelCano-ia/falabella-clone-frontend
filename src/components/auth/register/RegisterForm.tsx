@@ -1,8 +1,8 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { startTransition, useActionState, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useUIStore } from "@/store/ui/indext";
+import { useUIStore } from "@/store/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Checkbox, Input, Label, useOutsideClick } from "@/components";
 import { ChevronDown, Eye, EyeOff, X } from "lucide-react";
@@ -23,6 +23,7 @@ export const RegisterForm = () => {
     mode: "onBlur",
   });
   const [state, action] = useActionState(registerAction, undefined);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const [showPassword, setShowPassword] = useState(false);
   const [passwordValue, setPasswordValue] = useState("");
@@ -30,6 +31,8 @@ export const RegisterForm = () => {
   const [documentType, setDocumentType] = useState("CC");
   const [terms, setTerms] = useState(false);
 
+  const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
+  const isLoginFormOpen = useUIStore((state) => state.isLoginOpen);
   const isIdentityFieldOpen = useUIStore((state) => state.isIdentityFieldOpen);
   const handleIdentityField = useUIStore((state) => state.handleIdentityField);
   const closeIdentityField = useUIStore((state) => state.closeIdentityField);
@@ -42,12 +45,14 @@ export const RegisterForm = () => {
     closeIdentityField();
   });
 
-  const onSubmit = (data: FormFields) => {
-    action(data);
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit((data) => {
+        startTransition(() => action(data));
+      })}
+      inert={isSidebarOpen || isLoginFormOpen}
+    >
       <div className="flex flex-col items-stretch min-h-[78px] w-full mb-2">
         <Label htmlFor="email" className="text-start text-[14px] mb-1 h-4">
           Correo
@@ -79,6 +84,11 @@ export const RegisterForm = () => {
         {errors.email && (
           <span className="text-[12px] text-[#BC001C]">
             {errors.email.message}
+          </span>
+        )}
+        {state?.errors?.email && (
+          <span className="text-[12px] text-[#BC001C]">
+            {state?.errors?.email}
           </span>
         )}
       </div>
@@ -118,47 +128,47 @@ export const RegisterForm = () => {
         )}
       </div>
       <div className="flex flex-col items-stretch min-h-[78px] w-full mb-2">
-        <Label htmlFor="lastName" className="text-start text-[14px] mb-1 h-4">
+        <Label htmlFor="lastname" className="text-start text-[14px] mb-1 h-4">
           Apellidos
         </Label>
         <div className="relative flex items-center">
           <Input
-            {...register("lastName")}
+            {...register("lastname")}
             type="text"
-            id="lastName"
-            onChange={() => clearErrors("lastName")}
+            id="lastname"
+            onChange={() => clearErrors("lastname")}
             placeholder="Ingresa apellidos"
             className={`border-t-0 border-x-0 border-b-[1px] border-b-[#A6A6A6] rounded-none p-0 text-sm placeholder:text-[#BBBBBB] font-normal focus:outline-none focus-visible:ring-0 ${
-              errors.lastName && "border-b-[#BC001C]"
+              errors.lastname && "border-b-[#BC001C]"
             }`}
             style={{
               WebkitBoxShadow: "0 0 0px 1000px white inset",
             }}
           />
-          {errors.lastName && (
+          {errors.lastname && (
             <X
               className="absolute right-0 text-[#BC001C]"
               size={20}
               onClick={() => {
-                setValue("lastName", "");
-                clearErrors("lastName");
+                setValue("lastname", "");
+                clearErrors("lastname");
               }}
             />
           )}
         </div>
-        {errors.lastName && (
+        {errors.lastname && (
           <span className="text-[12px] text-[#BC001C]">
-            {errors.lastName.message}
+            {errors.lastname.message}
           </span>
         )}
       </div>
       <div className="relative flex flex-col items-stretch min-h-[78px] w-full mb-2">
-        <Label htmlFor="document" className="text-start text-[14px] mb-1 h-4">
+        <Label htmlFor="id_number" className="text-start text-[14px] mb-1 h-4">
           Tipo de documento
         </Label>
         <div
           className={`flex items-center border-b-[1px] border-b-[#A6A6A6] ${
-            errors.document && "border-b-[#BC001C]"
+            errors.id_number && "border-b-[#BC001C]"
           }`}
         >
           <div
@@ -170,36 +180,36 @@ export const RegisterForm = () => {
           </div>
 
           <Input
-            {...register("document")}
+            {...register("id_number")}
             type="text"
-            id="document"
-            onChange={() => clearErrors("document")}
+            id="id_number"
+            onChange={() => clearErrors("id_number")}
             placeholder="Ingresa una cédula"
             className="border-0 rounded-none p-0 text-sm placeholder:text-[#BBBBBB] font-normal focus:outline-none focus-visible:ring-0"
             style={{
               WebkitBoxShadow: "0 0 0px 1000px white inset",
             }}
           />
-          {errors.document && (
+          {errors.id_number && (
             <X
               className="absolute right-0 text-[#BC001C]"
               size={20}
               onClick={() => {
-                setValue("document", "");
-                clearErrors("document");
+                setValue("id_number", "");
+                clearErrors("id_number");
               }}
             />
           )}
           <input
-            {...register("documentType")}
+            {...register("id_type")}
             type="hidden"
             name="documentType"
             value={documentType}
           />
         </div>
-        {errors.document && (
+        {errors.id_number && (
           <span className="text-[12px] text-[#BC001C]">
-            {errors.document.message}
+            {errors.id_number.message}
           </span>
         )}
         {isIdentityFieldOpen && (
@@ -269,6 +279,11 @@ export const RegisterForm = () => {
             {errors.phone.message}
           </span>
         )}
+        {state?.errors.phone && (
+          <span className="text-[12px] text-[#BC001C]">
+            {state?.errors.phone}
+          </span>
+        )}
       </div>
       {/* password */}
       <div className="flex flex-col items-stretch min-h-[78px] w-full mb-2">
@@ -289,6 +304,7 @@ export const RegisterForm = () => {
                 clearErrors("password");
                 setHasTyped(true);
                 setPasswordValue(e.target.value);
+                setValue("password", e.target.value);
               }}
               placeholder="Ingresa una contraseña"
               className="border-0 rounded-none p-0 text-sm placeholder:text-[#BBBBBB] font-normal focus:outline-none focus-visible:ring-0"
@@ -343,7 +359,7 @@ export const RegisterForm = () => {
           type="submit"
           variant="register"
           size="lg"
-          className={`rounded-[280px] font-semibold text-base ${
+          className={`rounded-[280px] font-semibold text-base cursor-pointer ${
             isFormEmpty ||
             Object.keys(errors).length > 0 ||
             !terms ||

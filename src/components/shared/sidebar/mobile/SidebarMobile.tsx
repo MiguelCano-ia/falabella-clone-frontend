@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { Closebar } from "../Closebar";
 import { CategoriesMobile } from "./CategoriesMobile";
 import { MobileUserMenu } from "./MobileUserMenu";
-import { useUIStore } from "@/store/ui/indext";
+import { useUIStore } from "@/store/ui";
 import { SubCategoriesMobile } from "./SubCategoriesMobile";
 import { CategoryTitleMobile } from "./CategoryTitleMobile";
 

@@ -4,19 +4,19 @@ import { createSession } from "@/lib/session";
 import {
   FormFields,
   FormState,
-  registerFormSchema,
-} from "@/validations/auth/register";
-import { redirect } from "next/navigation";
+  loginFormSchema,
+} from "@/validations/auth/login";
 
-export async function registerAction(state: FormState, data: FormFields) {
-  const validatedFields = registerFormSchema.safeParse(data);
+export async function loginAction(state: FormState, data: FormFields) {
+  console.log(data);
+  const validatedFields = loginFormSchema.safeParse(data);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
-  const result = await fetch("http://localhost:4000/register", {
+  const result = await fetch("http://localhost:4000/login", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
@@ -25,7 +25,6 @@ export async function registerAction(state: FormState, data: FormFields) {
   }).then((res) => res.json());
 
   if (result.errors) {
-    console.log(result.errors);
     return {
       errors: Object.fromEntries(
         result.errors.map(
@@ -37,6 +36,10 @@ export async function registerAction(state: FormState, data: FormFields) {
       ),
     };
   }
+
   await createSession(result.token);
-  redirect("/");
+
+  return {
+    authenticated: true,
+  };
 }

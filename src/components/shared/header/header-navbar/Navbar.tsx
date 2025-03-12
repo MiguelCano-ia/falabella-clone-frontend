@@ -8,8 +8,11 @@ import {
   Searchbar,
 } from "./";
 import Image from "next/image";
+import { getUser } from "@/actions/auth/helpers/getUser";
 
-export const Navbar = () => {
+export const Navbar = async () => {
+  const user = await getUser();
+
   return (
     <div className="w-screen bg-header-background border-b-[1px] flex items-center max-lg:flex-wrap max-lg:border-0">
       <div className="flex pl-6 xl:pl-12 xl:pr-4 max-lg:order-2 max-lg:pl-0">
@@ -30,7 +33,7 @@ export const Navbar = () => {
         <Searchbar />
       </div>
       <div className="flex items-center justify-center max-lg:order-3 max-lg:justify-end max-lg:ml-auto">
-        <HeaderLogin />
+        <HeaderLogin user={user!} />
         <Purchases />
         <Favorites />
         <Cart />
