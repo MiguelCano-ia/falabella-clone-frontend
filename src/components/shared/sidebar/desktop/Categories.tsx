@@ -1,18 +1,29 @@
+import { Subcategory } from "@/interfaces/categories/category";
 import { ChevronRight } from "lucide-react";
 
 interface Props {
   categoryTitle: string;
   categoryDesktop: string;
   setCategoryDesktop: (category: string) => void;
+  svg: string;
+  setSvg: (svg: string) => void;
+  subCategories: Subcategory[];
+  setSubCategories: (subCategories: Subcategory[]) => void;
 }
 
 export const Categories = ({
   categoryTitle,
   categoryDesktop,
   setCategoryDesktop,
+  svg,
+  setSvg,
+  subCategories,
+  setSubCategories,
 }: Props) => {
   const handleMouseEnter = () => {
     setCategoryDesktop(categoryTitle);
+    setSvg(svg);
+    setSubCategories(subCategories);
   };
 
   return (

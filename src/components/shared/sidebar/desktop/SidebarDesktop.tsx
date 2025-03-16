@@ -6,15 +6,27 @@ import { Categories } from "./Categories";
 import { SubCategories } from "./SubCategories";
 import { useUIStore } from "@/store/ui";
 import { CategoryTitlte } from "./CategoryTitlte";
+import { Category, Subcategory } from "@/interfaces/categories/category";
+import { useEffect, useState } from "react";
 
 interface Props {
-  categories: string[];
+  categories: Category[];
 }
 
 export const SidebarDesktop = ({ categories }: Props) => {
+  const [svg, setSvg] = useState("");
+  const [subCategories, setSubCategories] = useState<Subcategory[]>([]);
+
   const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
   const categoryDesktop = useUIStore((state) => state.categoryDesktop);
   const setCategoryDesktop = useUIStore((state) => state.setCategoryDesktop);
+
+  useEffect(() => {
+    document.body.style.overflow = isSidebarOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isSidebarOpen]);
 
   return (
     <div
@@ -33,21 +45,24 @@ export const SidebarDesktop = ({ categories }: Props) => {
         <div className="mb-[60px] py-4">
           {categories.map((category) => (
             <Categories
-              key={category}
-              categoryTitle={category}
+              key={category.name}
+              categoryTitle={category.name}
               categoryDesktop={categoryDesktop}
               setCategoryDesktop={setCategoryDesktop}
+              svg={category.svg}
+              setSvg={setSvg}
+              subCategories={category.subcategories}
+              setSubCategories={setSubCategories}
             />
           ))}
         </div>
       </div>
       {categoryDesktop && (
         <div className="flex flex-col mt-[59px] rounded-tr-[20px] w-screen min-w-[468px] max-w-[674px] h-screen pt-6 pb-16 pl-8 mr-2 bg-primary-foreground xl:max-w-[904px]">
-          <CategoryTitlte
-            title={categoryDesktop}
-            icon="/icons/categories/icninos.svg"
-          />
-          <SubCategories categoryDesktop={categoryDesktop} />
+          <div className="overflow-y-scroll overflow-x-hidden">
+            <CategoryTitlte title={categoryDesktop} icon={svg} />
+            <SubCategories subCategories={subCategories} />
+          </div>
         </div>
       )}
     </div>

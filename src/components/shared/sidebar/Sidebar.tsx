@@ -1,14 +1,7 @@
 import { SidebarDesktop } from "./desktop/SidebarDesktop";
 import { SidebarMobile } from "./mobile/SidebarMobile";
 import { Overlay } from "./Overlay";
-
-const categories = [
-  "Tecnologia",
-  "Celulares y accesorios",
-  "Electrohogar",
-  "Moda mujer",
-  "Moda hombre",
-];
+import { categories } from "@/data/categories/categories.data";
 
 export const Sidebar = () => {
   return (
