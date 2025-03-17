@@ -1,4 +1,8 @@
+"use client";
+
 import { Subcategory } from "@/interfaces/categories/category";
+import { toSlug } from "@/lib/toSlug";
+import { useUIStore } from "@/store/ui";
 import Link from "next/link";
 
 interface Props {
@@ -6,6 +10,8 @@ interface Props {
 }
 
 export const SubCategories = ({ subCategories }: Props) => {
+  const closeSidebar = useUIStore((state) => state.closeSidebar);
+
   return (
     <>
       <div className="flex justify-between mt-[-8px]">
@@ -15,8 +21,13 @@ export const SubCategories = ({ subCategories }: Props) => {
               key={subCategory.name}
               className="w-[186px] min-w-[186px] mt-8 mr-8"
             >
-              <li className="text-[19px] font-bold leading-[22.8px] text-[#68717D] mb-2">
-                {subCategory.name}
+              <li className="text-[19px] font-bold leading-[22.8px] text-[#68717D] mb-2 hover:text-[#0C2941] transition-colors">
+                <Link
+                  href={`/falabella-co/category/${toSlug(subCategory.name)}`}
+                  onClick={closeSidebar}
+                >
+                  {subCategory.name}
+                </Link>
               </li>
               {subCategory.items.map((item) => (
                 <li
@@ -26,7 +37,11 @@ export const SubCategories = ({ subCategories }: Props) => {
                     "font-bold text-[#0C2941] hover:text-[#68717D] transition-colors"
                   }`}
                 >
-                  <Link href={item} className="text-inherit">
+                  <Link
+                    href={`/falabella-co/subcategory/${toSlug(item)}`}
+                    className="text-inherit"
+                    onClick={closeSidebar}
+                  >
                     {item}
                   </Link>
                 </li>

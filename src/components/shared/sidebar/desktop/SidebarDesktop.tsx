@@ -7,7 +7,7 @@ import { SubCategories } from "./SubCategories";
 import { useUIStore } from "@/store/ui";
 import { CategoryTitlte } from "./CategoryTitlte";
 import { Category, Subcategory } from "@/interfaces/categories/category";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   categories: Category[];
@@ -20,13 +20,6 @@ export const SidebarDesktop = ({ categories }: Props) => {
   const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
   const categoryDesktop = useUIStore((state) => state.categoryDesktop);
   const setCategoryDesktop = useUIStore((state) => state.setCategoryDesktop);
-
-  useEffect(() => {
-    document.body.style.overflow = isSidebarOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isSidebarOpen]);
 
   return (
     <div

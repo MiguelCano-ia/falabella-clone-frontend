@@ -8,7 +8,7 @@ export const Breadcrumbs = () => {
       <ol className="flex flex-wrap font-bold text-[11px]">
         <li>
           <Link
-            href="/fabella-co"
+            href="/falabella-co"
             className="px-[3px] text-[#717171] underline underline-offset-2"
           >
             Home

@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Breadcrumbs,
   CategoryList,
@@ -7,7 +5,26 @@ import {
   SideBarCateogory,
 } from "@/components";
 
-export default function Page() {
+const getProducts = async (slug: string[]) => {
+  try {
+    const response = await fetch(
+      `http://localhost:4000/${slug[0]}/${slug[1]}`
+    ).then((res) => res.json());
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string[] }>;
+}) {
+  const { slug } = await params;
+  const products = await getProducts(slug);
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Breadcrumbs />
@@ -17,7 +34,7 @@ export default function Page() {
           {/* Sidebar */}
           <SideBarCateogory />
           {/* Derecha */}
-          <ProductSection />
+          <ProductSection products={products} />
         </div>
       </div>
     </div>

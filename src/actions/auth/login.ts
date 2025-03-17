@@ -8,7 +8,6 @@ import {
 } from "@/validations/auth/login";
 
 export async function loginAction(state: FormState, data: FormFields) {
-  console.log(data);
   const validatedFields = loginFormSchema.safeParse(data);
   if (!validatedFields.success) {
     return {

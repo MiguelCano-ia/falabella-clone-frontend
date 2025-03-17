@@ -1,14 +1,19 @@
 "use client";
 
-import clsx from "clsx";
-import { Closebar } from "../Closebar";
 import { CategoriesMobile } from "./CategoriesMobile";
-import { MobileUserMenu } from "./MobileUserMenu";
-import { useUIStore } from "@/store/ui";
-import { SubCategoriesMobile } from "./SubCategoriesMobile";
+import { Category } from "@/interfaces/categories/category";
 import { CategoryTitleMobile } from "./CategoryTitleMobile";
+import { Closebar } from "../Closebar";
+import { MobileUserMenu } from "./MobileUserMenu";
+import { SubCategoriesMobile } from "./SubCategoriesMobile";
+import { useUIStore } from "@/store/ui";
+import clsx from "clsx";
 
-export const SidebarMobile = () => {
+interface Props {
+  categories: Category[];
+}
+
+export const SidebarMobile = ({ categories }: Props) => {
   const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
   const openCategory = useUIStore((state) => state.openCategory);
   const setOpenCategory = useUIStore((state) => state.setOpenCategory);
@@ -33,10 +38,13 @@ export const SidebarMobile = () => {
           <div className="flex flex-col justify-between mb-[60px]">
             <MobileUserMenu />
             <div className="relative py-5">
-              <CategoriesMobile
-                setCategory={setOpenCategory}
-                category="Tecnologia"
-              />
+              {categories.map((category) => (
+                <CategoriesMobile
+                  key={category.name}
+                  setCategory={setOpenCategory}
+                  category={category.name}
+                />
+              ))}
             </div>
           </div>
         </>
@@ -47,17 +55,30 @@ export const SidebarMobile = () => {
             <Closebar title={"Volver al menú principal"} />
           </div>
           <CategoryTitleMobile
-            title="Tecnologia"
-            icon="/icons/categories/icninos.svg"
+            title={openCategory}
+            icon={categories.find((c) => c.name === openCategory)!.svg}
           />
           <div className="flex flex-col justify-between mb-[60px]">
-            {!openSubCategory && (
-              <CategoriesMobile
-                setCategory={setOpenSubCategory}
-                category="Computación"
+            {!openSubCategory &&
+              categories
+                .find((c) => c.name === openCategory)!
+                .subcategories.map((subCategory) => (
+                  <CategoriesMobile
+                    key={subCategory.name}
+                    setCategory={setOpenSubCategory}
+                    category={subCategory.name}
+                  />
+                ))}
+            {openSubCategory && (
+              <SubCategoriesMobile
+                items={
+                  categories
+                    .find((c) => c.name === openCategory)!
+                    .subcategories.find((sc) => sc.name === openSubCategory)!
+                    .items
+                }
               />
             )}
-            {openSubCategory && <SubCategoriesMobile />}
           </div>
         </>
       )}

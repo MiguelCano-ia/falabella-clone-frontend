@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const CategoryList = () => {
   return (
-    <div className="mb-[5px] max-w-[1280px] w-full bg-[#fff]">
+    <div className="mb-[5px] max-w-[1280px] w-full bg-[#fff] hidden">
       <div className="relative flex flex-wrap justify-center w-full py-[10px] px-[5px]">
         <div className="flex">
           <div className="relative px-3 ml-3">
