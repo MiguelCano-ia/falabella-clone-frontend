@@ -1,22 +1,28 @@
+"use client";
+
+import { useEffect } from "react";
 import { SidebarDesktop } from "./desktop/SidebarDesktop";
 import { SidebarMobile } from "./mobile/SidebarMobile";
 import { Overlay } from "./Overlay";
-
-const categories = [
-  "Tecnologia",
-  "Celulares y accesorios",
-  "Electrohogar",
-  "Moda mujer",
-  "Moda hombre",
-];
+import { categories } from "@/data/categories/categories.data";
+import { useUIStore } from "@/store/ui";
 
 export const Sidebar = () => {
+  const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
+
+  useEffect(() => {
+    document.body.style.overflow = isSidebarOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isSidebarOpen]);
+
   return (
     <>
       <Overlay />
 
       {/* Sidebar Mobile */}
-      <SidebarMobile />
+      <SidebarMobile categories={categories} />
 
       {/* Sidebar Desktop */}
 
