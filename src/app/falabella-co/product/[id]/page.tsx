@@ -1,14 +1,24 @@
 import { QuantitySelector } from "@/components/products/QuantitySelector";
+import { Products } from "@/interfaces/categories/product";
+import { formatCOP } from "@/lib/formatCop";
 import { Ban, BookX, Clock3, MessageCircleHeart, Truck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+const getProduct = async (id: number): Promise<Products> => {
+  const response = await fetch(`http://localhost:4000/product/${id}`).then(
+    (res) => res.json()
+  );
+  return response;
+};
+
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ id: number }>;
 }) {
-  const { slug } = await params;
+  const { id } = await params;
+  const product = await getProduct(id);
 
   return (
     <div className="w-full min-h-screen bg-gray-100 py-12">
@@ -18,27 +28,29 @@ export default async function Page({
             Home
           </Link>
           <span>/</span>
-          <a href="#" className="hover:underline text-gray-500">
-            Automotriz-Accesorios para motos
-          </a>
-          <span>/</span>
-          <a href="#" className="hover:underline text-gray-500">
-            Cascos Motos
-          </a>
+          <Link href="#" className="hover:underline text-gray-500">
+            {product.subcategory_slug}
+          </Link>
         </nav>
 
         <div className="flex flex-col md:flex-row gap-12">
           <div className="w-full md:w-1/2 flex flex-col items-center">
-            <img
-              src="https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/123508541_01/w=800,h=800,fit=pad"
-              alt={product.name}
-              className="w-full max-w-md rounded-lg shadow-lg"
+            <Image
+              src={`http://localhost:4000/images/${product.images[0]}`}
+              alt={product?.brand || ""}
+              width={500}
+              height={500}
+              className="rounded-lg shadow-lg"
             />
             <div className="flex gap-2 mt-4">
-              {[1, 2, 3].map((_, index) => (
-                <img
-                  key={index}
-                  src="https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/123508541_02/w=100,h=100,fit=pad"
+              {product?.images.map((image, index) => (
+                <Image
+                  key={image}
+                  src={`http://localhost:4000/images/${
+                    product.images[index + 1]
+                  }`}
+                  width={80}
+                  height={80}
                   alt="Miniatura"
                   className="w-16 h-16 border rounded cursor-pointer hover:border-gray-700"
                 />
@@ -48,23 +60,20 @@ export default async function Page({
 
           <div className="w-full md:w-1/2">
             <p className="text-sm font-semibold text-gray-500">
-              {product.brand || "MT HELMETS"}
+              {product?.brand || "MT HELMETS"}
             </p>
-            <h1 className="text-2xl font-bold uppercase leading-tight">
-              {product.name}
-            </h1>
 
             <div className="flex items-center gap-2 mt-2">
               <span className="text-yellow-500">⭐ ⭐ ⭐ ⭐ ⭐</span>
-              <a href="#" className="text-gray-500 text-sm hover:underline">
+              <Link href="#" className="text-gray-500 text-sm hover:underline">
                 (5) Calificar
-              </a>
+              </Link>
             </div>
 
             <p className="text-gray-500 mt-2">
               Vendido por{" "}
               <span className="text-gray-500 font-semibold">
-                Motos & Accesorios
+                {product?.sold_by}
               </span>
             </p>
 
@@ -97,38 +106,29 @@ export default async function Page({
 
               <div className="w-full md:w-1/2">
                 <div className="flex items-center gap-1 mb-1">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Falabella_unica_logo.png"
-                    alt="UNICA"
-                    className="h-4"
-                  />
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/CMR_Falabella.svg/100px-CMR_Falabella.svg.png"
-                    alt="CMR"
-                    className="h-4"
-                  />
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/8/84/Debito_Falabella.png"
-                    alt="Débito Falabella"
-                    className="h-4"
+                  <Image
+                    src="/images/category/specialdiscount.png"
+                    width={60}
+                    height={60}
+                    alt="cmr-points"
                   />
                 </div>
 
                 <div className="flex items-center gap-2">
                   <p className="text-2xl font-bold text-red-600">
-                    ${product.price.toLocaleString()}
+                    {formatCOP(product.special_price!)}
                   </p>
                   <span className="bg-red-500 text-white px-2 py-1 rounded-sm text-xs font-bold">
-                    -{product.discount}%
+                    -{product?.special_discount_percentage}%
                   </span>
                 </div>
 
                 <p className="text-xl font-semibold">
-                  ${(product.price * 1.2).toLocaleString()}
+                  {formatCOP(product?.discount_price)}
                 </p>
 
                 <p className="text-gray-500 text-lg line-through">
-                  ${(product.price * 1.4).toLocaleString()}
+                  {formatCOP(product?.price)}
                 </p>
 
                 <div className="mt-2">
@@ -182,7 +182,7 @@ export default async function Page({
                   href="#"
                   className="text-black font-semibold hover:underline"
                 >
-                  Motos & Accesorios
+                  {product?.sold_by}
                 </a>
               </p>
 

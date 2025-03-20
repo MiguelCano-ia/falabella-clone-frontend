@@ -1,20 +1,18 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Carousel } from "@/components/Carousel";
-import LastViewed from "@/components/LastView";
-import { Footer } from "@/components/FooterMain";
+
+import { Footer } from "./shared/footer/Footer";
+import { FooterProd } from "./shared/footer/FooterPageProduct";
 
 const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
-  const isProductPage = pathname.startsWith("/falabella-co/");
+  const isProductPage = pathname.endsWith("/falabella-co");
 
   return (
     <>
-      {!isProductPage && <Carousel />}
-      {!isProductPage && <LastViewed />}
       {children}
-      {!isProductPage && <Footer />}
+      {isProductPage ? <Footer /> : <FooterProd />}
     </>
   );
 };

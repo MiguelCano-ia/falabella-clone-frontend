@@ -9,9 +9,21 @@ const slides = [
     id: 1,
     image:
       "https://res.cloudinary.com/danxa3xqy/image/upload/f_auto,q_auto,w_1920,h_1080,c_limit/v1740873509/Vitrina1_Ofertas_Desk_erzhzv.jpg",
+    title: "Ofertas",
+    subtitle: "Hasta 50% de descuento",
   },
-  { id: 2, image: "/src/public/Slide 2.png" },
-  { id: 3, image: "/src/public/Slide 1.png" },
+  {
+    id: 2,
+    image: "/src/public/Slide 2.png",
+    title: "Descuentos",
+    subtitle: "Hasta 70% de descuento",
+  },
+  {
+    id: 3,
+    image: "/src/public/Slide 1.png",
+    title: "Promociones",
+    subtitle: "Hasta 80% de descuento",
+  },
 ];
 
 export function Carousel() {
@@ -57,6 +69,7 @@ export function Carousel() {
       </div>
 
       <button
+        title="Previous"
         onClick={() => emblaApi && emblaApi.scrollPrev()}
         disabled={!canScrollPrev}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 p-2 rounded-full"
@@ -64,6 +77,7 @@ export function Carousel() {
         <ChevronLeft className="w-6 h-6 text-white" />
       </button>
       <button
+        title="Next"
         onClick={() => emblaApi && emblaApi.scrollNext()}
         disabled={!canScrollNext}
         className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 p-2 rounded-full"

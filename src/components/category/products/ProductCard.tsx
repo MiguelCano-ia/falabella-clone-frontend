@@ -17,7 +17,7 @@ export const ProductCard = ({ product }: Props) => {
   return (
     <div className="w-[239px] pl-[10px] mb-[10px] h-[556px]">
       <Link
-        href="#"
+        href={`/falabella-co/product/${product.id_product}`}
         className="flex flex-col border-[1px] border-[#F0F0F0] w-full h-full bg-[#FFF] rounded-[12px]"
         onMouseEnter={() => setAddToCart(true)}
         onMouseLeave={() => setAddToCart(false)}
