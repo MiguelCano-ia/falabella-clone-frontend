@@ -30,6 +30,7 @@ export const RegisterForm = () => {
   const [hasTyped, setHasTyped] = useState(false);
   const [documentType, setDocumentType] = useState("CC");
   const [terms, setTerms] = useState(false);
+  const [termsCmr, setTermsCmr] = useState(false);
 
   const isSidebarOpen = useUIStore((state) => state.isSidebarOpen);
   const isLoginFormOpen = useUIStore((state) => state.isLoginOpen);
@@ -334,6 +335,27 @@ export const RegisterForm = () => {
       <fieldset className="grid gap-2 text-[14px] font-normal text-foreground leading-[20px] py-8">
         <div className="flex items-start gap-2">
           <Checkbox
+            id="termsCmr"
+            className="data-[state=checked]:bg-icon-background w-5 h-5"
+            checked={termsCmr}
+            onClick={() => setTermsCmr(!termsCmr)}
+          />
+          <Label
+            htmlFor="termsCmr"
+            className="text-start text-[14px] leading-5 text-foreground"
+          >
+            Quiero acumular CMR Puntos es mis compras según el{" "}
+            <span className="underline underline-offset-1">
+              reglamento del programa
+            </span>{" "}
+            y autorizo el{" "}
+            <span className="underline underline-offset-1">
+              tratamiento de mis datos personales.
+            </span>
+          </Label>
+        </div>
+        <div className="flex items-start gap-2">
+          <Checkbox
             id="terms"
             className="data-[state=checked]:bg-icon-background w-5 h-5"
             checked={terms}
@@ -349,7 +371,7 @@ export const RegisterForm = () => {
             </span>{" "}
             de falabella.com y autorizo el{" "}
             <span className="underline underline-offset-1">
-              tratamiento de mis datos personales
+              tratamiento de mis datos personales.
             </span>
           </Label>
         </div>

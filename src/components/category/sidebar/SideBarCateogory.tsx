@@ -1,21 +1,76 @@
+"use client";
+
+import { categories } from "@/data/categories/categories.data";
+import { Products } from "@/interfaces/categories/product";
+import { toSlug } from "@/lib/toSlug";
 import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
-export const SideBarCateogory = () => {
+interface Props {
+  products: Products[];
+}
+
+export const SideBarCateogory = ({ products }: Props) => {
+  const pathName = usePathname();
+  const pathSegments = pathName.split("/");
+
+  const getSection = () => {
+    if (pathSegments.includes("section")) {
+      return categories.find((c) => toSlug(c.name) === pathSegments[3]);
+    }
+
+    if (
+      pathSegments.includes("category") ||
+      pathSegments.includes("subcategory")
+    ) {
+      return categories.find((c) =>
+        c.subcategories.some((sb) =>
+          sb.items.some((item) => toSlug(item) === products[0].subcategory_slug)
+        )
+      );
+    }
+  };
+
+  const getCategory = () => {
+    if (pathSegments.includes("category")) {
+      return categories.find((c) =>
+        c.subcategories.some((sb) => toSlug(sb.name) === pathSegments[3])
+      );
+    }
+
+    if (pathSegments.includes("subcategory")) {
+      return categories.find((c) =>
+        c.subcategories.some((sb) =>
+          sb.items.find((item) => toSlug(item) === pathSegments[3])
+        )
+      );
+    }
+  };
+
   return (
     <section className="flex flex-col min-w-[312px] bg-[#fff] rounded-[12px] px-6 ">
       <div className="flex flex-col w-full h-auto py-[10px] font-light">
         <Link href="#" className="text-left text-[#888] text-[24px]">
-          Ropa mujer
+          {getSection()?.name}
         </Link>
-        <span className="font-bold text-[#333] text-[18px]">
-          <h1>Abrigos y Chaquetas Mujer - Abrigos</h1>
-        </span>
+        {pathSegments.includes("category") ||
+          (pathSegments.includes("subcategory") && (
+            <>
+              <span className="font-bold text-[#333] text-[18px]">
+                <h1>
+                  {getCategory()?.name}
+                  {pathSegments.includes("subcategory") &&
+                    " - " + pathSegments[3]}
+                </h1>
+              </span>
+            </>
+          ))}
       </div>
       <span className="font-normal text-[#888] text-[12px]">
-        Resultados (120)
+        Resultados ({products.length})
       </span>
       <div className="flex flex-col pt-[15px] pb-[44px] gap-[10px]">
         <div className="flex justify-between">

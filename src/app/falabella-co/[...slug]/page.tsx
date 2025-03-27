@@ -32,7 +32,7 @@ export default async function Page({
         <CategoryList />
         <div className="flex pt-[15px] max-w-[1280px] w-full">
           {/* Sidebar */}
-          <SideBarCateogory />
+          <SideBarCateogory products={products} />
           {/* Derecha */}
           <ProductSection products={products} />
         </div>
