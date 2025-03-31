@@ -1,7 +1,9 @@
+import { Methods } from "@/components/user/mypayments/Methods";
+
 export default function Page() {
   return (
-    <div>
-      <h1>Hello Page</h1>
+    <div className="flex flex-col gap-2">
+      <Methods />
     </div>
   );
 }

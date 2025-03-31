@@ -4,7 +4,7 @@ import { CircleAlert, Pen } from "lucide-react";
 export default function Page() {
   return (
     <>
-      <div className="flex flex-col flex-wrap p-5 gap-8 bg-[#FFF] mb-3">
+      <div className="flex flex-col flex-wrap p-5 gap-8 bg-[#FFF] mb-3 rounded-[5px]">
         <h1 className="text-[#333] font-normal text-[24px]">
           Datos personales
         </h1>

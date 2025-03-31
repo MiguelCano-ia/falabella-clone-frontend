@@ -1,7 +1,12 @@
 import { getUser } from "@/actions/auth/helpers/getUser";
 import { NotAuthenticated } from "@/components/shared/not-authenticated/NotAuthenticated";
 import { ProfileSettings } from "@/components/user/ProfileSettings";
-import { ChevronRight, CircleUserRound } from "lucide-react";
+import {
+  ChevronRight,
+  CircleHelp,
+  CircleUserRound,
+  Package,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,9 +24,9 @@ export default async function Page({
           <NotAuthenticated />
         </section>
       ) : (
-        <main className="bg-[#F1F1F1]">
-          <section className="bg-[#FEFEFF] w-full">
-            <header className="container m-auto flex flex-col items-center justify-start w-full max-w-[1272px] mx-auto">
+        <main className="relative bg-[#F1F1F1]">
+          <section className="bg-[#FEFEFF] w-full h-[180px]">
+            <header className="container m-auto flex flex-col items-start justify-start w-full max-w-[1272px] mx-auto">
               <div className="flex items-end justify-between w-full mt-[40px]">
                 <h1 className="text-[#343E49] text-[32px] leading-[36px] font-normal">
                   Hola, Miguel Angel
@@ -53,17 +58,43 @@ export default async function Page({
                   <ChevronRight size={24} className="text-[#A6A6A6]" />
                 </Link>
               </div>
-              <nav className="w-full max-w-[343px] h-[94px] px-2 border-[1px] border-[#F9F9F9] shadow-sm bg-[#FEFEFF]">
+              <nav className="absolute top-32 w-full max-w-[343px] h-[94px] px-2 border-[1px] border-[#F9F9F9] shadow-sm bg-[#FEFEFF] rounded-[10px]">
                 <div className="flex h-[86px] items-center gap-3 ">
-                  <Link href="#" className="flex flex-col gap-2 items-center">
+                  <Link
+                    href="#"
+                    className="flex flex-col gap-2 items-center w-[95px]"
+                  >
                     <CircleUserRound size={24} />
-                    <span className="">Mi perfil</span>
+                    <span className="text-[16px] leading-[20px] text-[#343E49] font-bold">
+                      Mi perfil
+                    </span>
+                  </Link>
+                  <div className="w-[1px] h-[62px] bg-[#F1F1F1]"></div>
+                  <Link
+                    href="#"
+                    className="flex flex-col gap-2 items-center w-[95px]"
+                  >
+                    <Package size={24} />
+                    <span className="text-[16px] leading-[20px] text-[#343E49] font-bold">
+                      Mis compras
+                    </span>
+                  </Link>
+                  <div className="w-[1px] h-[62px] bg-[#F1F1F1]"></div>
+                  <Link
+                    href="#"
+                    className="flex flex-col gap-2 items-center w-[95px]"
+                  >
+                    <CircleHelp size={24} />
+                    <span className="text-[16px] leading-[20px] text-[#343E49] font-bold">
+                      Ayuda
+                    </span>
                   </Link>
                 </div>
+                <div className="w-[103px] h-1 rounded-[2px] bg-[#ADD500] mt-1"></div>
               </nav>
             </header>
           </section>
-          <section className="container m-auto max-w-[1272px] mt-10 mb-[40px]">
+          <section className="container m-auto max-w-[1272px] mt-16 mb-[40px]">
             <div className="flex gap-8">
               <ProfileSettings />
               <div className="w-full">{children}</div>
