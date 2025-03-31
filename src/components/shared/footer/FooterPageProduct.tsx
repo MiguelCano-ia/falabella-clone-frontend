@@ -5,7 +5,7 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 export const FooterProd = () => {
   return (
     <>
-      <div className="bg-slate-800 text-gray-300 text-sm py-10">
+      <div className="bg-[#1E364B] text-gray-300 text-sm py-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div>
@@ -100,7 +100,7 @@ export const FooterProd = () => {
         </div>
       </div>
 
-      <footer className="bg-sky-950 text-gray-300 text-sm py-6">
+      <footer className="bg-[#0C2941] text-gray-300 text-sm py-6">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center py-6 border-b border-gray-700">
             <div className="flex space-x-4">

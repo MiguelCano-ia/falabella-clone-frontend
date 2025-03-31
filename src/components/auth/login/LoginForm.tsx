@@ -52,18 +52,17 @@ export const LoginForm = () => {
             startTransition(() => action(data));
           })}
         >
-          {state?.errors?.email ||
-            (state?.errors?.password && (
-              <div className="pb-[15px]">
-                <div className="flex items-start justify-start text-[14px] leading-[16.4px] p-[10px] bg-[#fff9e9] text-[#333] ">
-                  <CircleAlert size={28} className="text-[#f7b500] mb-2" />
-                  <div className="ml-4">
-                    Correo electrónico o contraseña incorrecta. Por favor,
-                    vuelve a intentarlo nuevamente.
-                  </div>
+          {(state?.errors?.email || state?.errors?.password) && (
+            <div className="pb-[15px]">
+              <div className="flex items-start justify-start text-[14px] leading-[16.4px] p-[10px] bg-[#fff9e9] text-[#333] ">
+                <CircleAlert size={28} className="text-[#f7b500] mb-2" />
+                <div className="ml-4">
+                  Correo electrónico o contraseña incorrecta. Por favor, vuelve
+                  a intentarlo nuevamente.
                 </div>
               </div>
-            ))}
+            </div>
+          )}
           <div className="flex flex-col items-stretch min-h-[78px] w-full mb-2">
             <Label htmlFor="email" className="text-start text-[14px] mb-1 h-4">
               Correo electrónico

@@ -44,7 +44,7 @@ export const Header = () => {
 
       <Navbar />
 
-      <div className="flex flex-row-reverse items-center justify-start h-[50px]">
+      <div className="flex flex-row-reverse items-center justify-start h-[50px] border-b-[0.5px]">
         <div className="flex text-[14px] leading-[17px] text-primary items-center cursor cursor-pointer mr-2  xl:mr-16">
           <Link href="#" className="ml-6 max-sm:w-[90px]">
             Vende en falabella.com

@@ -387,7 +387,7 @@ export const RegisterForm = () => {
             !terms ||
             isSubmitting
               ? "bg-primary-foreground text-gry-400 cursor-not-allowed"
-              : "bg-icon-background text-primary-foreground "
+              : "bg-icon-background text-primary-foreground"
           }`}
           disabled={
             isFormEmpty ||
