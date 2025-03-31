@@ -1,5 +1,6 @@
 import { getUser } from "@/actions/auth/helpers/getUser";
-import { NotAuthenticated, UserOrders } from "@/components/orders";
+import { UserOrders } from "@/components/orders/UserOrders";
+import { NotAuthenticated } from "@/components/shared/not-authenticated/NotAuthenticated";
 
 export default async function Page() {
   const user = await getUser();

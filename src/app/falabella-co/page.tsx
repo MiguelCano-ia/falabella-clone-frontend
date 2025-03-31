@@ -1,3 +1,4 @@
+import { Carousel } from "@/components/feed/Carousel";
 import LastViewed from "@/components/home/LastViewed";
 import LimitedTimeOffers from "@/components/home/LimitedTimeOffers";
 import InspiredByViewed from "@/components/home/InspiredByViewed";
@@ -7,9 +8,10 @@ import PromotionalBanners from "@/components/home/PromotionalBanners";
 import RecommendedForYou from "@/components/home/RecommendedForYou";
 import InformationSection from "@/components/home/InformationSection";
 
-export default function FalabellaPage() {
+export default function Page() {
   return (
-    <div className="container mx-auto px-4">
+     <div className="container mx-auto px-4">
+      <Carousel />
       {/* Otras secciones */}
       <LastViewed />
 

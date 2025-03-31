@@ -41,12 +41,21 @@ export const DropdownMenu = ({ user }: Props) => {
                     href="/falabella-co/myaccount/registration"
                     text="Registrate"
                   />
-                  <DropdownItem href="/logout" text="Mi cuenta" />
+                  <DropdownItem
+                    href="/falabella-co/myaccount/user/userpersonalinformation"
+                    text="Mi cuenta"
+                  />
                 </>
               ) : (
                 <>
-                  <DropdownItem href="/profile" text="Mi cuenta" />
-                  <DropdownItem href="/orders" text="Mis compras" />
+                  <DropdownItem
+                    href="/falabella-co/myaccount/user/userpersonalinformation"
+                    text="Mi cuenta"
+                  />
+                  <DropdownItem
+                    href="/falabella-co/orders"
+                    text="Mis compras"
+                  />
                   <li
                     className="cursor-pointer hover:text-black"
                     onClick={logout}
