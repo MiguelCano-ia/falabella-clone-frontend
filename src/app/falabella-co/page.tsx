@@ -10,31 +10,34 @@ import InformationSection from "@/components/home/InformationSection";
 
 export default function Page() {
   return (
-     <div className="container mx-auto px-4">
+    <>
       <Carousel />
-      {/* Otras secciones */}
-      <LastViewed />
 
-      {/* Sección de ofertas por tiempo limitado */}
-      <LimitedTimeOffers />
+      <div className="container mx-auto px-4">
+        {/* Otras secciones */}
+        <LastViewed />
 
-      {/* Sección de "Inspirado en lo que viste" */}
-      <InspiredByViewed />
+        {/* Sección de ofertas por tiempo limitado */}
+        <LimitedTimeOffers />
 
-      {/* Sección de "Lo Último Primero en Falabella" */}
-      <LatestReleases />
+        {/* Sección de "Inspirado en lo que viste" */}
+        <InspiredByViewed />
 
-      {/* Sección de "Los Más Vendidos" */}
-      <BestSellers />
+        {/* Sección de "Lo Último Primero en Falabella" */}
+        <LatestReleases />
 
-      {/* Sección de Banners Promocionales */}
-      <PromotionalBanners />
+        {/* Sección de "Los Más Vendidos" */}
+        <BestSellers />
 
-      {/* Sección de "Elegidos para ti" */}
-      <RecommendedForYou />
+        {/* Sección de Banners Promocionales */}
+        <PromotionalBanners />
 
-      {/* Sección de Información */}
-      <InformationSection />
-    </div>
+        {/* Sección de "Elegidos para ti" */}
+        <RecommendedForYou />
+
+        {/* Sección de Información */}
+        <InformationSection />
+      </div>
+    </>
   );
 }

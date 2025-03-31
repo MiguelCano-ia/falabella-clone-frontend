@@ -3,14 +3,16 @@ import Image from "next/image";
 const recommendedProducts = [
   {
     id: 1,
-    image: "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73207558_1/w=276,h=276",
+    image:
+      "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73207558_1/w=276,h=276",
     brand: "PUMA",
     name: "Tenis Puma Moda Court Lally Mujer color Negro",
     price: "$319.990",
   },
   {
     id: 2,
-    image: "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73142948_1/w=276,h=276",
+    image:
+      "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73142948_1/w=276,h=276",
     brand: "REEBOK",
     name: "Tenis Reebok para Hombre Moda Royal BB",
     price: "$279.990",
@@ -20,7 +22,8 @@ const recommendedProducts = [
   },
   {
     id: 3,
-    image: "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73040605_1/w=276,h=276",
+    image:
+      "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73040605_1/w=276,h=276",
     brand: "PUMA",
     name: "Tenis Puma para Hombre Moda Wired Run Pure",
     price: "$279.990",
@@ -29,7 +32,8 @@ const recommendedProducts = [
   },
   {
     id: 4,
-    image: "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/139560195_01/w=276,h=276",
+    image:
+      "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/139560195_01/w=276,h=276",
     brand: "PUMA",
     name: "Tenis Deportivos Marca Original Puma Game...",
     price: "$357.200",
@@ -38,7 +42,8 @@ const recommendedProducts = [
   },
   {
     id: 5,
-    image: "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73038719_1/w=276,h=276",
+    image:
+      "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73038719_1/w=276,h=276",
     brand: "PUMA",
     name: "Tenis Puma para Hombre Moda Easy Rider Mix...",
     price: "$426.990",
@@ -47,7 +52,16 @@ const recommendedProducts = [
   },
   {
     id: 6,
-    image: "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73207878_1/w=276,h=276",
+    image:
+      "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73207878_1/w=276,h=276",
+    brand: "PUMA",
+    name: "Tenis Puma Moda Club Era Suede Mujer",
+    price: "$439.990",
+  },
+  {
+    id: 7,
+    image:
+      "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73207878_1/w=276,h=276",
     brand: "PUMA",
     name: "Tenis Puma Moda Club Era Suede Mujer",
     price: "$439.990",
@@ -72,10 +86,14 @@ const RecommendedForYou = () => {
                 />
               </div>
               <p className="text-xs text-gray-500 mt-2">{product.brand}</p>
-              <p className="text-sm font-semibold line-clamp-2">{product.name}</p>
+              <p className="text-sm font-semibold line-clamp-2">
+                {product.name}
+              </p>
               <p className="text-md font-bold text-gray-500">{product.price}</p>
               {product.oldPrice && (
-                <p className="text-xs text-gray-400 line-through">{product.oldPrice}</p>
+                <p className="text-xs text-gray-400 line-through">
+                  {product.oldPrice}
+                </p>
               )}
               {product.discount && (
                 <span className="text-xs bg-red-500 text-white px-1 rounded">
@@ -83,7 +101,9 @@ const RecommendedForYou = () => {
                 </span>
               )}
               {product.rating && (
-                <p className="text-xs mt-1 text-yellow-500">{"⭐".repeat(Math.floor(product.rating))}</p>
+                <p className="text-xs mt-1 text-yellow-500">
+                  {"⭐".repeat(Math.floor(product.rating))}
+                </p>
               )}
             </div>
           ))}
