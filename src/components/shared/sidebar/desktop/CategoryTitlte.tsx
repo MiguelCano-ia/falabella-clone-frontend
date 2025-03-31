@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { toSlug } from "@/lib/toSlug";
 import { useUIStore } from "@/store/ui";
-import Image from "next/image";
-import Link from "next/link";
 
 interface Props {
   title: string;
@@ -20,7 +20,7 @@ export const CategoryTitlte = ({ title, icon }: Props) => {
           <Image src={icon} width={80} height={80} alt="icninos" />
         </div>
         <Link
-          href={`/falabella-co/section/${toSlug(title)}`}
+          href={`/falabella-co/${toSlug(title)}`}
           className="text-primary-foreground hover:text-orange-100 transition-colors"
           onClick={closeSidebar}
         >

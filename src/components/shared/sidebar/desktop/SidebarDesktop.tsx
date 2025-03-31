@@ -54,7 +54,10 @@ export const SidebarDesktop = ({ categories }: Props) => {
         <div className="flex flex-col mt-[59px] rounded-tr-[20px] w-screen min-w-[468px] max-w-[674px] h-screen pt-6 pb-16 pl-8 mr-2 bg-primary-foreground xl:max-w-[904px]">
           <div className="overflow-y-scroll overflow-x-hidden">
             <CategoryTitlte title={categoryDesktop} icon={svg} />
-            <SubCategories subCategories={subCategories} />
+            <SubCategories
+              section={categoryDesktop}
+              subCategories={subCategories}
+            />
           </div>
         </div>
       )}

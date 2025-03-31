@@ -6,10 +6,11 @@ import { useUIStore } from "@/store/ui";
 import Link from "next/link";
 
 interface Props {
+  section: string;
   subCategories: Subcategory[];
 }
 
-export const SubCategories = ({ subCategories }: Props) => {
+export const SubCategories = ({ section, subCategories }: Props) => {
   const closeSidebar = useUIStore((state) => state.closeSidebar);
 
   return (
@@ -23,7 +24,9 @@ export const SubCategories = ({ subCategories }: Props) => {
             >
               <li className="text-[19px] font-bold leading-[22.8px] text-[#68717D] mb-2 hover:text-[#0C2941] transition-colors">
                 <Link
-                  href={`/falabella-co/category/${toSlug(subCategory.name)}`}
+                  href={`/falabella-co/${toSlug(section)}/${toSlug(
+                    subCategory.name
+                  )}`}
                   onClick={closeSidebar}
                 >
                   {subCategory.name}
@@ -38,7 +41,9 @@ export const SubCategories = ({ subCategories }: Props) => {
                   }`}
                 >
                   <Link
-                    href={`/falabella-co/subcategory/${toSlug(item)}`}
+                    href={`/falabella-co/${toSlug(section)}/${toSlug(
+                      subCategory.name
+                    )}/${toSlug(item)}`}
                     className="text-inherit"
                     onClick={closeSidebar}
                   >
