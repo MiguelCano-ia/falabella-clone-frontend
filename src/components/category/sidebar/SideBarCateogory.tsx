@@ -16,13 +16,16 @@ export const SideBarCateogory = ({ products, slugs }: Props) => {
   return (
     <section className="flex flex-col min-w-[312px] bg-[#fff] rounded-[12px] px-6 ">
       <div className="flex flex-col w-full h-auto py-[10px] font-light">
-        <Link href="#" className="text-left text-[#888] text-[24px]">
+        <Link
+          href={`/falabella-co/products/${slugs[0]}`}
+          className="text-left text-[#888] text-[24px]"
+        >
           {formatSlugToTitle(slugs[0])}
         </Link>
 
         <span className="font-bold text-[#333] text-[18px]">
           <h1>
-            {slugs.length >= 2 && formatSlugToTitle(slugs[1])}
+            {slugs.length >= 2 && formatSlugToTitle(slugs[1])}{" "}
             {slugs.length === 3 && " - " + slugs[2].split("_")}
           </h1>
         </span>

@@ -20,7 +20,7 @@ export const CategoryTitlte = ({ title, icon }: Props) => {
           <Image src={icon} width={80} height={80} alt="icninos" />
         </div>
         <Link
-          href={`/falabella-co/${toSlug(title)}`}
+          href={`/falabella-co/products/${toSlug(title)}`}
           className="text-primary-foreground hover:text-orange-100 transition-colors"
           onClick={closeSidebar}
         >
