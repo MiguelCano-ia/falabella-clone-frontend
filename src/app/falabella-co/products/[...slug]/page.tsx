@@ -7,8 +7,12 @@ import {
 
 const getProducts = async (slug: string[]) => {
   try {
+    if (slug[2] === "ver_todo") {
+      slug = slug.filter((item) => item !== "ver_todo");
+    }
+
     const response = await fetch(
-      `http://localhost:4000/${slug.join("/")}`
+      `http://localhost:4000/collection/${slug.join("/")}`
     ).then((res) => res.json());
 
     return response;
@@ -22,8 +26,12 @@ export default async function Page({
 }: {
   params: Promise<{ slug: string[] }>;
 }) {
-  const { slug } = await params;
+  let { slug } = await params;
   const products = await getProducts(slug);
+
+  if (slug[2] === "ver_todo") {
+    slug = slug.filter((item) => item !== "ver_todo");
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">
