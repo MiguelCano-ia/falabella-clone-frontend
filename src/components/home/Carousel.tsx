@@ -3,26 +3,23 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { link } from "fs";
 
 const slides = [
   {
     id: 1,
     image:
-      "https://res.cloudinary.com/danxa3xqy/image/upload/f_auto,q_auto,w_1920,h_1080,c_limit/v1740873509/Vitrina1_Ofertas_Desk_erzhzv.jpg",
-    title: "Ofertas",
-    subtitle: "Hasta 50% de descuento",
+      "https://images.falabella.com/v3/assets/blt088e6fffbba20f16/blta9e5de6f644dfb98/67edad9d493d2caf8eac845b/V04_electro_celulares_lanzamiento-iphone-16e_desk.webp?auto=webp&disable=upscale&quality=70&width=1920",
   },
   {
     id: 2,
-    image: "/src/public/Slide 2.png",
+    image: "https://images.falabella.com/v3/assets/blt088e6fffbba20f16/blta64f11c13a2e301e/67f3f8b75046ad1a3e5384f1/Vitrina_modahombre_lamartina_desk.webp?auto=webp&disable=upscale&quality=70&width=1920",
     title: "Descuentos",
     subtitle: "Hasta 70% de descuento",
   },
   {
     id: 3,
-    image: "/src/public/Slide 1.png",
-    title: "Promociones",
-    subtitle: "Hasta 80% de descuento",
+    image: "https://images.falabella.com/v3/assets/blt088e6fffbba20f16/bltb6863e00aff9bd61/67eee0d58e97ad4261290a78/V03_Festivaldecelulares_Desk.webp?auto=webp&disable=upscale&quality=70&width=1920",
   },
 ];
 
