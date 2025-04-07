@@ -12,7 +12,6 @@ interface Props {
 }
 
 export const SideBarCateogory = ({ products, slugs }: Props) => {
-  console.log(slugs);
   return (
     <section className="flex flex-col min-w-[312px] bg-[#fff] rounded-[12px] px-6 ">
       <div className="flex flex-col w-full h-auto py-[10px] font-light">
@@ -31,7 +30,7 @@ export const SideBarCateogory = ({ products, slugs }: Props) => {
         </span>
       </div>
       <span className="font-normal text-[#888] text-[12px]">
-        Resultados ({products.length})
+        Resultados ({products?.length || 0})
       </span>
       <div className="flex flex-col pt-[15px] pb-[44px] gap-[10px]">
         <div className="flex justify-between">
@@ -40,12 +39,12 @@ export const SideBarCateogory = ({ products, slugs }: Props) => {
           </span>
           <X size={24} className="cursor-pointer text-[#333]" />
         </div>
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <div className="flex items-center gap-2 border-2 border-[#343E49] px-1 rounded-[3px] cursor-pointer">
             <span className="text-[13.3px] text-[#3D3D3D]">Abrigos</span>
             <X size={16} />
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="text-[#F0F0F0] border-[1px]"></div>
       <div className="flex flex-col items-center w-full">
