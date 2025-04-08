@@ -46,7 +46,7 @@ const PromotionalBanners = () => {
               <Image
                 src={banner.image}
                 alt="Banner Promocional"
-                width={banner.id === 7 ? 1300 : 650}
+                width={banner.id === 7 ? 1600 : 750}
                 height={250}
                 objectFit="cover"
               />

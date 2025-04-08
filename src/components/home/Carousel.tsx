@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { link } from "fs";
+import Link from "next/link";
 
 const slides = [
   {
@@ -13,18 +13,33 @@ const slides = [
   },
   {
     id: 2,
-    image: "https://images.falabella.com/v3/assets/blt088e6fffbba20f16/blta64f11c13a2e301e/67f3f8b75046ad1a3e5384f1/Vitrina_modahombre_lamartina_desk.webp?auto=webp&disable=upscale&quality=70&width=1920",
-    title: "Descuentos",
-    subtitle: "Hasta 70% de descuento",
+    image:
+      "https://images.falabella.com/v3/assets/blt088e6fffbba20f16/blta64f11c13a2e301e/67f3f8b75046ad1a3e5384f1/Vitrina_modahombre_lamartina_desk.webp?auto=webp&disable=upscale&quality=70&width=1920",
   },
   {
     id: 3,
-    image: "https://images.falabella.com/v3/assets/blt088e6fffbba20f16/bltb6863e00aff9bd61/67eee0d58e97ad4261290a78/V03_Festivaldecelulares_Desk.webp?auto=webp&disable=upscale&quality=70&width=1920",
+    image:
+      "https://images.falabella.com/v3/assets/blt088e6fffbba20f16/bltb6863e00aff9bd61/67eee0d58e97ad4261290a78/V03_Festivaldecelulares_Desk.webp?auto=webp&disable=upscale&quality=70&width=1920",
+  },
+  {
+    id: 4,
+    image:
+      "https://images.falabella.com/v3/assets/blt088e6fffbba20f16/blt9e13e75ad8fb7ca5/67edad9cd7fca9386a5f804a/V06_Perfumeria-abril_desk.webp?auto=webp&disable=upscale&quality=70&width=1920",
+  },
+  {
+    id: 5,
+    image:
+      "https://images.falabella.com/v3/assets/blt088e6fffbba20f16/bltc3bc9132d21ea64e/67edad9c6a6ba66cf8e75564/V05_Tenis-Desk.webp?auto=webp&disable=upscale&quality=70&width=1920",
+  },
+  {
+    id: 6,
+    image:
+      "https://images.falabella.com/v3/assets/blt088e6fffbba20f16/blt1bcc626fc1faf2c9/67f535c0d3942b6fb444c186/VTR_DK_Electrolux.webp?auto=webp&disable=upscale&quality=70&width=1920",
   },
 ];
 
 export function Carousel() {
-  const [emblaRef, emblaApi] = useEmblaCarousel();
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
@@ -32,6 +47,21 @@ export function Carousel() {
     if (!emblaApi) return;
     setCanScrollPrev(emblaApi.canScrollPrev());
     setCanScrollNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  // Autoplay cada 7 segundos
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const interval = setInterval(() => {
+      if (!emblaApi.canScrollNext()) {
+        emblaApi.scrollTo(0); // Reinicia si llegó al final
+      } else {
+        emblaApi.scrollNext();
+      }
+    }, 7000);
+
+    return () => clearInterval(interval); // Limpia el intervalo al desmontar
   }, [emblaApi]);
 
   useEffect(() => {
@@ -44,24 +74,22 @@ export function Carousel() {
     <div className="relative w-full overflow-hidden">
       <div ref={emblaRef} className="overflow-hidden">
         <div className="flex">
-          {slides.map((slide) => (
-            <div
-              key={slide.id}
-              className="relative min-w-full flex items-center justify-center"
-            >
+        {slides.map((slide) => (
+          <div
+            key={slide.id}
+            className="relative min-w-full flex items-center justify-center"
+          >
+            <Link href="/" className="w-full h-full block">
               <img
                 src={slide.image}
-                alt={slide.title}
-                className="w-full h-[300px] md:h-[400px] object-cover"
+                alt={`slide-${slide.id}`}
+                className="w-full h-[1688px] md:h-[433px] object-cover"
               />
-              <div className="absolute inset-0 bg-black/30 flex flex-col items-start justify-center px-10 text-white">
-                <h2 className="text-lg md:text-2xl font-bold">{slide.title}</h2>
-                <p className="text-xl md:text-3xl font-extrabold">
-                  {slide.subtitle}
-                </p>
-              </div>
-            </div>
-          ))}
+              <div className="absolute inset-0 bg-black/30 flex flex-col items-start justify-center px-10 text-white" />
+            </Link>
+          </div>
+        ))}
+
         </div>
       </div>
 

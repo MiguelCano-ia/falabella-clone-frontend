@@ -31,7 +31,7 @@ export default async function Page({
 
   return (
     <div className="w-full min-h-screen bg-gray-100 py-12">
-      <div className="bg-white max-w-6xl mx-auto rounded-lg shadow-lg p-6">
+      <div className="bg-white max-w-7xl mx-auto rounded-lg shadow-lg p-6">
         <nav className="text-sm text-gray-500 flex items-center gap-2 mb-4">
           <Link href="/falabella-co" className="hover:underline text-gray-500">
             Home
@@ -131,7 +131,7 @@ export default async function Page({
                     -{product?.special_discount_percentage}%
                   </span>
                 </div>
-
+                
                 <p className="text-xl font-semibold">
                   {formatCOP(product?.discount_price)}
                 </p>
@@ -145,25 +145,13 @@ export default async function Page({
                     Envío gratis
                   </span>
                 </div>
-              </div>
-            </div>
-
-            <div className="text-gray-700 text-sm flex flex-col gap-1 mt-2">
-              <p>Producto de uso personal.</p>
-              <a href="#" className="text-gray-600 hover:underline">
-                Ver políticas de devoluciones
-              </a>
-            </div>
-
-            <QuantitySelector />
-
-            <div className="mt-6 flex flex-col gap-4">
-              <button className="w-full bg-gray-700 text-white text-lg py-3 rounded-full hover:bg-gray-800 transition">
-                Agregar al Carro
-              </button>
-            </div>
-
-            <div className="border border-black p-2 rounded-lg flex items-center gap-2 mt-6">
+                <QuantitySelector /> 
+                <div className="mt-6 flex flex-col gap-4">
+                  <button className="w-full bg-gray-700 text-white text-lg py-3 rounded-full hover:bg-gray-800 transition">
+                    Agregar al Carro
+                  </button>
+                </div>
+                <div className="border border-black p-2 rounded-lg flex items-center gap-2 mt-6">
               <Image
                 src="/icons/products/cmr-falabella.svg"
                 width={34}
@@ -182,6 +170,15 @@ export default async function Page({
                   Ábrela y obtén $45.000 de descuento extra.
                 </p>
               </div>
+            </div> 
+              </div>
+            </div>
+
+            <div className="text-gray-700 text-sm flex flex-col gap-1 mt-2">
+              <p>Producto de uso personal.</p>
+              <a href="#" className="text-gray-600 hover:underline">
+                Ver políticas de devoluciones
+              </a>
             </div>
 
             <div className="border border-gray-300 p-4 rounded-lg flex flex-col gap-3 mt-3">
@@ -237,8 +234,8 @@ export default async function Page({
               >
                 Ver todos los productos de este vendedor
               </Link>
-            </div>
-          </div>
+            </div>            
+          </div>          
         </div>        
       </div>
       <EspecificacionesExpandibles />
