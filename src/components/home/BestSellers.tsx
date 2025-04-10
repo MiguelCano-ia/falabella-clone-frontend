@@ -90,6 +90,7 @@ const BestSellers = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const updateButtons = useCallback(() => {
     if (!emblaApi) return;
@@ -99,7 +100,13 @@ const BestSellers = () => {
 
   useEffect(() => {
     if (!emblaApi) return;
-    emblaApi.on("select", updateButtons);
+  
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+      updateButtons();
+    };
+  
+    emblaApi.on("select", onSelect);
     updateButtons();
   }, [emblaApi, updateButtons]);
 
@@ -107,14 +114,13 @@ const BestSellers = () => {
 
   return (
     <div className="mt-8 relative">
-      <h2 className="text-lg font-semibold mb-4 px-20">Los más vendidos</h2>
-
-      <div className="max-w-[1370px] mx-auto overflow-hidden relative" ref={emblaRef}>
+      <h2 className="text-lg font-semibold mb-4 px-40">Los más vendidos</h2>
+       <div className="max-w-[1170px] mx-auto overflow-hidden relative" ref={emblaRef}>
         <div className="flex">
           {products.map((product) => (
             <div
               key={product.id}
-              className="group min-w-[195px] max-w-[195px] flex-shrink-0 px-2 flex flex-col justify-between border rounded-lg p-2 bg-white shadow-sm"
+              className="group min-w-[195px] max-w-[195px] flex-shrink-0 px-2 flex flex-col justify-between rounded-lg p-2 bg-white shadow-sm"
             >
               <div>
                 <div className="relative w-full h-40 bg-gray-200 rounded-lg overflow-hidden">
@@ -148,7 +154,7 @@ const BestSellers = () => {
 
               <Link
                 href={`/falabella-co/product/${product.id}`}
-                className="mt-3 w-full block text-center bg-gray-700 text-white text-xs py-2 rounded-full hover:bg-gray-800 transition opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="mt-3 w-full block text-center bg-gray-700 text-white text-xs py-2 rounded-full hover:bg-gray-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               >
                 Ver producto
               </Link>
@@ -180,6 +186,24 @@ const BestSellers = () => {
       >
         <ChevronRight className="h-5 w-5 text-gray-600" />
       </button>
+      <div className="flex justify-center mt-4">
+        <div className="flex gap-2 px-4 py-1 rounded-full shadow-sm">
+          {Array.from({
+            length: Math.ceil(products.length / scrollBy),
+          }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => emblaApi?.scrollTo(index * scrollBy)}
+              className={`w-2.5 h-2.5 rounded-full transition-all ${
+                selectedIndex === index * scrollBy
+                  ? "bg-gray-500 w-4"
+                  : "bg-gray-300"
+              }`}
+              aria-label={`Ir a slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

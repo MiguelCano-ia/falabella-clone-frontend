@@ -42,57 +42,55 @@ export function Carousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0); // Estado para el dot activo
 
   const updateButtons = useCallback(() => {
     if (!emblaApi) return;
     setCanScrollPrev(emblaApi.canScrollPrev());
     setCanScrollNext(emblaApi.canScrollNext());
+    setSelectedIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
 
-  // Autoplay cada 7 segundos
   useEffect(() => {
     if (!emblaApi) return;
 
+    emblaApi.on("select", updateButtons);
+    updateButtons();
+
     const interval = setInterval(() => {
       if (!emblaApi.canScrollNext()) {
-        emblaApi.scrollTo(0); // Reinicia si llegó al final
+        emblaApi.scrollTo(0);
       } else {
         emblaApi.scrollNext();
       }
     }, 7000);
 
-    return () => clearInterval(interval); // Limpia el intervalo al desmontar
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    emblaApi.on("select", updateButtons);
-    updateButtons();
+    return () => clearInterval(interval);
   }, [emblaApi, updateButtons]);
 
   return (
     <div className="relative w-full overflow-hidden">
       <div ref={emblaRef} className="overflow-hidden">
         <div className="flex">
-        {slides.map((slide) => (
-          <div
-            key={slide.id}
-            className="relative min-w-full flex items-center justify-center"
-          >
-            <Link href="/" className="w-full h-full block">
-              <img
-                src={slide.image}
-                alt={`slide-${slide.id}`}
-                className="w-full h-[1688px] md:h-[433px] object-cover"
-              />
-              <div className="absolute inset-0 bg-black/30 flex flex-col items-start justify-center px-10 text-white" />
-            </Link>
-          </div>
-        ))}
-
+          {slides.map((slide) => (
+            <div
+              key={slide.id}
+              className="relative min-w-full flex items-center justify-center"
+            >
+              <Link href="/" className="w-full h-full block">
+                <img
+                  src={slide.image}
+                  alt={`slide-${slide.id}`}
+                  className="w-full h-[1688px] md:h-[433px] object-cover"
+                />
+                <div className="absolute inset-0  flex flex-col items-start justify-center px-10 text-white" />
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
 
+      {/* Flechas */}
       <button
         title="Previous"
         onClick={() => emblaApi && emblaApi.scrollPrev()}
@@ -109,6 +107,20 @@ export function Carousel() {
       >
         <ChevronRight className="w-6 h-6 text-white" />
       </button>
+
+      {/* Dots */}
+      <div className="w-full flex justify-center mt-4">
+        <div className="flex gap-2 bg-gray-700 px-4 py-1 rounded-full shadow-sm">
+          {slides.map((_, index) => (
+            <div
+              key={index}
+              className={`w-2 h-2 rounded-full ${
+                selectedIndex === index ? "bg-white w-4" : "bg-gray-400"
+              } transition-all`}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
