@@ -25,9 +25,8 @@ export const RegisterForm = () => {
   const [state, action] = useActionState(registerAction, undefined);
   const formRef = useRef<HTMLFormElement>(null);
 
+  const [rawPassword, setRawPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordValue, setPasswordValue] = useState("");
-  const [hasTyped, setHasTyped] = useState(false);
   const [documentType, setDocumentType] = useState("CC");
   const [terms, setTerms] = useState(false);
   const [termsCmr, setTermsCmr] = useState(false);
@@ -303,9 +302,7 @@ export const RegisterForm = () => {
               id="password"
               onChange={(e) => {
                 clearErrors("password");
-                setHasTyped(true);
-                setPasswordValue(e.target.value);
-                setValue("password", e.target.value);
+                setRawPassword(e.target.value);
               }}
               placeholder="Ingresa una contraseña"
               className="border-0 rounded-none p-0 text-sm placeholder:text-[#BBBBBB] font-normal focus:outline-none focus-visible:ring-0"
@@ -330,7 +327,10 @@ export const RegisterForm = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3">
-        <PasswordReq watchPassword={passwordValue} hasTyped={hasTyped} />
+        <PasswordReq
+          watchPassword={rawPassword}
+          hasTyped={rawPassword.length > 0}
+        />
       </div>
       <fieldset className="grid gap-2 text-[14px] font-normal text-foreground leading-[20px] py-8">
         <div className="flex items-start gap-2">
@@ -386,7 +386,7 @@ export const RegisterForm = () => {
             Object.keys(errors).length > 0 ||
             !terms ||
             isSubmitting
-              ? "bg-primary-foreground text-gry-400 cursor-not-allowed"
+              ? "bg-primary-foreground text-gray-400 cursor-not-allowed"
               : "bg-icon-background text-primary-foreground"
           }`}
           disabled={

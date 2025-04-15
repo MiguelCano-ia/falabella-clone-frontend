@@ -3,7 +3,7 @@ interface Props {
   hasTyped: boolean;
 }
 
-export const PasswordReq = ({ watchPassword, hasTyped }: Props) => {
+export const PasswordReq = ({ watchPassword = "", hasTyped }: Props) => {
   const validationChecks = [
     { id: 1, text: "Min. 8 caracteres", valid: watchPassword.length >= 8 },
     { id: 2, text: "1 número", valid: /\d/.test(watchPassword) },
@@ -12,8 +12,8 @@ export const PasswordReq = ({ watchPassword, hasTyped }: Props) => {
     { id: 5, text: "Sin espacio", valid: !/\s/.test(watchPassword) },
     {
       id: 6,
-      text: 'Sin usar  `" , ~ ç ñ N',
-      valid: !/[\\'",~çñN]/.test(watchPassword),
+      text: "Sin usar \"'¡¿ºª·`´çñÑ",
+      valid: !/[\\'",~çñÑ]/.test(watchPassword),
     },
   ];
 
@@ -22,23 +22,15 @@ export const PasswordReq = ({ watchPassword, hasTyped }: Props) => {
       {validationChecks.map((req) => (
         <div key={req.id} className="flex items-center">
           <span
-            className={`text-[12px] mr-2 text-foreground ${
-              hasTyped
-                ? req.valid
-                  ? "text-[#0DA137]"
-                  : "text-[#BC001C]"
-                : undefined
+            className={`text-[12px] mr-2 ${
+              hasTyped ? (req.valid ? "text-[#0DA137]" : "text-[#BC001C]") : ""
             }`}
           >
             •
           </span>
           <span
-            className={`text-[12px] text-foreground ${
-              hasTyped
-                ? req.valid && hasTyped
-                  ? "text-[#0DA137]"
-                  : "text-[#BC001C]"
-                : undefined
+            className={`text-[12px] ${
+              hasTyped ? (req.valid ? "text-[#0DA137]" : "text-[#BC001C]") : ""
             }`}
           >
             {req.text}

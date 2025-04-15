@@ -7,8 +7,12 @@ import {
 
 const getProducts = async (slug: string[]) => {
   try {
+    if (slug[2] === "ver_todo") {
+      slug = slug.filter((item) => item !== "ver_todo");
+    }
+
     const response = await fetch(
-      `http://localhost:4000/${slug.join("/")}`
+      `http://localhost:4000/collection/${slug.join("/")}`
     ).then((res) => res.json());
 
     return response;
@@ -22,19 +26,23 @@ export default async function Page({
 }: {
   params: Promise<{ slug: string[] }>;
 }) {
-  const { slug } = await params;
-  const products = await getProducts(slug);
+  let { slug } = await params;
+  const productsInfo = await getProducts(slug);
+
+  if (slug[2] === "ver_todo") {
+    slug = slug.filter((item) => item !== "ver_todo");
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">
       <Breadcrumbs slugs={slug} />
       <div className="flex flex-col bg-[#F1F1F1] w-full h-full justify-center items-center">
-        <CategoryList />
+        <CategoryList banner={productsInfo?.info?.banner || null} />
         <div className="flex pt-[15px] max-w-[1280px] w-full">
           {/* Sidebar */}
-          <SideBarCateogory products={products} slugs={slug} />
+          <SideBarCateogory products={productsInfo.products} slugs={slug} />
           {/* Derecha */}
-          <ProductSection products={products} />
+          <ProductSection products={productsInfo.products} />
         </div>
       </div>
     </div>

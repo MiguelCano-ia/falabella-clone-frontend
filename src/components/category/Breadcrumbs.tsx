@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const Breadcrumbs = ({ slugs }: Props) => {
-  let accumulatedPath = "/falabella-co";
+  let accumulatedPath = "/falabella-co/products";
 
   return (
     <div className="flex items-center min-h-[32px] max-w-[1280px] w-full pl-8 pr-[19px]">

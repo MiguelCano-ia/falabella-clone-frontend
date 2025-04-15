@@ -1,9 +1,18 @@
-import { QuantitySelector } from "@/components/products/QuantitySelector";
+import { QuantitySelector } from "@/components/product/QuantitySelector";
 import { Products } from "@/interfaces/categories/product";
 import { formatCOP } from "@/lib/formatCop";
 import { Ban, BookX, Clock3, MessageCircleHeart, Truck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import EspecificacionesExpandibles from "@/components/product/EspecificacionesExpandibles";
+import ProductFeedback from "@/components/product/ProductFeedback";
+import CarouselRecomendados from "@/components/product/CarousselOtrosProductos";
+import OpcionesSimilares from "@/components/product/SimilarOptions";
+import TambienPodriaInteresarte from "@/components/product/TambienPodriaInteresarte";
+
+
+
+
 
 const getProduct = async (id: number): Promise<Products> => {
   const response = await fetch(`http://localhost:4000/product/${id}`).then(
@@ -230,8 +239,13 @@ export default async function Page({
               </Link>
             </div>
           </div>
-        </div>
+        </div>        
       </div>
+      <EspecificacionesExpandibles />
+      <CarouselRecomendados />
+      <OpcionesSimilares />
+      <TambienPodriaInteresarte />
+      <ProductFeedback />
     </div>
   );
 }

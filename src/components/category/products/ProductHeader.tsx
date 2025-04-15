@@ -14,7 +14,7 @@ export const ProductHeader = ({ products }: Props) => {
       <div className="flex items-center justify-between rounded-[12px] px-[30px] py-5 mb-[10px] bg-[#fff] max-lg:flex-col max-lg:items-start max-lg:justify-start">
         <SortDropdown />
         <Pagination
-          totalItems={products.length}
+          totalItems={products?.length || 1}
           itemsPerPage={48}
           onPageChange={(page) => page}
         />

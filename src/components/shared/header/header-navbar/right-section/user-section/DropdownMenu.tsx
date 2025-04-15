@@ -32,7 +32,7 @@ export const DropdownMenu = ({ user }: Props) => {
               {!user ? (
                 <>
                   <li
-                    className="cursor-pointer hover:text-black"
+                    className="cursor-pointer hover:text-black py-1"
                     onClick={openLoginForm}
                   >
                     Inicia sesión
@@ -45,6 +45,11 @@ export const DropdownMenu = ({ user }: Props) => {
                     href="/falabella-co/myaccount/user/userpersonalinformation"
                     text="Mi cuenta"
                   />
+                  <DropdownItem
+                    href="/falabella-co/page/cmr-puntos"
+                    text="CMR Puntos"
+                    className="border-t-[1px] border-gray-200 py-3"
+                  />
                 </>
               ) : (
                 <>
@@ -53,11 +58,15 @@ export const DropdownMenu = ({ user }: Props) => {
                     text="Mi cuenta"
                   />
                   <DropdownItem
+                    href="/falabella-co/page/cmr-puntos"
+                    text="Mis CMR Puntos"
+                  />
+                  <DropdownItem
                     href="/falabella-co/orders"
                     text="Mis compras"
                   />
                   <li
-                    className="cursor-pointer hover:text-black"
+                    className="cursor-pointer hover:text-black py-2"
                     onClick={logout}
                   >
                     Cerrar sesión

@@ -24,7 +24,7 @@ export const SubCategories = ({ section, subCategories }: Props) => {
             >
               <li className="text-[19px] font-bold leading-[22.8px] text-[#68717D] mb-2 hover:text-[#0C2941] transition-colors">
                 <Link
-                  href={`/falabella-co/${toSlug(section)}/${toSlug(
+                  href={`/falabella-co/products/${toSlug(section)}/${toSlug(
                     subCategory.name
                   )}`}
                   onClick={closeSidebar}
@@ -41,7 +41,7 @@ export const SubCategories = ({ section, subCategories }: Props) => {
                   }`}
                 >
                   <Link
-                    href={`/falabella-co/${toSlug(section)}/${toSlug(
+                    href={`/falabella-co/products/${toSlug(section)}/${toSlug(
                       subCategory.name
                     )}/${toSlug(item)}`}
                     className="text-inherit"

@@ -1,4 +1,4 @@
-import { Carousel } from "@/components/feed/Carousel";
+import { Carousel } from "@/components/home/Carousel";
 import LastViewed from "@/components/home/LastViewed";
 import LimitedTimeOffers from "@/components/home/LimitedTimeOffers";
 import InspiredByViewed from "@/components/home/InspiredByViewed";
@@ -7,6 +7,7 @@ import BestSellers from "@/components/home/BestSellers";
 import PromotionalBanners from "@/components/home/PromotionalBanners";
 import RecommendedForYou from "@/components/home/RecommendedForYou";
 import InformationSection from "@/components/home/InformationSection";
+import { Footer } from "@/components/shared/footer/Footer";
 
 export default function Page() {
   return (
@@ -37,6 +38,8 @@ export default function Page() {
 
         {/* Sección de Información */}
         <InformationSection />
+
+        
       </div>
     </>
   );

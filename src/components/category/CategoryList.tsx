@@ -1,10 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export const CategoryList = () => {
+interface Props {
+  banner: string;
+}
+
+export const CategoryList = ({ banner }: Props) => {
+  console.log(banner);
   return (
-    <div className="mb-[5px] max-w-[1280px] w-full bg-[#fff] hidden">
-      <div className="relative flex flex-wrap justify-center w-full py-[10px] px-[5px]">
+    <div className="mb-[5px] max-w-[1280px] w-full bg-[#fff]">
+      {banner && (
+        <Image
+          src={`http://localhost:4000/images/${banner}`}
+          width={1280}
+          height={56}
+          alt="banner"
+        />
+      )}
+      <div className="relative flex-wrap justify-center w-full py-[10px] px-[5px] hidden">
         <div className="flex">
           <div className="relative px-3 ml-3">
             <Link
@@ -18,9 +31,9 @@ export const CategoryList = () => {
                 alt="jacket"
                 className="rounded-full"
               />
-              <h3 className="text-[#333] text-[14px] py-[5px] font-bold leading-[17px] text-center max-w-[110px]">
+              {/* <h3 className="text-[#333] text-[14px] py-[5px] font-bold leading-[17px] text-center max-w-[110px]">
                 Abrigos
-              </h3>
+              </h3> */}
             </Link>
           </div>
           <div className="relative px-3 ml-3">
