@@ -2,15 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { CircleCheck } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export const SuccessMessage = ({ visible }: { visible: boolean }) => {
   const [show, setShow] = useState(visible);
+  const router = useRouter();
 
   useEffect(() => {
     if (visible) {
       setShow(true);
       const timer = setTimeout(() => {
         setShow(false);
+        router.refresh();
       }, 3000);
       return () => clearTimeout(timer);
     }

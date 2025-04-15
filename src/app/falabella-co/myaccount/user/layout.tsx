@@ -29,7 +29,7 @@ export default async function Page({
             <header className="container m-auto flex flex-col items-start justify-start w-full max-w-[1272px] mx-auto">
               <div className="flex items-end justify-between w-full mt-[40px]">
                 <h1 className="text-[#343E49] text-[32px] leading-[36px] font-normal">
-                  Hola, Miguel Angel
+                  Hola, {user.name}
                 </h1>
                 <Link
                   href="#"

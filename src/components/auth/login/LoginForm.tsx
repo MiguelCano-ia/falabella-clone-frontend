@@ -17,6 +17,7 @@ import { Wrapper } from "./Wrapper";
 import { loginAction } from "@/actions/auth/login";
 import { useUIStore } from "@/store/ui";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export const LoginForm = () => {
   const {
@@ -82,7 +83,7 @@ export const LoginForm = () => {
             />
           </div>
 
-          <div className="flex flex-col items-stretch min-h-[78px] w-full mb-2">
+          <div className="flex flex-col items-stretch min-h-[78px] w-full">
             <Label
               htmlFor="password"
               className="text-start text-[14px] mb-1 h-4"
@@ -119,6 +120,26 @@ export const LoginForm = () => {
               )}
             </div>
           </div>
+          <p className="text-[#767676] leading-[17px] text-[14px] mb-4">
+            ¿Olvidaste tu contraseña? No te preocupes, pide un código
+            verificador por{" "}
+            <Link
+              href="/falabella-co/myaccount/passwordrecovery"
+              className="text-[#495867] underline underline-offset-2"
+              onClick={() => closeLoginForm()}
+            >
+              correo
+            </Link>{" "}
+            o{" "}
+            <Link
+              href="/falabella-co/myaccount/passwordrecovery"
+              className="text-[#495867] underline underline-offset-2"
+              onClick={() => closeLoginForm()}
+            >
+              SMS
+            </Link>{" "}
+            para cambiar tu contraseña.
+          </p>
 
           <Button
             type="submit"

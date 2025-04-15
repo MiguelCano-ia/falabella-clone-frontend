@@ -5,7 +5,7 @@ export const Cart = () => {
   return (
     <Link
       href="/falabella-co/basket"
-      className="flex items-center justify-center relative"
+      className="flex items-center justify-center relative mr-4"
     >
       <div className="pl-4 xl:min-w-[106px] mr-4">
         <ShoppingCartIcon
