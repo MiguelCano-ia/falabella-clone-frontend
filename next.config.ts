@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       "imagedelivery.net",  // Dominio que ya tenías
-      "images.falabella.com" // Nuevo dominio que estás agregando
+      "images.falabella.com",
+      "images.ctfassets.net" // Nuevo dominio que estás agregando
     ],
     remotePatterns: [
       {
