@@ -31,7 +31,7 @@ export const Overlay = ({ children, onResetForm, state }: Props) => {
             if (state) state.errors = {};
           }}
           className={`
-        fixed flex justify-center items-center w-screen h-screen bg-[#4A4A4A80] z-10
+        fixed flex justify-center items-center w-screen h-screen bg-[#4A4A4A80] z-20
         transition-all duration-300 ease-in-out
         ${isLoginOpen ? "pointer-events-auto" : "pointer-events-none"}
 

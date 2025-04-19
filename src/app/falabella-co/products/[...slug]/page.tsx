@@ -37,7 +37,11 @@ export default async function Page({
     <div className="flex flex-col items-center justify-center">
       <Breadcrumbs slugs={slug} />
       <div className="flex flex-col bg-[#F1F1F1] w-full h-full justify-center items-center">
-        <CategoryList banner={productsInfo?.info?.banner || null} />
+        <CategoryList
+          banner={productsInfo?.info?.banner || null}
+          featured={productsInfo.info?.featured || null}
+          slugs={slug}
+        />
         <div className="flex pt-[15px] max-w-[1280px] w-full">
           {/* Sidebar */}
           <SideBarCateogory products={productsInfo.products} slugs={slug} />

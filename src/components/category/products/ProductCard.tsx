@@ -30,7 +30,7 @@ export const ProductCard = ({ product }: Props) => {
 
   return (
     <>
-      <div className="w-[239px] pl-[10px] mb-[10px] h-[556px]">
+      <div className="w-[239px] pl-[10px] mb-[10px] h-[556px] rounded-[12px]">
         <Link
           href={`/falabella-co/product/${product.id_product}`}
           className="flex flex-col border-[1px] border-[#F0F0F0] w-full h-full bg-[#FFF] rounded-[12px]"
@@ -42,8 +42,9 @@ export const ProductCard = ({ product }: Props) => {
             alt="dell"
             width={227}
             height={227}
+            className="rounded-t-[12px]  w-[227px] h-[227px] object-contain"
           />
-          <div className="flex flex-col pt-[22px] px-[15px] pb-[7px] border-[1px] border-[#F0F0F0]">
+          <div className="flex flex-col pt-[22px] px-[15px] pb-[7px] border-t-[1px] border-[#F0F0F0]">
             <span className="leading-[16px] text-[13px] tracking-normal text-[#767676]">
               {product.brand}
             </span>

@@ -1,12 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface Props {
-  banner: string;
+interface Featured {
+  name: string;
+  slug: string;
+  image: string;
 }
 
-export const CategoryList = ({ banner }: Props) => {
-  console.log(banner);
+interface Props {
+  banner: string;
+  featured: Featured[] | null;
+  slugs: string[];
+}
+
+export const CategoryList = ({ banner, featured, slugs }: Props) => {
+  let accumulatedPath = "/falabella-co/products";
+  slugs.map((slug) => {
+    accumulatedPath += `/${slug}`;
+  });
+
   return (
     <div className="mb-[5px] max-w-[1280px] w-full bg-[#fff]">
       {banner && (
@@ -17,78 +29,32 @@ export const CategoryList = ({ banner }: Props) => {
           alt="banner"
         />
       )}
-      <div className="relative flex-wrap justify-center w-full py-[10px] px-[5px] hidden">
-        <div className="flex">
-          <div className="relative px-3 ml-3">
-            <Link
-              href="#"
-              className="flex flex-col items-center justify-center"
-            >
-              <Image
-                src="/images/category/jackets/abrigos.avif"
-                width={110}
-                height={110}
-                alt="jacket"
-                className="rounded-full"
-              />
-              {/* <h3 className="text-[#333] text-[14px] py-[5px] font-bold leading-[17px] text-center max-w-[110px]">
-                Abrigos
-              </h3> */}
-            </Link>
-          </div>
-          <div className="relative px-3 ml-3">
-            <Link
-              href="#"
-              className="flex flex-col items-center justify-center"
-            >
-              <Image
-                src="/images/category/jackets/blazers.avif"
-                width={110}
-                height={110}
-                alt="jacket"
-                className="rounded-full"
-              />
-              <h3 className="text-[#333] text-[14px] py-[5px] font-bold leading-[17px] text-center max-w-[110px]">
-                Blazer
-              </h3>
-            </Link>
-          </div>
-          <div className="relative px-3 ml-3">
-            <Link
-              href="#"
-              className="flex flex-col items-center justify-center"
-            >
-              <Image
-                src="/images/category/jackets/chalecos.avif"
-                width={110}
-                height={110}
-                alt="jacket"
-                className="rounded-full"
-              />
-              <h3 className="text-[#333] text-[14px] py-[5px] font-bold leading-[17px] text-center max-w-[110px]">
-                Blazer
-              </h3>
-            </Link>
-          </div>
-          <div className="relative px-3 ml-3">
-            <Link
-              href="#"
-              className="flex flex-col items-center justify-center"
-            >
-              <Image
-                src="/images/category/jackets/ver-todo.avif"
-                width={110}
-                height={110}
-                alt="jacket"
-                className="rounded-full"
-              />
-              <h3 className="text-[#333] text-[14px] py-[5px] font-bold leading-[17px] text-center max-w-[110px]">
-                Blazer
-              </h3>
-            </Link>
+      {featured && (
+        <div className="relative flex-wrap justify-center w-full py-[10px] px-[5px]">
+          <div className="flex justify-center mt-2">
+            {featured.map((feature) => (
+              <div className="relative px-3 ml-3" key={feature.image}>
+                <Link
+                  href={`${accumulatedPath}/${feature.slug}`}
+                  className="flex flex-col items-center justify-center"
+                >
+                  <Image
+                    src={`http://localhost:4000/images/${feature.image}`}
+                    width={110}
+                    height={110}
+                    alt={feature.name}
+                    className="bg-[#f0f0f0] rounded-full z-10 mix-blend-multiply scale-75 w-[110px] h-[110px] object-contain"
+                  />
+                  <div className="absolute bg-[#f0f0f0] w-[110px] h-[110px] rounded-full top-0 left-1/5"></div>
+                  <h3 className="text-[#333] text-[14px] py-[5px] font-bold leading-[17px] text-center max-w-[110px]">
+                    {feature.name}
+                  </h3>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

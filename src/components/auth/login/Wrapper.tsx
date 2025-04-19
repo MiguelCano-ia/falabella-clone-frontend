@@ -20,7 +20,7 @@ export const Wrapper = ({ children, onResetForm, state }: Props) => {
   };
   return (
     <div
-      className="bg-white rounded-xl shadow-lg w-screen pt-[33px] pb-[51px] px-6 max-sm:mt-10 sm:max-w-[500px] sm:rounded-md sm:w-full sm:pt-5 sm:px-[50px] sm:pb-[34px] z-20"
+      className="bg-white rounded-xl shadow-lg w-screen pt-[33px] pb-[51px] px-6 max-sm:mt-10 sm:max-w-[500px] sm:rounded-md sm:w-full sm:pt-5 sm:px-[50px] sm:pb-[34px] z-30"
       onClick={handleFormClick}
     >
       <div className="flex flex-reverse justify-end">
