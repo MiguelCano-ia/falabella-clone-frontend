@@ -4,17 +4,30 @@ import Image from "next/image";
 import { EllipsisVertical, Minus, Plus } from "lucide-react";
 import Link from "next/link";
 import { formatCOP } from "@/lib/formatCop";
+import { useEffect, useState } from "react";
 
 interface Props {
   products: Products[];
+  parentChecked: boolean;
 }
 
-export const ProductsList = ({ products }: Props) => {
+export const ProductsList = ({ products, parentChecked }: Props) => {
+  const [checked, setChecked] = useState(parentChecked);
+
+  useEffect(() => {
+    setChecked(parentChecked);
+  }, [parentChecked]);
+
   return (
     <div className="divide-y">
       {products.map((product) => (
         <div key={product.id_product} className="flex items-center px-4 py-4">
-          <Checkbox id={`item-${product.id_product}`} className="mr-4" />
+          <Checkbox
+            id={`item-${product.id_product}`}
+            className="mr-4"
+            checked={checked}
+            onCheckedChange={(checked) => setChecked(!!checked)}
+          />
 
           <div className="w-[100px] h-[100px] relative flex-shrink-0">
             <Image

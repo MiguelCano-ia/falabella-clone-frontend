@@ -19,7 +19,9 @@ interface Props {
 
 export const SellerAccordion = ({ seller, products }: Props) => {
   const [isOpen, setIsOpen] = useState(true);
-  console.log(seller);
+  const [selectAll, setSelectAll] = useState(true);
+
+  console.log(products);
 
   return (
     <Accordion type="single" collapsible defaultValue="item-1">
@@ -47,7 +49,12 @@ export const SellerAccordion = ({ seller, products }: Props) => {
         <AccordionContent className="bg-[#fff] px-3 py-2 shadow-sm rounded-b-[10px]">
           <div className="bg-white rounded-b-[10px]">
             <div className="flex items-center px-4 py-3 border-b">
-              <Checkbox id={`select-all-${seller}`} className="mr-2" />
+              <Checkbox
+                id={`select-all-${seller}`}
+                className="mr-2"
+                checked={selectAll}
+                onCheckedChange={(checked) => setSelectAll(!!checked)}
+              />
               <label
                 htmlFor={`select-all-${seller}`}
                 className="text-sm font-medium"
@@ -56,7 +63,7 @@ export const SellerAccordion = ({ seller, products }: Props) => {
               </label>
             </div>
 
-            <ProductsList products={products} />
+            <ProductsList products={products} parentChecked={selectAll} />
           </div>
         </AccordionContent>
       </AccordionItem>
