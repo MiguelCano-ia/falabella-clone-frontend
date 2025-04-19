@@ -10,11 +10,7 @@ import CarouselRecomendados from "@/components/product/CarousselOtrosProductos";
 import OpcionesSimilares from "@/components/product/SimilarOptions";
 import TambienPodriaInteresarte from "@/components/product/TambienPodriaInteresarte";
 
-
-
-
-
-const getProduct = async (id: number): Promise<Products> => {
+export const getProduct = async (id: number): Promise<Products> => {
   const response = await fetch(`http://localhost:4000/product/${id}`).then(
     (res) => res.json()
   );
@@ -131,7 +127,7 @@ export default async function Page({
                     -{product?.special_discount_percentage}%
                   </span>
                 </div>
-                
+
                 <p className="text-xl font-semibold">
                   {formatCOP(product?.discount_price)}
                 </p>
@@ -145,32 +141,32 @@ export default async function Page({
                     Envío gratis
                   </span>
                 </div>
-                <QuantitySelector /> 
+                <QuantitySelector />
                 <div className="mt-6 flex flex-col gap-4">
                   <button className="w-full bg-gray-700 text-white text-lg py-3 rounded-full hover:bg-gray-800 transition">
                     Agregar al Carro
                   </button>
                 </div>
                 <div className="border border-black p-2 rounded-lg flex items-center gap-2 mt-6">
-              <Image
-                src="/icons/products/cmr-falabella.svg"
-                width={34}
-                height={22}
-                alt="CMR Falabella"
-              />
+                  <Image
+                    src="/icons/products/cmr-falabella.svg"
+                    width={34}
+                    height={22}
+                    alt="CMR Falabella"
+                  />
 
-              <div className="text-sm">
-                <p className="text-gray-900 font-semibold">
-                  <strong>
-                    AHORRA <span className="text-red-600">$5.500</span> USANDO
-                    TU CMR
-                  </strong>
-                </p>
-                <p className="text-gray-700">
-                  Ábrela y obtén $45.000 de descuento extra.
-                </p>
-              </div>
-            </div> 
+                  <div className="text-sm">
+                    <p className="text-gray-900 font-semibold">
+                      <strong>
+                        AHORRA <span className="text-red-600">$5.500</span>{" "}
+                        USANDO TU CMR
+                      </strong>
+                    </p>
+                    <p className="text-gray-700">
+                      Ábrela y obtén $45.000 de descuento extra.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -234,9 +230,9 @@ export default async function Page({
               >
                 Ver todos los productos de este vendedor
               </Link>
-            </div>            
-          </div>          
-        </div>        
+            </div>
+          </div>
+        </div>
       </div>
       <EspecificacionesExpandibles />
       <CarouselRecomendados />

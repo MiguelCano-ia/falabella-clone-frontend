@@ -1,7 +1,22 @@
 import { ShoppingCartIcon } from "lucide-react";
+import { cookies } from "next/headers";
 import Link from "next/link";
 
-export const Cart = () => {
+export const getTotalItems = (cart: Record<string, number>) => {
+  let totalItems = 0;
+
+  Object.values(cart).forEach((value) => {
+    totalItems += value as number;
+  });
+
+  return totalItems > 99 ? "99+" : totalItems;
+};
+
+export const Cart = async () => {
+  const cookieStore = cookies();
+  const cart = JSON.parse((await cookieStore).get("cart")?.value ?? "{}");
+  const totalItems = getTotalItems(cart);
+
   return (
     <Link
       href="/falabella-co/basket"
@@ -14,7 +29,7 @@ export const Cart = () => {
         />
       </div>
       <span className="absolute w-[22px] h-[22px] right-[8%] xl:right-[50%] bg-icon-background text-white flex items-center justify-center rounded-full text-xs font-bold top-[-9px]">
-        0
+        {totalItems}
       </span>
     </Link>
   );

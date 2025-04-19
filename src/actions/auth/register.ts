@@ -25,7 +25,6 @@ export async function registerAction(state: FormState, data: FormFields) {
   }).then((res) => res.json());
 
   if (result.errors) {
-    console.log(result.errors);
     return {
       errors: Object.fromEntries(
         result.errors.map(

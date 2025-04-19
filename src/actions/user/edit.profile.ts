@@ -16,7 +16,6 @@ export async function editProfileAction(state: FormState, data: FormFields) {
   }
 
   const user = await getUser();
-  console.log(validatedFields.data);
 
   const result = await fetch(
     `http://localhost:4000/editProfile/${user?.user_id}`,
