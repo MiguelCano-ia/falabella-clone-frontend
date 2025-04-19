@@ -16,7 +16,13 @@ export default async function Page() {
   const totalItems = getTotalItems(cart);
 
   const products: Products[] = await Promise.all(
-    idItems.map(async (id) => getProduct(+id))
+    idItems.map(async (id) => {
+      const product = await getProduct(+id);
+      return {
+        ...product,
+        cartQuantity: cart[id],
+      };
+    })
   );
 
   return (

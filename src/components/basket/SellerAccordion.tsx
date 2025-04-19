@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Products } from "@/interfaces/categories/product";
 import { ProductsList } from "./ProductsList";
 import Image from "next/image";
+import { useSelectionStore } from "@/store/basket/selection.store";
 
 interface Props {
   seller: string;
@@ -19,9 +20,11 @@ interface Props {
 
 export const SellerAccordion = ({ seller, products }: Props) => {
   const [isOpen, setIsOpen] = useState(true);
-  const [selectAll, setSelectAll] = useState(true);
-
-  console.log(products);
+  const toggleAll = useSelectionStore((state) => state.toggleAll);
+  const selMap = useSelectionStore((state) => state.selections[seller] || {});
+  const productIds = products.map((p) => p.id_product.toString());
+  const allChecked = productIds.every((id) => selMap[id]);
+  const anyChecked = productIds.some((id) => selMap[id]);
 
   return (
     <Accordion type="single" collapsible defaultValue="item-1">
@@ -52,8 +55,11 @@ export const SellerAccordion = ({ seller, products }: Props) => {
               <Checkbox
                 id={`select-all-${seller}`}
                 className="mr-2"
-                checked={selectAll}
-                onCheckedChange={(checked) => setSelectAll(!!checked)}
+                checked={allChecked}
+                data-state={!allChecked && anyChecked ? "indeterminate" : ""}
+                onCheckedChange={(checked) =>
+                  toggleAll(seller, productIds, !!checked)
+                }
               />
               <label
                 htmlFor={`select-all-${seller}`}
@@ -63,7 +69,7 @@ export const SellerAccordion = ({ seller, products }: Props) => {
               </label>
             </div>
 
-            <ProductsList products={products} parentChecked={selectAll} />
+            <ProductsList products={products} seller={seller} />
           </div>
         </AccordionContent>
       </AccordionItem>
