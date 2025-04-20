@@ -1,15 +1,14 @@
-import create from "zustand";
+import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 type SelectionMap = Record<string, boolean>;
 
 interface SelectionState {
-  // mapa { vendedor: { productoId: seleccionado } }
   selections: Record<string, SelectionMap>;
-  // togglear un checkbox de un producto
   toggleProduct: (seller: string, productId: string) => void;
-  // marcar/desmarcar todos los productos de un seller
   toggleAll: (seller: string, productIds: string[], value: boolean) => void;
+  hasHydrated: boolean;
+  setHasHydrated: (h: boolean) => void;
 }
 
 export const useSelectionStore = create<SelectionState>()(
@@ -40,8 +39,15 @@ export const useSelectionStore = create<SelectionState>()(
             },
           }));
         },
+        hasHydrated: false,
+        setHasHydrated: (h: boolean) => set({ hasHydrated: h }),
       }),
-      { name: "selection-store" }
+      {
+        name: "selection-store",
+        onRehydrateStorage: () => (state) => {
+          state?.setHasHydrated(true);
+        },
+      }
     )
   )
 );

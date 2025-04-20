@@ -7,12 +7,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { useSelectionStore } from "@/store/basket/selection.store";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
 export const OrderSummary = () => {
   const [accordionOpen, setAccordionOpen] = useState(false);
+  const selectedItems = useSelectionStore((s) => s.selections);
+  console.log(selectedItems);
 
   return (
     <div className="w-auto h-auto bg-white rounded-[10px] shadow-sm px-[22.5px] py-[16px] flex flex-col gap-5">

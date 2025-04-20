@@ -4,7 +4,7 @@ import Image from "next/image";
 import { EllipsisVertical, Minus, Plus } from "lucide-react";
 import Link from "next/link";
 import { formatCOP } from "@/lib/formatCop";
-import { addProductToCart } from "@/actions/basket/actions";
+import { addProductToCart } from "@/actions/basket/cookies";
 import { useRouter } from "next/navigation";
 import { useSelectionStore } from "@/store/basket/selection.store";
 
@@ -16,7 +16,8 @@ interface Props {
 export const ProductsList = ({ products, seller }: Props) => {
   const router = useRouter();
 
-  const selMap = useSelectionStore((state) => state.selections[seller] || {});
+  const rawSelMap = useSelectionStore((state) => state.selections[seller]);
+  const selMap = rawSelMap ?? {};
   const toggleProduct = useSelectionStore((state) => state.toggleProduct);
 
   const onAddToCart = (id: string) => {

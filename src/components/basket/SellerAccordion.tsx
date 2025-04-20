@@ -13,6 +13,8 @@ import { ProductsList } from "./ProductsList";
 import Image from "next/image";
 import { useSelectionStore } from "@/store/basket/selection.store";
 
+const EMPTY_MAP: Record<string, boolean> = {};
+
 interface Props {
   seller: string;
   products: Products[];
@@ -20,8 +22,12 @@ interface Props {
 
 export const SellerAccordion = ({ seller, products }: Props) => {
   const [isOpen, setIsOpen] = useState(true);
-  const toggleAll = useSelectionStore((state) => state.toggleAll);
-  const selMap = useSelectionStore((state) => state.selections[seller] || {});
+
+  const toggleAll = useSelectionStore((s) => s.toggleAll);
+
+  const rawSelMap = useSelectionStore((s) => s.selections[seller]);
+  const selMap = rawSelMap ?? EMPTY_MAP;
+
   const productIds = products.map((p) => p.id_product.toString());
   const allChecked = productIds.every((id) => selMap[id]);
   const anyChecked = productIds.some((id) => selMap[id]);
@@ -31,7 +37,7 @@ export const SellerAccordion = ({ seller, products }: Props) => {
       <AccordionItem value="item-1">
         <AccordionTrigger
           onClick={() => setIsOpen(!isOpen)}
-          className={`bg-[#fff] px-3 py-2 shadow-sm text-[14px] text-[#333] hover:no-underline  ${
+          className={`bg-[#fff] px-3 py-2 shadow-sm text-[14px] text-[#333] hover:no-underline ${
             !isOpen ? "rounded-[10px]" : "rounded-none rounded-t-[10px]"
           }`}
         >
@@ -45,7 +51,7 @@ export const SellerAccordion = ({ seller, products }: Props) => {
                 alt="falabella"
               />
             ) : (
-              <strong>{seller}</strong>
+              <strong>{seller.at(0)?.toUpperCase() + seller.slice(1)}</strong>
             )}
           </div>
         </AccordionTrigger>
@@ -54,12 +60,12 @@ export const SellerAccordion = ({ seller, products }: Props) => {
             <div className="flex items-center px-4 py-3 border-b">
               <Checkbox
                 id={`select-all-${seller}`}
-                className="mr-2"
+                className={`mr-2 ${
+                  allChecked ? "bg-[#495867] text-white" : "bg-white"
+                }`}
                 checked={allChecked}
-                data-state={!allChecked && anyChecked ? "indeterminate" : ""}
-                onCheckedChange={(checked) =>
-                  toggleAll(seller, productIds, !!checked)
-                }
+                data-state={!allChecked && anyChecked}
+                onCheckedChange={(v) => toggleAll(seller, productIds, !!v)}
               />
               <label
                 htmlFor={`select-all-${seller}`}
@@ -68,7 +74,6 @@ export const SellerAccordion = ({ seller, products }: Props) => {
                 Seleccionar todos
               </label>
             </div>
-
             <ProductsList products={products} seller={seller} />
           </div>
         </AccordionContent>

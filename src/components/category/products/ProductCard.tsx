@@ -1,6 +1,6 @@
 "use client";
 
-import { addProductToCart } from "@/actions/basket/actions";
+import { addProductToCart } from "@/actions/basket/cookies";
 import { Button } from "@/components/ui/button";
 import { formatCOP } from "@/lib/formatCop";
 import { Products } from "@/interfaces/categories/product";
@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUIStore } from "@/store/ui";
 import { useCartStore } from "@/store/basket/cart.store";
+import { useSelectionStore } from "@/store/basket/selection.store";
 
 interface Props {
   product: Products;
@@ -18,12 +19,14 @@ interface Props {
 export const ProductCard = ({ product }: Props) => {
   const openCart = useUIStore((state) => state.openCart);
   const setCartProduct = useCartStore((state) => state.setCartProduct);
+  const toggleProduct = useSelectionStore((s) => s.toggleProduct);
   const [addToCart, setAddToCart] = useState(false);
   const router = useRouter();
 
   const onAddToCart = () => {
     addProductToCart(product.id_product.toString());
     router.refresh();
+    toggleProduct(product.sold_by, product.id_product.toString());
     setCartProduct(product);
     openCart();
   };

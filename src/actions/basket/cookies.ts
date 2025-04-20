@@ -1,4 +1,4 @@
-import { getCookie, hasCookie, setCookie } from "cookies-next";
+import { deleteCookie, getCookie, hasCookie, setCookie } from "cookies-next";
 
 export const getCookieCart = () => {
   if (hasCookie("cart")) {
@@ -19,4 +19,19 @@ export const addProductToCart = (id: string) => {
   }
 
   setCookie("cart", JSON.stringify(cookieCart));
+};
+
+export const removeProductFromCart = (id: string) => {
+  const cookieCart = getCookieCart();
+  if (cookieCart[id] === 1) {
+    delete cookieCart[id];
+  } else {
+    cookieCart[id] -= 1;
+  }
+
+  setCookie("cart", JSON.stringify(cookieCart));
+};
+
+export const clearCookieCart = () => {
+  deleteCookie("cart", { path: "/" });
 };

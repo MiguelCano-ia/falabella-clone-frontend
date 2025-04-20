@@ -9,6 +9,7 @@ import { NotAuthenticated } from "@/components/basket/NotAuthenticated";
 
 export default async function Page() {
   const user = await getUser();
+
   const cookieStore = cookies();
   const cart = JSON.parse((await cookieStore).get("cart")?.value ?? "{}");
 
