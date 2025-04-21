@@ -26,7 +26,11 @@ export const DropdownMenu = ({ user }: Props) => {
         <>
           <div
             className="absolute hidden lg:block top-0 bg-white shadow-lg border border-gray-200 mt-14 rounded-sm w-[160px] text-sm z-20"
-            onMouseLeave={closeLoginHeaderModal}
+            onMouseLeave={() =>
+              setTimeout(() => {
+                closeLoginHeaderModal();
+              }, 200)
+            }
           >
             <ul className="space-y-2 py-2 px-4" onClick={closeLoginHeaderModal}>
               {!user ? (

@@ -6,6 +6,7 @@ import {
   FormState,
   loginFormSchema,
 } from "@/validations/auth/login";
+import { mergeGuestCart } from "../basket/cart";
 
 export async function loginAction(state: FormState, data: FormFields) {
   const validatedFields = loginFormSchema.safeParse(data);
@@ -37,6 +38,7 @@ export async function loginAction(state: FormState, data: FormFields) {
   }
 
   await createSession(result.token);
+  await mergeGuestCart();
 
   return {
     authenticated: true,

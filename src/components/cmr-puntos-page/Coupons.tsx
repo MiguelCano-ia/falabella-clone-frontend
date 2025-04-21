@@ -1,7 +1,6 @@
-'use client';
+"use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -9,8 +8,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const products = [
   {
     id: 1,
-    image: "https://images.ctfassets.net/n8a32dlewwba/3khYHMbnfGWXDmr2O7wnEB/e9338e909031b2727e24d0f2ebec79eb/antojos_bonos_FAL__1_.png?fm=webp",
-    brand: "https://images.ctfassets.net/n8a32dlewwba/3mmv3z0GG34uU8HFhis2RM/423ccc8b2f5bc92c6c0bf169e11cd6b9/Dise_o_sin_t_tulo__2_.png.crdownload?fm=webp",
+    image:
+      "https://images.ctfassets.net/n8a32dlewwba/3khYHMbnfGWXDmr2O7wnEB/e9338e909031b2727e24d0f2ebec79eb/antojos_bonos_FAL__1_.png?fm=webp",
+    brand:
+      "https://images.ctfassets.net/n8a32dlewwba/3mmv3z0GG34uU8HFhis2RM/423ccc8b2f5bc92c6c0bf169e11cd6b9/Dise_o_sin_t_tulo__2_.png.crdownload?fm=webp",
     title: "Bono Homecenter $13.000",
     link: "Redime ya",
     price: "1.000",
@@ -18,8 +19,10 @@ const products = [
   },
   {
     id: 2,
-    image: "https://images.ctfassets.net/n8a32dlewwba/6LwJn0EdZkBtOOkjp0XUoq/d5dd1fd3ebfbeab5c8c1bfd1c212a982/antojos_bonos_HC__1_.png?fm=webp",
-    brand: "https://images.ctfassets.net/n8a32dlewwba/13jNtBSf7xpdGHxc1BhI2z/e48cf96afd76018a8cd41f4f44fbc98f/Dise_o_sin_t_tulo__3_.png.crdownload?fm=webp",
+    image:
+      "https://images.ctfassets.net/n8a32dlewwba/6LwJn0EdZkBtOOkjp0XUoq/d5dd1fd3ebfbeab5c8c1bfd1c212a982/antojos_bonos_HC__1_.png?fm=webp",
+    brand:
+      "https://images.ctfassets.net/n8a32dlewwba/13jNtBSf7xpdGHxc1BhI2z/e48cf96afd76018a8cd41f4f44fbc98f/Dise_o_sin_t_tulo__3_.png.crdownload?fm=webp",
     title: "Bono BBC $20.000",
     link: "Redime ya",
     price: "1.000",
@@ -27,8 +30,10 @@ const products = [
   },
   {
     id: 3,
-    image: "https://images.ctfassets.net/n8a32dlewwba/N2cpJy9rvFrUUjhga2uPg/ee55d77aa6586f2cc3a99f0cc4f6b84e/antojos_bonos_BBC__1_.png?fm=webp",
-    brand: "https://images.ctfassets.net/n8a32dlewwba/1oa4mtKtWJKQdVQYhMjstR/99e21ec3df42efdd0c4934bc31958763/LogoBBC.png?fm=webp",
+    image:
+      "https://images.ctfassets.net/n8a32dlewwba/N2cpJy9rvFrUUjhga2uPg/ee55d77aa6586f2cc3a99f0cc4f6b84e/antojos_bonos_BBC__1_.png?fm=webp",
+    brand:
+      "https://images.ctfassets.net/n8a32dlewwba/1oa4mtKtWJKQdVQYhMjstR/99e21ec3df42efdd0c4934bc31958763/LogoBBC.png?fm=webp",
     title: "Bono BBC $20.000",
     link: "Redime ya",
     price: "1.500",
@@ -36,8 +41,10 @@ const products = [
   },
   {
     id: 4,
-    image: "https://images.ctfassets.net/n8a32dlewwba/3EWS0sIh6X7wnKtqQf5hWO/1b92cd5c68db7c308231d9dc365eb75c/antojos_bonos_POPSY__1_.png?fm=webp",
-    brand: "https://images.ctfassets.net/n8a32dlewwba/6zKejD3gHbmRR2fFYr0937/a5d4534eee65e1740e400f757dbbb736/Logo_popsy.png?fm=webp",
+    image:
+      "https://images.ctfassets.net/n8a32dlewwba/3EWS0sIh6X7wnKtqQf5hWO/1b92cd5c68db7c308231d9dc365eb75c/antojos_bonos_POPSY__1_.png?fm=webp",
+    brand:
+      "https://images.ctfassets.net/n8a32dlewwba/6zKejD3gHbmRR2fFYr0937/a5d4534eee65e1740e400f757dbbb736/Logo_popsy.png?fm=webp",
     title: "1 Sundae de 1 sabor en Popsy",
     link: "para redimir",
     price: "500",
@@ -45,7 +52,7 @@ const products = [
   },
 ];
 
-const CarruselBonos = () => {
+export const CarruselCoupons = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -84,17 +91,24 @@ const CarruselBonos = () => {
                   />
                 </div>
                 <div className="p-4">
-                  <Image src={product.brand} alt="logo" width={50} height={50} />
+                  <Image
+                    src={product.brand}
+                    alt="logo"
+                    width={50}
+                    height={50}
+                  />
                   <p className="font-semibold mt-2 text-sm">{product.title}</p>
                   <p className="text-xs text-gray-500">{product.link}</p>
                   <div className="mt-4">
                     {product.prevPrice && (
                       <p className="text-xs line-through text-gray-400">
-                        {product.prevPrice} <span className="text-[10px]">CMR puntos</span>
+                        {product.prevPrice}{" "}
+                        <span className="text-[10px]">CMR puntos</span>
                       </p>
                     )}
                     <p className="text-green-600 font-bold text-lg">
-                      {product.price} <span className="text-xs font-normal">CMR puntos</span>
+                      {product.price}{" "}
+                      <span className="text-xs font-normal">CMR puntos</span>
                     </p>
                   </div>
                 </div>
@@ -122,5 +136,3 @@ const CarruselBonos = () => {
     </section>
   );
 };
-
-export default CarruselBonos;

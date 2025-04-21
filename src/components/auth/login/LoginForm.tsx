@@ -18,6 +18,7 @@ import { loginAction } from "@/actions/auth/login";
 import { useUIStore } from "@/store/ui";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { deleteCookie } from "cookies-next";
 
 export const LoginForm = () => {
   const {
@@ -40,6 +41,7 @@ export const LoginForm = () => {
   useEffect(() => {
     if (state?.authenticated) {
       closeLoginForm();
+      deleteCookie("cart", { path: "/" });
       router.refresh();
     }
   }, [state?.authenticated, closeLoginForm, router]);

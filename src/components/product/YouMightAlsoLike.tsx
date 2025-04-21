@@ -3,72 +3,74 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef } from "react";
 
-const opcionesSimilares = [
+const sugerencias = [
   {
     id: 1,
-    marca: "MOTOROLA",
-    nombre: "Celular Motorola Edge 50 Neo 5G",
-    precio: 1419900,
-    antes: 1999900,
-    descuento: 29,
-    imagen:
-      "https://media.falabella.com/falabellaCO/72880391/w=136,h=136,fit=pad",
-  },
-  {
-    id: 2,
-    marca: "HONOR",
-    nombre: "Celular HONOR X6B PLUS 4G 256GB",
-    precio: 579900,
-    antes: 759900,
-    descuento: 24,
-    imagen:
-      "https://media.falabella.com/falabellaCO/139703604/w=136,h=136,fit=pad",
-    patrocinado: true,
-  },
-  {
-    id: 3,
-    marca: "TECNO MOBILE",
-    nombre: "Celular TECNO Spark 30c 256GB 8GB",
-    precio: 529900,
-    antes: 699900,
-    descuento: 24,
-    imagen:
-      "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/73247750_1/w=136,h=136,fit=pad",
-  },
-  {
-    id: 4,
-    marca: "OPPO",
-    nombre: "Celular OPPO RENO 13 5G [512GB]",
-    precio: 3299900,
-    antes: 4999900,
-    descuento: 34,
-    imagen:
-      "https://media.falabella.com/falabellaCO/138465771/w=136,h=136,fit=pad",
-  },
-  {
-    id: 5,
-    marca: "INFINIX",
-    nombre: "Celular Infinix Hot 50 256GB/8GB RAM",
-    precio: 719900,
-    antes: 849900,
-    descuento: 15,
-    imagen:
-      "https://media.falabella.com/falabellaCO/73051053/w=136,h=136,fit=pad",
-  },
-  {
-    id: 6,
     marca: "HONOR",
     nombre: "Celular HONOR Magic 6 Lite 5G",
     precio: 1569900,
     antes: 2299900,
     descuento: 32,
+    estrellas: 4,
     imagen:
-      "https://media.falabella.com/falabellaCO/142563775/w=136,h=136,fit=pad",
-    patrocinado: true,
+      "https://media.falabella.com/falabellaCO/72880391/w=136,h=136,fit=pad",
+  },
+  {
+    id: 2,
+    marca: "OPPO",
+    nombre: "Celular OPPO Reno12 F 256 GB",
+    precio: 1799900,
+    antes: 2799900,
+    descuento: 36,
+    estrellas: 4,
+    imagen:
+      "https://media.falabella.com/falabellaCO/73040650/w=136,h=136,fit=pad",
+  },
+  {
+    id: 3,
+    marca: "OPPO",
+    nombre: "Celular OPPO Reno12 512 GB",
+    precio: 2659900,
+    antes: 3599900,
+    descuento: 26,
+    estrellas: 5,
+    imagen:
+      "https://media.falabella.com/falabellaCO/73040652/w=136,h=136,fit=pad",
+  },
+  {
+    id: 4,
+    marca: "HONOR",
+    nombre: "Celular HONOR 200 LITE 5G 256GB",
+    precio: 949900,
+    antes: 1599900,
+    descuento: 41,
+    estrellas: 4,
+    imagen:
+      "https://media.falabella.com/falabellaCO/73051050/w=136,h=136,fit=pad",
+  },
+  {
+    id: 5,
+    marca: "OPPO",
+    nombre: "Celular OPPO A80 256GB 5G",
+    precio: 929900,
+    antes: 1099900,
+    descuento: 15,
+    estrellas: 5,
+    imagen:
+      "https://media.falabella.com/falabellaCO/73059865/w=136,h=136,fit=pad",
+  },
+  {
+    id: 6,
+    marca: "SAMSUNG",
+    nombre: "Celular Samsung Galaxy S25 Ultra",
+    precio: 6999900,
+    estrellas: 0,
+    imagen:
+      "https://media.falabella.com/falabellaCO/73208378/w=136,h=136,fit=pad",
   },
 ];
 
-export const SimilarOptions = () => {
+export const YouMightAlsoLike = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const scrollCarousel = (direction: "left" | "right") => {
@@ -83,7 +85,11 @@ export const SimilarOptions = () => {
 
   return (
     <div className="mt-12 bg-white max-w-6xl mx-auto rounded-lg shadow-lg p-6">
-      <h3 className="text-xl font-semibold mb-4">Más opciones similares</h3>
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-xl font-semibold">También podría interesarte</h3>
+        <span className="text-xs text-gray-400">Patrocinado</span>
+      </div>
+
       <div className="relative">
         <button
           title="left"
@@ -98,7 +104,7 @@ export const SimilarOptions = () => {
           className="overflow-x-auto whitespace-nowrap scroll-smooth no-scrollbar"
         >
           <div className="flex gap-4">
-            {opcionesSimilares.map((prod) => (
+            {sugerencias.map((prod) => (
               <div
                 key={prod.id}
                 className="min-w-[160px] bg-white border rounded-lg shadow-sm p-3 relative"
@@ -116,15 +122,24 @@ export const SimilarOptions = () => {
                 </p>
                 <p className="text-red-600 font-bold text-sm">
                   ${prod.precio.toLocaleString("es-CO")}
-                  <span className="text-xs bg-red-500 text-white font-bold ml-1 px-1 py-0.5 rounded">
-                    -{prod.descuento}%
-                  </span>
+                  {prod.descuento && (
+                    <span className="text-xs bg-red-500 text-white font-bold ml-1 px-1 py-0.5 rounded">
+                      -{prod.descuento}%
+                    </span>
+                  )}
                 </p>
-                <p className="text-xs line-through text-gray-500">
-                  ${prod.antes.toLocaleString("es-CO")}
-                </p>
-                {prod.patrocinado && (
-                  <p className="text-[10px] text-gray-400 mt-1">Patrocinado</p>
+                {prod.antes && (
+                  <p className="text-xs line-through text-gray-500">
+                    ${prod.antes.toLocaleString("es-CO")}
+                  </p>
+                )}
+                {prod.estrellas > 0 && (
+                  <p className="text-xs text-yellow-500 mt-1">
+                    {"⭐".repeat(prod.estrellas)}{" "}
+                    <span className="text-gray-500">
+                      ({Math.ceil(Math.random() * 4)})
+                    </span>
+                  </p>
                 )}
               </div>
             ))}

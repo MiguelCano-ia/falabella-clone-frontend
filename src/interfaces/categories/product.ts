@@ -16,6 +16,7 @@ export interface Products {
   stock: number;
   created_at: Date;
   updated_at: Date;
+  cartQuantity?: string;
 }
 
 export interface Specifications {

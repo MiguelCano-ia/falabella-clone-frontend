@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "../ui/button";
 import Link from "next/link";
 import { UserData } from "@/interfaces/auth/user";
 import { useUIStore } from "@/store/ui";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   user: UserData | null;

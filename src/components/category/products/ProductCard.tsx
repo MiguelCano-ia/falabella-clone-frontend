@@ -1,6 +1,5 @@
 "use client";
 
-import { addProductToCart } from "@/actions/basket/actions";
 import { Button } from "@/components/ui/button";
 import { formatCOP } from "@/lib/formatCop";
 import { Products } from "@/interfaces/categories/product";
@@ -10,6 +9,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUIStore } from "@/store/ui";
 import { useCartStore } from "@/store/basket/cart.store";
+import { useSelectionStore } from "@/store/basket/selection.store";
+import { addToCart } from "@/actions/basket/cart";
 
 interface Props {
   product: Products;
@@ -18,12 +19,14 @@ interface Props {
 export const ProductCard = ({ product }: Props) => {
   const openCart = useUIStore((state) => state.openCart);
   const setCartProduct = useCartStore((state) => state.setCartProduct);
-  const [addToCart, setAddToCart] = useState(false);
+  const selectProduct = useSelectionStore((state) => state.selectProduct);
+  const [add, setAdd] = useState(false);
   const router = useRouter();
 
-  const onAddToCart = () => {
-    addProductToCart(product.id_product.toString());
+  const onAddToCart = async () => {
+    await addToCart(product.id_product.toString());
     router.refresh();
+    selectProduct(product.sold_by, product.id_product.toString());
     setCartProduct(product);
     openCart();
   };
@@ -34,8 +37,8 @@ export const ProductCard = ({ product }: Props) => {
         <Link
           href={`/falabella-co/product/${product.id_product}`}
           className="flex flex-col border-[1px] border-[#F0F0F0] w-full h-full bg-[#FFF] rounded-[12px]"
-          onMouseEnter={() => setAddToCart(true)}
-          onMouseLeave={() => setAddToCart(false)}
+          onMouseEnter={() => setAdd(true)}
+          onMouseLeave={() => setAdd(false)}
         >
           <Image
             src={`http://localhost:4000/images/${product.images[0]}`}
@@ -111,7 +114,7 @@ export const ProductCard = ({ product }: Props) => {
                 <Button
                   variant="register"
                   className={`text-white bg-[#343E49] h-[40px] rounded-[30px] font-semibold text-[20px] w-[190px] ${
-                    addToCart ? "opacity-100" : "opacity-0"
+                    add ? "opacity-100" : "opacity-0"
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();
