@@ -1,12 +1,17 @@
 import { Products } from "@/interfaces/categories/product";
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "../../ui/checkbox";
 import Image from "next/image";
-import { EllipsisVertical, Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import Link from "next/link";
 import { formatCOP } from "@/lib/formatCop";
-import { addProductToCart } from "@/actions/basket/cookies";
 import { useRouter } from "next/navigation";
 import { useSelectionStore } from "@/store/basket/selection.store";
+import {
+  addToCart,
+  deleteFromCart,
+  updateCartQty,
+} from "@/actions/basket/cart";
+import { EllipsisMenu } from "../ui/EllipsisMenu";
 
 interface Props {
   products: Products[];
@@ -19,9 +24,18 @@ export const ProductsList = ({ products, seller }: Props) => {
   const rawSelMap = useSelectionStore((state) => state.selections[seller]);
   const selMap = rawSelMap ?? {};
   const toggleProduct = useSelectionStore((state) => state.toggleProduct);
+  const removeProduct = useSelectionStore((state) => state.removeProduct);
 
   const onAddToCart = (id: string) => {
-    addProductToCart(id);
+    addToCart(id);
+    router.refresh();
+  };
+
+  const onRemoveFromCart = (id: number, quantity: number, seller?: string) => {
+    updateCartQty(id, quantity);
+    if (quantity === 0) {
+      removeProduct(seller!, id.toString());
+    }
     router.refresh();
   };
 
@@ -32,7 +46,7 @@ export const ProductsList = ({ products, seller }: Props) => {
         const isChecked = selMap[id] || false;
 
         return (
-          <div key={product.id_product} className="flex items-center px-4 py-4">
+          <div key={product.id_product} className="flex items-center pl-4 py-4">
             <Checkbox
               id={`item-${product.id_product}`}
               className="mr-4"
@@ -61,7 +75,7 @@ export const ProductsList = ({ products, seller }: Props) => {
               <p className="text-[12px] text-[#333] mt-2">{product.brand}</p>
             </Link>
 
-            <div className="flex flex-1 flex-col items-center justify-center text-center ">
+            <div className="flex flex-1 flex-col items-center justify-center text-center mr-10 mb-14">
               <div className="flex flex-col items-start">
                 {product.special_price && (
                   <>
@@ -105,22 +119,34 @@ export const ProductsList = ({ products, seller }: Props) => {
               </div>
             </div>
 
-            <div className="flex flex-col items-end gap-2">
-              <button
+            <div className="relative flex flex-col items-end gap-2">
+              <div
                 title="Más opciones"
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
-                className="p-2 text-gray-500 hover:text-gray-700 text-right mr-3"
+                className="p-1 text-gray-500 hover:bg-gray-200 hover:text-gray-700 text-right mr-3 hover:rounded-full mb-4"
               >
-                <EllipsisVertical size={20} />
-              </button>
+                <EllipsisMenu
+                  onDelete={() => {
+                    deleteFromCart(product.id_product.toString());
+                    removeProduct(seller!, id.toString());
+                    router.refresh();
+                  }}
+                />
+              </div>
               <div className="flex items-center mx-4">
                 <button
                   title="disminuir"
-                  className="flex items-center justify-center h-[26px] w-[26px] rounded-[10px] bg-[#343E49] font-bold"
+                  className={`flex items-center justify-center h-[26px] w-[26px] rounded-[10px] bg-[#343E49] font-bold ${
+                    !isChecked ? "bg-[#D1D1D1]" : "bg-[#343E49]"
+                  }`}
                   onClick={() => {
-                    /* reducir cantidad */
+                    onRemoveFromCart(
+                      product.id_product,
+                      +product.cartQuantity! - 1,
+                      product.sold_by
+                    );
                   }}
                 >
                   <Minus size={10} className="text-white" />
@@ -129,7 +155,7 @@ export const ProductsList = ({ products, seller }: Props) => {
                 <button
                   title="aumentar"
                   className={`flex items-center justify-center h-[26px] w-[26px] rounded-[10px] font-bold ${
-                    +product.cartQuantity! >= product.stock
+                    +product.cartQuantity! >= product.stock || !isChecked
                       ? "bg-[#D1D1D1]"
                       : "bg-[#343E49]"
                   }`}
@@ -140,7 +166,13 @@ export const ProductsList = ({ products, seller }: Props) => {
                   <Plus size={10} className="text-white text-ce" />
                 </button>
               </div>
-              <span className={`text-[12px] p-2 mr-2`}>
+              <span
+                className={`text-[12px] p-2 mr-2 ${
+                  +product.cartQuantity! >= product.stock
+                    ? "text-[#BD0202]"
+                    : ""
+                }`}
+              >
                 Máx {product.stock}{" "}
                 {product.stock === 1 ? "unidad" : "unidades"}
               </span>

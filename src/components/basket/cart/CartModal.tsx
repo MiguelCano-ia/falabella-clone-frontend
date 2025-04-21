@@ -1,18 +1,38 @@
 "use client";
 
+import { addToCart, updateCartQty } from "@/actions/basket/cart";
 import { formatCOP } from "@/lib/formatCop";
 import { useCartStore } from "@/store/basket/cart.store";
+import { useSelectionStore } from "@/store/basket/selection.store";
 import { useUIStore } from "@/store/ui";
 import { X, Minus, Plus, CircleCheck } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const CartModal = () => {
+interface Props {
+  cart: Record<string, number>;
+}
+
+export const CartModal = ({ cart }: Props) => {
   const isCartOpen = useUIStore((state) => state.isCartOpen);
   const product = useCartStore((state) => state.cartProduct);
   const closeCart = useUIStore((state) => state.closeCart);
+  const removeProduct = useSelectionStore((state) => state.removeProduct);
 
   if (!isCartOpen || !product) return null;
+
+  const productQuantity = cart[product.id_product] ?? 0;
+
+  const onAddToCart = (id: string) => {
+    addToCart(id);
+  };
+
+  const onRemoveFromCart = (id: number, quantity: number, seller?: string) => {
+    updateCartQty(id, quantity);
+    if (quantity === 0) {
+      removeProduct(seller!, id.toString());
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
@@ -93,16 +113,20 @@ export const CartModal = () => {
             <div
               className="flex items-center justify-center h-[30px] w-[30px] bg-[#EEE] font-bold"
               onClick={() => {
-                /* reducir cantidad */
+                onRemoveFromCart(
+                  product.id_product,
+                  +product.cartQuantity! - 1,
+                  product.sold_by
+                );
               }}
             >
               <Minus size={10} className="text-black" />
             </div>
-            <span className="mx-4 text-[14px]">1</span>
+            <span className="mx-4 text-[14px]">{productQuantity}</span>
             <div
               className="flex items-center justify-center h-[30px] w-[30px] bg-[#EEE] font-bold"
               onClick={() => {
-                /* aumentar cantidad */
+                onAddToCart(product.id_product.toString());
               }}
             >
               <Plus size={10} className="text-black text-ce" />

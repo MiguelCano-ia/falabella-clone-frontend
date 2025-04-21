@@ -1,8 +1,6 @@
-'use client';
-
 import Image from "next/image";
 
-const AprendeCMRPuntos = () => {
+export const LearnCMR = () => {
   return (
     <section className="max-w-7xl mx-auto px-6 md:px-10 py-16">
       <h2 className="text-2xl md:text-3xl font-semibold text-center text-gray-900 mb-12">
@@ -25,11 +23,13 @@ const AprendeCMRPuntos = () => {
           <p className="mb-3">
             <strong className="text-gray-900">
               ¡Acumular CMR Puntos es muy fácil!
-            </strong>{' '}
+            </strong>{" "}
             Y mientras más CMR Puntos tengas más opciones tienes para canjear.
           </p>
           <p className="text-sm text-gray-700 mb-6">
-            Acumula CMR Puntos con tu cédula de ciudadanía en Falabella, Homecenter, y Falabella.com.co. Y, si tienes las tarjetas de Banco Falabella, úsalas SIEMPRE y te llenarás de CMR Puntos.
+            Acumula CMR Puntos con tu cédula de ciudadanía en Falabella,
+            Homecenter, y Falabella.com.co. Y, si tienes las tarjetas de Banco
+            Falabella, úsalas SIEMPRE y te llenarás de CMR Puntos.
           </p>
           <button className="bg-lime-600 text-white text-sm font-semibold px-5 py-2 rounded-full">
             Ver más
@@ -43,11 +43,14 @@ const AprendeCMRPuntos = () => {
             ¿Qué redimir con tus CMR Puntos?
           </h3>
           <p className="mb-3">
-            <strong className="text-gray-900">Redime tus CMR Puntos ¡y comienza a disfrutar!</strong>{' '}
-            Tienes cientos de opciones: productos, experiencias, Gift Cards, cupones de descuentos, servicios de viaje ¡Y mucho más!
+            <strong className="text-gray-900">
+              Redime tus CMR Puntos ¡y comienza a disfrutar!
+            </strong>{" "}
+            Tienes cientos de opciones: productos, experiencias, Gift Cards,
+            cupones de descuentos, servicios de viaje ¡Y mucho más!
           </p>
           <p className="text-sm text-gray-700">
-            Solo tienes que tener tus CMR Puntos y creada tu{' '}
+            Solo tienes que tener tus CMR Puntos y creada tu{" "}
             <a href="#" className="text-green-600 underline">
               clave de internet.
             </a>
@@ -77,11 +80,9 @@ const AprendeCMRPuntos = () => {
             Paga menos con CMR puntos
           </h3>
           <p className="mb-3    ">
-                Ahorra en el total de tu compra usando con tus CMR Puntos.
-            <strong className="text-gray-900">
-                Tiendas Homecenter:
-            </strong>{' '}
-                complementa el pago con el medio de pago que tu quieras
+            Ahorra en el total de tu compra usando con tus CMR Puntos.
+            <strong className="text-gray-900">Tiendas Homecenter:</strong>{" "}
+            complementa el pago con el medio de pago que tu quieras
           </p>
           <button className="bg-lime-600 text-white text-sm font-semibold px-5 py-2 rounded-full">
             Ver más
@@ -91,5 +92,3 @@ const AprendeCMRPuntos = () => {
     </section>
   );
 };
-
-export default AprendeCMRPuntos;

@@ -1,10 +1,8 @@
-'use client';
+import Image from "next/image";
+import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { ChevronDown } from 'lucide-react';
-
-const CMRHeader = () => {
+export const CMRHeader = () => {
   return (
     <header className="bg-[#f7f9fb] py-4 px-6">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -50,13 +48,9 @@ const CMRHeader = () => {
             </div>
 
             <span className="text-gray-300">|</span>
-            <Link href="#">
-              Cómo acumular
-            </Link>
+            <Link href="#">Cómo acumular</Link>
             <span className="text-gray-300">|</span>
-            <Link href="#">
-              Centro de ayuda
-            </Link>
+            <Link href="#">Centro de ayuda</Link>
           </nav>
         </div>
 
@@ -73,5 +67,3 @@ const CMRHeader = () => {
     </header>
   );
 };
-
-export default CMRHeader;

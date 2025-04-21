@@ -1,5 +1,5 @@
+import { getCart } from "@/actions/basket/cart";
 import { ShoppingCartIcon } from "lucide-react";
-import { cookies } from "next/headers";
 import Link from "next/link";
 
 export const getTotalItems = (cart: Record<string, number>) => {
@@ -13,8 +13,7 @@ export const getTotalItems = (cart: Record<string, number>) => {
 };
 
 export const Cart = async () => {
-  const cookieStore = cookies();
-  const cart = JSON.parse((await cookieStore).get("cart")?.value ?? "{}");
+  const cart = await getCart();
   const totalItems = getTotalItems(cart);
 
   return (

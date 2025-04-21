@@ -1,6 +1,6 @@
 import { Products } from "@/interfaces/categories/product";
-import { SellerAccordion } from "./SellerAccordion";
-import { OrderSummary } from "./OrderSummary";
+import { OrderSummary } from "./cart/OrderSummary";
+import { SellerAccordion } from "./products/SellerAccordion";
 
 interface Props {
   products: Products[];
@@ -36,7 +36,7 @@ export const ShoppingCart = ({ products, totalItems }: Props) => {
         <p className="font-bold text-[24px] text-[#333] pb-5 pt-4">
           Resumen de la orden
         </p>
-        <OrderSummary />
+        <OrderSummary products={products} />
       </section>
     </div>
   );

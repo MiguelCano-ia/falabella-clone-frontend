@@ -1,37 +1,48 @@
-import { deleteCookie, getCookie, hasCookie, setCookie } from "cookies-next";
+import { cookies } from "next/headers";
 
-export const getCookieCart = () => {
-  if (hasCookie("cart")) {
-    const cookieCart = JSON.parse((getCookie("cart") as string) ?? "{}");
+export const getCookieCart = async () => {
+  const cookieStore = await cookies();
+  if (cookieStore.has("cart")) {
+    const cookieCart = JSON.parse(cookieStore.get("cart")?.value ?? "{}");
     return cookieCart;
   }
 
   return {};
 };
 
-export const addProductToCart = (id: string) => {
-  const cookieCart = getCookieCart();
+export const addProductToCart = async (id: string) => {
+  const cookieStore = await cookies();
+  const cookieCart = await getCookieCart();
 
   if (cookieCart[id]) {
     cookieCart[id] += 1;
   } else {
     cookieCart[id] = 1;
   }
-
-  setCookie("cart", JSON.stringify(cookieCart));
+  console.log("Estado nuevo del carrito:", cookieCart);
+  cookieStore.set("cart", JSON.stringify(cookieCart));
 };
 
-export const removeProductFromCart = (id: string) => {
-  const cookieCart = getCookieCart();
+export const removeProductFromCart = async (id: string) => {
+  const cookieStore = await cookies();
+  const cookieCart = await getCookieCart();
   if (cookieCart[id] === 1) {
     delete cookieCart[id];
   } else {
     cookieCart[id] -= 1;
   }
 
-  setCookie("cart", JSON.stringify(cookieCart));
+  cookieStore.set("cart", JSON.stringify(cookieCart));
 };
 
-export const clearCookieCart = () => {
-  deleteCookie("cart", { path: "/" });
+export const deleteProductFromCart = async (id: string) => {
+  const cookieStore = await cookies();
+  const cookieCart = await getCookieCart();
+  delete cookieCart[id];
+  cookieStore.set("cart", JSON.stringify(cookieCart));
+};
+
+export const clearCookieCart = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete("cart");
 };

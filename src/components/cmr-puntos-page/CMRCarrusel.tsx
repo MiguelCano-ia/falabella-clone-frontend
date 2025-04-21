@@ -1,38 +1,37 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useEffect, useState, useCallback } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from "next/image";
+import { useEffect, useState, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
   {
     id: 1,
-    title: '¡Nueva Alianza!',
+    title: "¡Nueva Alianza!",
     description:
-      'Ahora acumulas CMR Puntos en CYGLO pagando con cualquier medio de pago',
-    cta: 'Conoce más aquí',
-    image: '/images/cmr-cyglo.jpg', // asegúrate de tener esta imagen en public/images
+      "Ahora acumulas CMR Puntos en CYGLO pagando con cualquier medio de pago",
+    cta: "Conoce más aquí",
+    image: "/images/cmr-cyglo.jpg", // asegúrate de tener esta imagen en public/images
   },
   {
     id: 2,
-    title: 'Acumula CMR Puntos en todas tus compras',
-    description:
-      'Pide YA tu Tarjeta CMR Banco Falabella',
-    cta: 'Adquiérela ahora',
-    image: '/images/cmr-cyglo.jpg', // asegúrate de tener esta imagen en public/images
+    title: "Acumula CMR Puntos en todas tus compras",
+    description: "Pide YA tu Tarjeta CMR Banco Falabella",
+    cta: "Adquiérela ahora",
+    image: "/images/cmr-cyglo.jpg", // asegúrate de tener esta imagen en public/images
   },
   {
     id: 3,
-    title: 'Inscribete gratis y recibe 1.000 CMR Puntos',
+    title: "Inscribete gratis y recibe 1.000 CMR Puntos",
     description:
-      '!Que te regalan Falabella y Homecenter para redimir en lo que quieras¡',
-    cta: 'Inscribete aquí',
-    image: '/images/cmr-cyglo.jpg', // asegúrate de tener esta imagen en public/images
+      "!Que te regalan Falabella y Homecenter para redimir en lo que quieras¡",
+    cta: "Inscribete aquí",
+    image: "/images/cmr-cyglo.jpg", // asegúrate de tener esta imagen en public/images
   },
 ];
 
-const CMRCarousel = () => {
+export const CMRCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -45,7 +44,7 @@ const CMRCarousel = () => {
 
   useEffect(() => {
     if (!emblaApi) return;
-    emblaApi.on('select', onSelect);
+    emblaApi.on("select", onSelect);
     onSelect();
   }, [emblaApi, onSelect]);
 
@@ -105,8 +104,8 @@ const CMRCarousel = () => {
             onClick={() => scrollTo(index)}
             className={`w-2 h-2 rounded-full transition-all ${
               index === selectedIndex
-                ? 'bg-[#cddc39] w-4'
-                : 'bg-gray-300 hover:bg-gray-400'
+                ? "bg-[#cddc39] w-4"
+                : "bg-gray-300 hover:bg-gray-400"
             }`}
           />
         ))}
@@ -114,5 +113,3 @@ const CMRCarousel = () => {
     </div>
   );
 };
-
-export default CMRCarousel;

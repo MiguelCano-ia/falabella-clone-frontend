@@ -1,14 +1,20 @@
 export const API = {
-  add: "/cart/add_product",
-  get: "/cart",
-  del: "/cart/remove_product",
-  put: "/cart/update_product",
+  add: "http://localhost:4000/cart/add_product",
+  get: "http://localhost:4000/cart",
+  del: "http://localhost:4000/cart/remove_product",
+  put: "http://localhost:4000/cart/update_quantity",
 };
 
-interface AddAndPut {
+interface Add {
   userId: string;
   productId: string;
   quantity: string;
+}
+
+interface Put {
+  userId: number;
+  productId: number;
+  quantity: number;
 }
 
 interface Get {
@@ -20,4 +26,4 @@ interface Delete {
   productId: string;
 }
 
-export type Body = AddAndPut | Get | Delete | null;
+export type Body = Add | Put | Get | Delete | null;

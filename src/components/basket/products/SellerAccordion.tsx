@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Products } from "@/interfaces/categories/product";
-import { ProductsList } from "./ProductsList";
 import Image from "next/image";
 import { useSelectionStore } from "@/store/basket/selection.store";
+import { ProductsList } from "./ProductsList";
 
 const EMPTY_MAP: Record<string, boolean> = {};
 

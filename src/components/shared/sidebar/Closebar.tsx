@@ -21,7 +21,7 @@ export const Closebar = ({ title }: Props) => {
           title !== "Hola!"
             ? "text-[14px] leading-[17px] text-foreground"
             : "text-[19px] leading-[22.8px] text-primary"
-        } flex items-center    font-bold  lg:block`}
+        } flex items-center font-bold lg:block`}
         onClick={
           openSubCategory
             ? () => setOpenSubCategory("")

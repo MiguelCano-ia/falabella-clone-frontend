@@ -1,17 +1,17 @@
+"use server";
+
 import { getUser } from "@/actions/auth/helpers/getUser";
-import { EmptyCart } from "@/components/basket/EmptyCart";
 import { ShoppingCart } from "@/components/basket/ShoppingCart";
 import { Products } from "@/interfaces/categories/product";
-import { cookies } from "next/headers";
 import { getProduct } from "../product/[id]/page";
 import { getTotalItems } from "@/components/shared/header/header-navbar/right-section/Cart";
-import { NotAuthenticated } from "@/components/basket/NotAuthenticated";
+import { NotAuthenticated } from "@/components/basket/auth/NotAuthenticated";
+import { getCart } from "@/actions/basket/cart";
+import { EmptyCart } from "@/components/basket/cart/EmptyCart";
 
 export default async function Page() {
   const user = await getUser();
-
-  const cookieStore = cookies();
-  const cart = JSON.parse((await cookieStore).get("cart")?.value ?? "{}");
+  const cart = await getCart();
 
   const idItems = Object.keys(cart);
   const totalItems = getTotalItems(cart);
