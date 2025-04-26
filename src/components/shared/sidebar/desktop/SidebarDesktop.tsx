@@ -7,8 +7,7 @@ import { SubCategories } from "./SubCategories";
 import { useUIStore } from "@/store/ui";
 import { CategoryTitlte } from "./CategoryTitlte";
 import { Category, Subcategory } from "@/interfaces/categories/category";
-import { useEffect, useState } from "react";
-import { getUser } from "@/actions/auth/helpers/getUser";
+import { useState } from "react";
 
 interface Props {
   categories: Category[];

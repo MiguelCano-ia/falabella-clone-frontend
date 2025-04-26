@@ -27,7 +27,7 @@ const cmrBenefits = [
   },
 ];
 
-const shoppingBenefits = [
+export const shoppingBenefits = [
   {
     id: 1,
     image:
@@ -60,10 +60,9 @@ const shoppingBenefits = [
   },
 ];
 
-const InformationSection = () => {
+export const InformationSection = () => {
   return (
     <div className="mt-10 mb-10">
-      {/* Beneficios CMR */}
       <div className="flex justify-center gap-8">
         {cmrBenefits.map((benefit) => (
           <div key={benefit.id} className="text-center w-[200px]">
@@ -79,10 +78,8 @@ const InformationSection = () => {
         ))}
       </div>
 
-      {/* Línea divisoria */}
       <div className="border-t border-gray-300 my-6"></div>
 
-      {/* Beneficios de compra (más grandes y alineados) */}
       <div className="flex justify-center gap-6 max-w-[900px] mx-auto">
         {shoppingBenefits.map((benefit) => (
           <div
@@ -92,7 +89,7 @@ const InformationSection = () => {
             <Image
               src={benefit.image}
               alt={benefit.text}
-              width={100} // Aumentado de 80px a 100px
+              width={100}
               height={100}
               objectFit="contain"
             />
@@ -103,5 +100,3 @@ const InformationSection = () => {
     </div>
   );
 };
-
-export default InformationSection;

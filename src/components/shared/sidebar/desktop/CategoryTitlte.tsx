@@ -28,8 +28,9 @@ export const CategoryTitlte = ({ title, icon }: Props) => {
         </Link>
       </div>
       <Link
-        href="#"
+        href={`/falabella-co/products/${toSlug(title)}`}
         className="text-[14px] leading-[16.8px] text-[#68717d] underline underline-offset-2"
+        onClick={closeSidebar}
       >
         Ver todo
       </Link>

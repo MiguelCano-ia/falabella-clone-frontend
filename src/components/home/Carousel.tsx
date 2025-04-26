@@ -38,11 +38,11 @@ const slides = [
   },
 ];
 
-export function Carousel() {
+export const Carousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0); // Estado para el dot activo
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const updateButtons = useCallback(() => {
     if (!emblaApi) return;
@@ -123,4 +123,4 @@ export function Carousel() {
       </div>
     </div>
   );
-}
+};

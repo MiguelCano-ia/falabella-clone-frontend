@@ -6,6 +6,7 @@ import {
 } from "@/components";
 
 const getProducts = async (slug: string[]) => {
+  console.log(slug);
   try {
     if (slug[2] === "ver_todo") {
       slug = slug.filter((item) => item !== "ver_todo");

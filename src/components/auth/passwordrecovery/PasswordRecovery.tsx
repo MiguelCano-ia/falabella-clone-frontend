@@ -12,7 +12,7 @@ import {
   passwordRecoverySchema,
 } from "@/validations/auth/password.recovery";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { startTransition, useActionState, useState } from "react";
+import { startTransition, useActionState, useEffect, useState } from "react";
 import { passwordRecoveryAction } from "@/actions/auth/password.recovery";
 import { useUIStore } from "@/store/ui";
 
@@ -27,7 +27,7 @@ export const PasswordRecoveryForm = () => {
     resolver: zodResolver(passwordRecoverySchema),
     mode: "onBlur",
   });
-
+  const [localHasOtp, setLocalHasOtp] = useState(false);
   const [state, action] = useActionState(passwordRecoveryAction, undefined);
   const [rawPassword, setRawPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -35,10 +35,10 @@ export const PasswordRecoveryForm = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const hasOtp =
-    searchParams.get("have-otp") === "true" || state?.successSentCode;
+  const hasOtp = searchParams.get("have-otp") === "true" || localHasOtp;
 
   const handleClick = () => {
+    setLocalHasOtp(true);
     router.push("/falabella-co/myaccount/passwordrecovery?have-otp=true");
   };
 
@@ -48,6 +48,14 @@ export const PasswordRecoveryForm = () => {
       openLoginForm();
     }, 2000);
   };
+
+  useEffect(() => {
+    if (state?.successSentCode) {
+      setLocalHasOtp(true);
+    }
+  }, [state?.successSentCode]);
+
+  console.log(state?.successSentCode, state?.successVerifyCode, state?.errors);
 
   return (
     <form
@@ -80,7 +88,10 @@ export const PasswordRecoveryForm = () => {
           <Input
             {...register("email")}
             id="email"
-            onChange={() => clearErrors("email")}
+            onChange={(e) => {
+              clearErrors("email");
+              setValue("email", e.target.value, { shouldValidate: true });
+            }}
             placeholder="Ingresa tu correo electrónico"
             className={`border-t-0 border-x-0 border-b-[1px] border-b-[#A6A6A6] rounded-none p-0 text-sm placeholder:text-[#BBBBBB] font-normal focus:outline-none focus-visible:ring-0 w-[432px] ${
               errors.email && "border-b-[#BC001C]"
@@ -128,6 +139,9 @@ export const PasswordRecoveryForm = () => {
                 style={{
                   WebkitBoxShadow: "0 0 0px 1000px white inset",
                 }}
+                onChange={(e) => {
+                  setValue("code", e.target.value, { shouldValidate: true });
+                }}
               />
               {errors.code && (
                 <X
@@ -166,6 +180,9 @@ export const PasswordRecoveryForm = () => {
                   onChange={(e) => {
                     clearErrors("new_password");
                     setRawPassword(e.target.value);
+                    setValue("new_password", e.target.value, {
+                      shouldValidate: true,
+                    });
                   }}
                   placeholder="Ingresa una contraseña"
                   className="border-0 rounded-none p-0 text-sm placeholder:text-[#BBBBBB] font-normal focus:outline-none focus-visible:ring-0"
@@ -210,14 +227,15 @@ export const PasswordRecoveryForm = () => {
             : "bg-primary-foreground text-gray-400 cursor-not-allowed"
         } w-full text-[14px] h-[55px] rounded-[55px] font-bold`}
         disabled={!isValid}
-        onClick={
-          (state?.successSentCode && handleClick) ||
-          (state?.successVerifyCode && redirectHome) ||
-          undefined
-        }
+        onClick={() => {
+          if (!state?.errors && state?.successVerifyCode) {
+            redirectHome();
+          }
+        }}
       >
         {hasOtp ? "Crear" : "Continuar"}
       </Button>
+
       <span
         className={`${
           !hasOtp && "underline underline-offset-1 cursor-pointer"
@@ -227,9 +245,9 @@ export const PasswordRecoveryForm = () => {
         {hasOtp ? (
           <span>
             ¿Aún no te llega? puedes pedir un nuevo código por{" "}
-            <span className="underline underline-offset-1 cursor-pointer">
+            <button className="underline underline-offset-1 cursor-pointer">
               correo
-            </span>
+            </button>
           </span>
         ) : (
           "Ya tengo el código verificador"
