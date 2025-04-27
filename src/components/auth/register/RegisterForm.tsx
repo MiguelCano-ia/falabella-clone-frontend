@@ -1,6 +1,12 @@
 "use client";
 
-import { startTransition, useActionState, useRef, useState } from "react";
+import {
+  startTransition,
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useForm } from "react-hook-form";
 import { useUIStore } from "@/store/ui";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +15,7 @@ import { ChevronDown, Eye, EyeOff, X } from "lucide-react";
 import { FormFields, registerFormSchema } from "@/validations/auth/register";
 import { PasswordReq } from "./PasswordReq";
 import { registerAction } from "@/actions/auth/register";
+import { redirect } from "next/navigation";
 
 export const RegisterForm = () => {
   const {
@@ -44,6 +51,12 @@ export const RegisterForm = () => {
   const identityRef = useOutsideClick(() => {
     closeIdentityField();
   });
+
+  useEffect(() => {
+    if (state?.authenticated) {
+      redirect("/falabella-co");
+    }
+  }, [state?.authenticated]);
 
   return (
     <form
@@ -279,7 +292,7 @@ export const RegisterForm = () => {
             {errors.phone.message}
           </span>
         )}
-        {state?.errors.phone && (
+        {state?.errors?.phone && (
           <span className="text-[12px] text-[#BC001C]">
             {state?.errors.phone}
           </span>

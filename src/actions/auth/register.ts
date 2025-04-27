@@ -6,7 +6,6 @@ import {
   FormState,
   registerFormSchema,
 } from "@/validations/auth/register";
-import { redirect } from "next/navigation";
 
 export async function registerAction(state: FormState, data: FormFields) {
   const validatedFields = registerFormSchema.safeParse(data);
@@ -38,5 +37,8 @@ export async function registerAction(state: FormState, data: FormFields) {
     };
   }
   await createSession(result.token);
-  redirect("/");
+
+  return {
+    authenticated: true,
+  };
 }

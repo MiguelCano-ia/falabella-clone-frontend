@@ -56,7 +56,7 @@ export const ProductCarousel = ({ products, title, scrollBy }: Props) => {
               <div>
                 <div className="relative w-full h-40 bg-gray-200 rounded-lg overflow-hidden">
                   <Image
-                    src={`http://localhost:4000/images/${product.images[0]}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/images/${product.images[0]}`}
                     alt={product.title}
                     width={276}
                     height={276}
