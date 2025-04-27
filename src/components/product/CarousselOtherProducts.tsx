@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import { useRef } from "react";
 
 const productosRecomendados = [
@@ -85,10 +86,12 @@ export const CarousselOtherProducts = () => {
                 key={prod.id}
                 className="min-w-[160px] bg-white border rounded-lg shadow-sm p-3"
               >
-                <img
+                <Image
                   src={prod.imagen}
                   alt={prod.nombre}
-                  className="w-full h-28 object-cover mb-2 rounded"
+                  width={160}
+                  height={28}
+                  className="object-cover mb-2 rounded"
                 />
                 <p className="text-xs text-gray-500 uppercase font-semibold">
                   MOTOROLA

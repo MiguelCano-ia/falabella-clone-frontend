@@ -9,7 +9,6 @@ import {
   ProductFeedback,
   SimilarOptions,
   Specifications,
-  YouMightAlsoLike,
 } from "@/components/product";
 
 export const getProduct = async (id: number): Promise<Products> => {
@@ -253,7 +252,7 @@ export default async function Page({
       <Specifications />
       <CarousselOtherProducts />
       <SimilarOptions />
-      <YouMightAlsoLike />
+      {/* <YouMightAlsoLike /> */}
       <ProductFeedback />
     </div>
   );

@@ -55,7 +55,6 @@ export const PromotionalBanners = () => {
               alt="Banner Promocional"
               width={banner.id === 7 ? 1600 : 750}
               height={250}
-              objectFit="cover"
             />
           </div>
         ))}

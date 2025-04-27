@@ -102,7 +102,6 @@ export const LatestReleases = () => {
           alt="Lo Último Primero en Falabella"
           width={2074}
           height={104}
-          objectFit="contain"
         />
       </div>
 
@@ -121,7 +120,6 @@ export const LatestReleases = () => {
               alt="Último Producto"
               width={product.id >= 13 && product.id <= 14 ? 590 : 276}
               height={product.id >= 13 && product.id <= 14 ? 220 : 276}
-              objectFit="cover"
             />
           </div>
         ))}

@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const slides = [
   {
@@ -75,13 +76,14 @@ export const Carousel = () => {
           {slides.map((slide) => (
             <div
               key={slide.id}
-              className="relative min-w-full flex items-center justify-center"
+              className="relative min-w-full flex items-center justify-center h-[433px]"
             >
               <Link href="/" className="w-full h-full block">
-                <img
+                <Image
                   src={slide.image}
                   alt={`slide-${slide.id}`}
-                  className="w-full h-[1688px] md:h-[433px] object-cover"
+                  fill
+                  className="object-cover"
                 />
                 <div className="absolute inset-0  flex flex-col items-start justify-center px-10 text-white" />
               </Link>

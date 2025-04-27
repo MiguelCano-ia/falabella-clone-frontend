@@ -71,7 +71,6 @@ export const InformationSection = () => {
               alt={benefit.text}
               width={200}
               height={200}
-              objectFit="contain"
             />
             <p className="text-sm font-semibold mt-2">{benefit.text}</p>
           </div>
@@ -91,7 +90,6 @@ export const InformationSection = () => {
               alt={benefit.text}
               width={100}
               height={100}
-              objectFit="contain"
             />
             <p className="text-sm mt-2">{benefit.text}</p>
           </div>

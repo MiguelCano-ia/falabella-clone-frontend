@@ -17,7 +17,7 @@ export const SuccessMessage = ({ visible }: { visible: boolean }) => {
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [visible]);
+  }, [visible, router]);
 
   if (!show) return null;
 

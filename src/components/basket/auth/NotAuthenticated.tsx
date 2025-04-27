@@ -8,6 +8,6 @@ export const NotAuthenticated = () => {
 
   useEffect(() => {
     openLoginForm();
-  }, []);
+  }, [openLoginForm]);
   return null;
 };
