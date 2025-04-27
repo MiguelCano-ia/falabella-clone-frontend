@@ -1,6 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 export const Footer = () => {
   return (
@@ -128,6 +127,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-  </>
+    </>
   );
 };
