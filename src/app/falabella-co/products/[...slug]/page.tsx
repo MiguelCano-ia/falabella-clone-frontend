@@ -6,14 +6,13 @@ import {
 } from "@/components";
 
 const getProducts = async (slug: string[]) => {
-  console.log(slug);
   try {
     if (slug[2] === "ver_todo") {
       slug = slug.filter((item) => item !== "ver_todo");
     }
 
     const response = await fetch(
-      `http://localhost:4000/collection/${slug.join("/")}`
+      `${process.env.API_URL}/collection/${slug.join("/")}`
     ).then((res) => res.json());
 
     return response;

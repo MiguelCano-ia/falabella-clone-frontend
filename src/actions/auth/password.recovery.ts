@@ -18,7 +18,8 @@ export async function passwordRecoveryAction(
   }
 
   if (!data.code) {
-    const result = await fetch("http://localhost:4000/forgot_password", {
+    const result = await fetch(`${process.env.API_URL}/forgot_password`, {
+      cache: "no-cache",
       method: "POST",
       body: JSON.stringify({ email: data.email }),
       headers: {
@@ -44,7 +45,8 @@ export async function passwordRecoveryAction(
     };
   }
 
-  const result = await fetch("http://localhost:4000/verify_reset_code", {
+  const result = await fetch(`${process.env.API_URL}/verify_reset_code`, {
+    cache: "no-cache",
     method: "POST",
     body: JSON.stringify(data),
     headers: {

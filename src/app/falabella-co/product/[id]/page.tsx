@@ -13,7 +13,7 @@ import {
 } from "@/components/product";
 
 export const getProduct = async (id: number): Promise<Products> => {
-  const response = await fetch(`http://localhost:4000/product/${id}`).then(
+  const response = await fetch(`${process.env.API_URL}/product/${id}`).then(
     (res) => res.json()
   );
   return response;
@@ -43,7 +43,7 @@ export default async function Page({
         <div className="flex flex-col md:flex-row gap-12">
           <div className="w-full md:w-1/2 flex flex-col items-center">
             <Image
-              src={`http://localhost:4000/images/${product.images[0]}`}
+              src={`${process.env.API_URL}/images/${product.images[0]}`}
               alt={product?.brand || ""}
               width={500}
               height={500}
@@ -53,9 +53,7 @@ export default async function Page({
               {product?.images.map((image, index) => (
                 <Image
                   key={image}
-                  src={`http://localhost:4000/images/${
-                    product.images[index + 1]
-                  }`}
+                  src={`${process.env.API_URL}/images/${product.images[index]}`}
                   width={80}
                   height={80}
                   alt="Miniatura"
@@ -112,31 +110,47 @@ export default async function Page({
               </div>
 
               <div className="w-full md:w-1/2">
-                <div className="flex items-center gap-1 mb-1">
-                  <Image
-                    src="/images/category/specialdiscount.png"
-                    width={60}
-                    height={60}
-                    alt="cmr-points"
-                  />
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <p className="text-2xl font-bold text-red-600">
-                    {formatCOP(product.special_price!)}
+                <div className="flex flex-col items-start">
+                  {product.special_price && (
+                    <>
+                      <Image
+                        src="/images/category/specialdiscount.png"
+                        alt="cmr"
+                        width={61}
+                        height={20}
+                      />
+                      <div className="flex items-center gap-2">
+                        <span className="text-[18px] text-[#E4022D]">
+                          {formatCOP(product.special_price!)}
+                        </span>
+                        <span className="bg-[#e4022d] text-white px-[5px] rounded-[3px] font-bold text-[12px] ">
+                          -{product.special_discount_percentage}%
+                        </span>
+                      </div>
+                    </>
+                  )}
+                  <div className="flex items-center gap-2">
+                    {product.discount_price && (
+                      <p className="text-[18px] text-[#717171]">
+                        {formatCOP(product.discount_price)}
+                      </p>
+                    )}
+                    {!product.special_price && product.discount_percentage && (
+                      <span className="bg-[#e4022d] text-white px-[5px] rounded-[3px] font-bold text-[12px] ">
+                        -{product.discount_percentage}%
+                      </span>
+                    )}
+                  </div>
+                  <p
+                    className={`text-[14px] text-[#717171] ${
+                      product.special_price || product.discount_price
+                        ? "line-through"
+                        : "text-[18px] text-start mr-16"
+                    }`}
+                  >
+                    {formatCOP(product.price)}
                   </p>
-                  <span className="bg-red-500 text-white px-2 py-1 rounded-sm text-xs font-bold">
-                    -{product?.special_discount_percentage}%
-                  </span>
                 </div>
-
-                <p className="text-xl font-semibold">
-                  {formatCOP(product?.discount_price)}
-                </p>
-
-                <p className="text-gray-500 text-lg line-through">
-                  {formatCOP(product?.price)}
-                </p>
 
                 <div className="mt-2">
                   <span className="bg-green-100 text-green-600 px-2 py-1 rounded text-sm font-semibold">

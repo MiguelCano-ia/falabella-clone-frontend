@@ -11,7 +11,8 @@ export const getUser = cache(async (): Promise<UserData | null> => {
   }
 
   try {
-    const user = await fetch("http://localhost:4000/profile", {
+    const user = await fetch(`${process.env.API_URL}/profile`, {
+      cache: "no-cache",
       headers: {
         Authorization: `Bearer ${session}`,
       },

@@ -16,7 +16,8 @@ export async function loginAction(state: FormState, data: FormFields) {
     };
   }
 
-  const result = await fetch("http://localhost:4000/login", {
+  const result = await fetch(`${process.env.API_URL}/login`, {
+    cache: "no-store",
     method: "POST",
     body: JSON.stringify(data),
     headers: {

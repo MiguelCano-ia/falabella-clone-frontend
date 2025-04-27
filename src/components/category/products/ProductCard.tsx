@@ -41,8 +41,8 @@ export const ProductCard = ({ product }: Props) => {
           onMouseLeave={() => setAdd(false)}
         >
           <Image
-            src={`http://localhost:4000/images/${product.images[0]}`}
-            alt="dell"
+            src={`${process.env.NEXT_PUBLIC_API_URL}/${product.images[0]}`}
+            alt={product.brand}
             width={227}
             height={227}
             className="rounded-t-[12px]  w-[227px] h-[227px] object-contain"

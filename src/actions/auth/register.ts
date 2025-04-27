@@ -16,7 +16,8 @@ export async function registerAction(state: FormState, data: FormFields) {
     };
   }
 
-  const result = await fetch("http://localhost:4000/register", {
+  const result = await fetch(`${process.env.API_URL}/register`, {
+    cache: "no-store",
     method: "POST",
     body: JSON.stringify(data),
     headers: {

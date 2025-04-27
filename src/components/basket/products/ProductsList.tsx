@@ -58,7 +58,7 @@ export const ProductsList = ({ products, seller }: Props) => {
 
             <div className="w-[100px] h-[100px] relative flex-shrink-0">
               <Image
-                src={`http://localhost:4000/images/${product.images[0]}`}
+                src={`${process.env.NEXT_PUBLIC_API_URL}/${product.images[0]}`}
                 alt={product.title}
                 width={100}
                 height={100}

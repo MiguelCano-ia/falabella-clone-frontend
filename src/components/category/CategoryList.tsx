@@ -23,7 +23,7 @@ export const CategoryList = ({ banner, featured, slugs }: Props) => {
     <div className="mb-[5px] max-w-[1280px] w-full bg-[#fff]">
       {banner && (
         <Image
-          src={`http://localhost:4000/images/${banner}`}
+          src={`${process.env.API_URL}/images/${banner}`}
           width={1280}
           height={56}
           alt="banner"
@@ -39,7 +39,7 @@ export const CategoryList = ({ banner, featured, slugs }: Props) => {
                   className="flex flex-col items-center justify-center"
                 >
                   <Image
-                    src={`http://localhost:4000/images/${feature.image}`}
+                    src={`${process.env.API_URL}/images/${feature.image}`}
                     width={110}
                     height={110}
                     alt={feature.name}

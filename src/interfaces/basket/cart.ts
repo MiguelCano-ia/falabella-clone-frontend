@@ -1,8 +1,8 @@
 export const API = {
-  add: "http://localhost:4000/cart/add_product",
-  get: "http://localhost:4000/cart",
-  del: "http://localhost:4000/cart/remove_product",
-  put: "http://localhost:4000/cart/update_quantity",
+  add: `${process.env.API_URL}/cart/add_product`,
+  get: `${process.env.API_URL}/cart`,
+  del: `${process.env.API_URL}/cart/remove_product`,
+  put: `${process.env.API_URL}/cart/update_quantity`,
 };
 
 interface Add {

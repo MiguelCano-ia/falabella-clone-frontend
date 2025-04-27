@@ -1,7 +1,7 @@
 import { ProductCarousel } from "./ProductCarousel";
 
 const getMenProducts = async () => {
-  const res = fetch("http://localhost:4000/collection/moda_hombre");
+  const res = fetch(`${process.env.API_URL}/collection/moda_hombre`);
   return (await res).json();
 };
 

@@ -54,7 +54,7 @@ export const CartModal = ({ cart }: Props) => {
 
         <div className="flex items-start h-[185px]">
           <Image
-            src={`http://localhost:4000/images/${product.images[0]}`}
+            src={`${process.env.NEXT_PUBLIC_API_URL}/${product.images[0]}`}
             alt={product.brand}
             width={60}
             height={60}

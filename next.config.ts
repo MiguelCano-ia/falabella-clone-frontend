@@ -4,9 +4,11 @@ const nextConfig: NextConfig = {
   output: "standalone",
   images: {
     domains: [
-      "imagedelivery.net",  // Dominio que ya tenías
+      "imagedelivery.net",
       "images.falabella.com",
-      "images.ctfassets.net" // Nuevo dominio que estás agregando
+      "images.ctfassets.net",
+      "falabella-backend.onrender.com",
+      "images/*",
     ],
     remotePatterns: [
       {

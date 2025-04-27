@@ -17,16 +17,14 @@ export async function editProfileAction(state: FormState, data: FormFields) {
 
   const user = await getUser();
 
-  const result = await fetch(
-    `http://localhost:4000/editProfile/${user?.user_id}`,
-    {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  ).then((res) => res.json());
+  const result = await fetch(`${process.env.API_URL}/${user?.user_id}`, {
+    cache: "no-store",
+    method: "PUT",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => res.json());
 
   if (result.errors) {
     return {
