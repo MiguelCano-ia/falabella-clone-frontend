@@ -7,9 +7,10 @@ interface Props {
 }
 
 const ProductDiscount = ({ product }: Props) => {
+  console.log(product);
   return (
     <div className="flex flex-col mb-[12px]">
-      {product.special_discount_percentage && (
+      {product.special_price && (
         <>
           <Image
             src="/images/category/specialdiscount.png"
@@ -46,7 +47,7 @@ const ProductDiscount = ({ product }: Props) => {
       )}
       <span
         className={`text-[#717171] ${
-          !product.special_discount_percentage && !product.discount_percentage
+          !product.special_price && !product.discount_percentage
             ? "text-[18px]"
             : "text-[14px] line-through"
         } `}

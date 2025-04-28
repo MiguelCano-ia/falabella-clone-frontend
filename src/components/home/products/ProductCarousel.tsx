@@ -6,7 +6,7 @@ import { useEffect, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Products } from "@/interfaces/categories/product";
-import ProductDiscount from "@/components/category/products/shared/ProductDIscount";
+import ProductDiscount from "@/components/category/products/shared/ProductDiscount";
 
 interface Props {
   products: Products[];

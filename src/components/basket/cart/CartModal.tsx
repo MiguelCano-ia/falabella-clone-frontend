@@ -110,7 +110,9 @@ export const CartModal = ({ cart }: Props) => {
             </div>
           </div>
           <div className="flex items-center mx-4">
-            <div
+            <button
+              title="dismunir"
+              disabled={productQuantity === 1}
               className="flex items-center justify-center h-[30px] w-[30px] bg-[#EEE] font-bold"
               onClick={() => {
                 onRemoveFromCart(
@@ -121,18 +123,26 @@ export const CartModal = ({ cart }: Props) => {
               }}
             >
               <Minus size={10} className="text-black" />
-            </div>
+            </button>
             <span className="mx-4 text-[14px]">{productQuantity}</span>
-            <div
+            <button
+              title="aumentar"
+              disabled={productQuantity >= product.stock}
               className="flex items-center justify-center h-[30px] w-[30px] bg-[#EEE] font-bold"
               onClick={() => {
                 onAddToCart(product.id_product.toString());
               }}
             >
               <Plus size={10} className="text-black text-ce" />
-            </div>
+            </button>
           </div>
-          <p className="h-[32px] font-normal text-[12px] leading-[14.4px] text-[#888] mt-2">
+          <p
+            className={`h-[32px] font-normal text-[12px] leading-[14.4px] mt-2 ${
+              +product.cartQuantity! >= product.stock
+                ? "text-[#BD0202]"
+                : "text-[#888]"
+            }`}
+          >
             Máximo {product.stock} unidades.
           </p>
         </div>

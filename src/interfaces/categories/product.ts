@@ -8,7 +8,9 @@ export interface Products {
   special_discount_percentage: null | string;
   special_price: null | string;
   images: string[];
-  specifications: Specifications;
+  specifications: Record<string, string | number>;
+  category_slug: string;
+  section_slug: string;
   subcategory_slug: string;
   sold_by: string;
   rating: string;
@@ -17,48 +19,4 @@ export interface Products {
   created_at: Date;
   updated_at: Date;
   cartQuantity?: string;
-}
-
-export interface Specifications {
-  Garantia?: string;
-  Procesador: string;
-  "Memoria RAM": string;
-  "Requiere IMEI"?: string;
-  "Pantalla touch": string;
-  "Sistema operativo": string;
-  "Tipo de computador": string;
-  "Velocidad de imagen"?: string;
-  "Detalle de la garantia"?: string;
-  "Marca tarjeta gráfica": string;
-  "Requiere Serial Number"?: string;
-  "Tamaño de la pantalla": number;
-  "Cantidad de puertos USB"?: number;
-  "Condición del producto": string;
-  "Núcleos del procesador": string;
-  "Resolución de pantalla": string;
-  "Cantidad de puertos HDMI"?: number;
-  "Capacidad de almacenamiento": string;
-  "Caracteristicas de la pantalla"?: string;
-  Alto?: string;
-  Ancho?: string;
-  Marca?: string;
-  Modelo?: string;
-  Incluye?: string;
-  Garantía?: string;
-  Profundidad?: string;
-  "Entradas USB"?: number;
-  "Entradas HDMI"?: number;
-  "Disco duro HDD"?: string;
-  "RAM expandible"?: string;
-  "País de origen"?: string;
-  "Nombre comercial"?: string;
-  "Peso del producto"?: string;
-  "Velocidad máxima"?: string;
-  "Idioma del teclado"?: string;
-  "Cuenta con bluetooth"?: string;
-  "Conectividad/conexión"?: string;
-  "Tasa de refresco nativa"?: string;
-  "Procesador específico txt"?: string;
-  "Duración de la batería (hrs)"?: string;
-  "Velocidad de procesamiento (GHz)"?: string;
 }

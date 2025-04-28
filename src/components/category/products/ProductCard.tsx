@@ -10,7 +10,7 @@ import { useUIStore } from "@/store/ui";
 import { useCartStore } from "@/store/basket/cart.store";
 import { useSelectionStore } from "@/store/basket/selection.store";
 import { addToCart } from "@/actions/basket/cart";
-import ProductDiscount from "./shared/ProductDIscount";
+import ProductDiscount from "./shared/ProductDiscount";
 
 interface Props {
   product: Products;

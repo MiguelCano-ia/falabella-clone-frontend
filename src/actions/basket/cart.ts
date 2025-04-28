@@ -63,7 +63,7 @@ export async function getCart() {
 export async function addToCart(productId: string, quantity?: string) {
   const user = await getUser();
   if (!user) {
-    addProductToCart(productId);
+    addProductToCart(productId, +quantity!);
   } else {
     await call(
       API.add,
