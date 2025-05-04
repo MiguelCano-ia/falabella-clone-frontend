@@ -111,7 +111,7 @@ export const CartModal = ({ cart }: Props) => {
           </div>
           <div className="flex items-center mx-4">
             <button
-              title="dismunir"
+              aria-label="disminuir"
               disabled={productQuantity === 1}
               className="flex items-center justify-center h-[30px] w-[30px] bg-[#EEE] font-bold"
               onClick={() => {
@@ -126,7 +126,7 @@ export const CartModal = ({ cart }: Props) => {
             </button>
             <span className="mx-4 text-[14px]">{productQuantity}</span>
             <button
-              title="aumentar"
+              aria-label="aumentar"
               disabled={productQuantity >= product.stock}
               className="flex items-center justify-center h-[30px] w-[30px] bg-[#EEE] font-bold"
               onClick={() => {

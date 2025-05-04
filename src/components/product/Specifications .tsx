@@ -9,6 +9,8 @@ interface Props {
 export const Specifications = ({ specifications }: Props) => {
   const [expanded, setExpanded] = useState(false);
 
+  console.log(specifications);
+
   return (
     <div className="mt-12 bg-white p-6 rounded-lg shadow-md max-w-7xl mx-auto">
       <div
@@ -20,7 +22,7 @@ export const Specifications = ({ specifications }: Props) => {
           <div className="w-full">
             <h3 className="text-lg font-semibold mb-4">Especificaciones</h3>
             <div className="space-y-2 text-sm text-gray-700">
-              {Object.entries(specifications).map((item, index) => (
+              {/* {Object.entries(specifications).map((item, index) => (
                 <div
                   key={index}
                   className={`flex items-center justify-between p-3 rounded ${
@@ -32,7 +34,7 @@ export const Specifications = ({ specifications }: Props) => {
                   </span>
                   <span className="text-right w-[250px]">{item[1]}</span>
                 </div>
-              ))}
+              ))} */}
             </div>
           </div>
 

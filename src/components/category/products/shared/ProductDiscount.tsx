@@ -7,7 +7,6 @@ interface Props {
 }
 
 const ProductDiscount = ({ product }: Props) => {
-  console.log(product);
   return (
     <div className="flex flex-col mb-[12px]">
       {product.special_price && (

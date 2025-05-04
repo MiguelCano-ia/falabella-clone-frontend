@@ -16,7 +16,13 @@ interface Props {
 export const ProductDetailPage = ({ product, cart }: Props) => {
   return (
     <div className="bg-white max-w-7xl mx-auto rounded-lg shadow-lg pl-2 pr-12 pt-1 pb-6">
-      <Breadcrumbs slugs={[product.section_slug, product.subcategory_slug]} />
+      <Breadcrumbs
+        slugs={[
+          product.section_slug,
+          product.category_slug,
+          product.subcategory_slug,
+        ]}
+      />
 
       <div className="flex flex-col md:flex-row gap-12">
         <ImageGallery product={product} />

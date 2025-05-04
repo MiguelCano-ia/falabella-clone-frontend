@@ -3,11 +3,11 @@
 import { getUser } from "@/actions/auth/helpers/getUser";
 import { ShoppingCart } from "@/components/basket/ShoppingCart";
 import { Products } from "@/interfaces/categories/product";
-import { getProduct } from "../product/[id]/page";
 import { getTotalItems } from "@/components/shared/header/header-navbar/right-section/Cart";
 import { NotAuthenticated } from "@/components/basket/auth/NotAuthenticated";
 import { getCart } from "@/actions/basket/cart";
 import { EmptyCart } from "@/components/basket/cart/EmptyCart";
+import { getProduct } from "../product/[id]/page";
 
 export default async function Page() {
   const user = await getUser();

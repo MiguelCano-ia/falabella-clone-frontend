@@ -137,7 +137,7 @@ export const ProductsList = ({ products, seller }: Props) => {
               </div>
               <div className="flex items-center mx-4">
                 <button
-                  title="disminuir"
+                  aria-label="disminuir"
                   className={`flex items-center justify-center h-[26px] w-[26px] rounded-[10px] bg-[#343E49] font-bold ${
                     !isChecked ? "bg-[#D1D1D1]" : "bg-[#343E49]"
                   }`}
@@ -153,7 +153,10 @@ export const ProductsList = ({ products, seller }: Props) => {
                 </button>
                 <span className="mx-4 text-[14px]">{product.cartQuantity}</span>
                 <button
-                  title="aumentar"
+                  aria-label="aumentar"
+                  disabled={
+                    +product.cartQuantity! >= product.stock || !isChecked
+                  }
                   className={`flex items-center justify-center h-[26px] w-[26px] rounded-[10px] font-bold ${
                     +product.cartQuantity! >= product.stock || !isChecked
                       ? "bg-[#D1D1D1]"

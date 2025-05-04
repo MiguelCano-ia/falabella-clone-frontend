@@ -11,8 +11,9 @@ import { Products } from "@/interfaces/categories/product";
 import { formatCOP } from "@/lib/formatCop";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
 import { useOrderSummary } from "../hooks/useOrderSummary";
+import { useState } from "react";
+import { redirect } from "next/navigation";
 
 interface Props {
   products: Products[];
@@ -28,7 +29,12 @@ export const OrderSummary = ({ products }: Props) => {
     totalDiscount,
     specialDiscounts,
     totalSpecialDiscount,
+    totalDiscountOnly,
   } = useOrderSummary(products);
+
+  const hasExceededStock = () => {
+    return products.some((product) => +product.cartQuantity! > product.stock);
+  };
 
   return (
     <div className="w-auto h-auto bg-white rounded-[10px] shadow-sm px-[22.5px] py-[16px] flex flex-col gap-5">
@@ -65,6 +71,7 @@ export const OrderSummary = ({ products }: Props) => {
                     if (product.discount_price) {
                       const words = product.title.split(" ");
                       const label = words.slice(0, 3).join(" ");
+
                       return (
                         <div
                           className="flex justify-between gap-2"
@@ -110,7 +117,13 @@ export const OrderSummary = ({ products }: Props) => {
                   height={20}
                 />
                 <span className="text-[#D60303] font-bold text-[14px]">
-                  {formatCOP((total - totalSpecialDiscount).toString())}
+                  {formatCOP(
+                    (
+                      total -
+                      totalSpecialDiscount -
+                      totalDiscountOnly
+                    ).toString()
+                  )}
                 </span>
               </div>
             </div>
@@ -119,7 +132,13 @@ export const OrderSummary = ({ products }: Props) => {
       )}
 
       <div className="pb-[18px]">
-        <Button className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold">
+        <Button
+          disabled={total <= 0 || hasExceededStock()}
+          className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold"
+          onClick={() => {
+            redirect("/falabella-co/checkout/delivery");
+          }}
+        >
           Continuar compra
         </Button>
       </div>

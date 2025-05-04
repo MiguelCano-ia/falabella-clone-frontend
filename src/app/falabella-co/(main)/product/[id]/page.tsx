@@ -23,6 +23,8 @@ export default async function Page({
   const cart = await getCart();
   const product = await getProduct(id);
 
+  console.log(product);
+
   return (
     <div className="w-full min-h-screen bg-gray-100 py-2">
       <ProductDetailPage product={product} cart={cart} />
