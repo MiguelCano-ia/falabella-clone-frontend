@@ -1,0 +1,38 @@
+import { CheckoutStepper } from "@/components/checkout/CheckoutStepper";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function Layout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <header className="py-4 mx-4 md:mx-20 flex justify-between items-center">
+        <div className="flex items-center">
+          <Link
+            href="/falabella-co"
+            className="text-lime-500 text-2xl font-bold"
+          >
+            <Image
+              src="/icons/falabella-icon-header.svg"
+              width={176}
+              height={23}
+              alt="falabella-co"
+            />
+          </Link>
+        </div>
+        <div className="text-sm text-gray-600 max-sm:w-40">
+          ¿Necesitas ayuda para comprar? Llámanos al{" "}
+          <span className="font-semibold">+57 601 587 8002</span>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8">
+        <CheckoutStepper />
+        <div className="mt-8 bg-white rounded-md shadow p-8">{children}</div>
+      </main>
+    </div>
+  );
+}

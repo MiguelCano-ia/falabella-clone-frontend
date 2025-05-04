@@ -1,30 +1,41 @@
-import Link from "next/link";
+"use client";
 
-export const CheckoutStepper = ({ currentStep }: { currentStep: number }) => {
-  const steps = [
-    { number: 1, name: "Baket", path: "/falabella-co/basket" },
-    { number: 2, name: "Delevery", path: "/checkout/delivery" },
-    { number: 3, name: "Payment", path: "/checkout/payment" },
-  ];
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Fragment } from "react";
+
+const steps = [
+  { number: 1, name: "Carro", path: "/falabella-co/basket" },
+  { number: 2, name: "Entrega", path: "/checkout/delivery" },
+  { number: 3, name: "Pago", path: "/checkout/payment" },
+];
+
+export const CheckoutStepper = () => {
+  const pathName = usePathname();
+  const getCurrentStep = () => {
+    if (pathName.includes("/checkout/payment")) return 3;
+    return 2;
+  };
 
   return (
     <div className="flex justify-center">
-      <div className="flex items-center w-full max-w-2xl" key={currentStep}>
+      <div className="flex items-center w-full max-w-[52rem]">
         {steps.map((step, index) => {
-          const isActive = currentStep >= step.number;
-          const isPrevious = currentStep > step.number;
-          const isClickable = step.number === 1 || step.number < currentStep;
+          const isActive = getCurrentStep() >= step.number;
+          const isPrevious = getCurrentStep() > step.number;
+          const isClickable =
+            step.number === 1 || step.number < getCurrentStep();
 
           return (
-            <>
-              <div className="flex flex-col items-center" key={step.number}>
+            <Fragment key={step.number}>
+              <div className="flex flex-col items-center">
                 {isClickable ? (
                   <Link href={step.path} className="focus:outline-none">
                     <div
-                      className={`flex items-center justify-center w-8 h-8 rounded-full border-2 ${
+                      className={`flex items-center justify-center w-[1.63rem] h-[1.63rem] rounded-full border-2 ${
                         isActive
-                          ? "bg-gray-700 border-gray-700 text-white"
-                          : "bg-white border-gray-300 text-gray-500"
+                          ? "bg-[#343E49] border-[#343E49] text-white"
+                          : "bg-[#ACACAC] border-[#ACACAC] text-white"
                       }`}
                     >
                       {step.number}
@@ -32,18 +43,18 @@ export const CheckoutStepper = ({ currentStep }: { currentStep: number }) => {
                   </Link>
                 ) : (
                   <div
-                    className={`flex items-center justify-center w-8 h-8 rounded-full border-2 ${
+                    className={`flex items-center justify-center w-[1.63rem] h-[1.63rem] rounded-full border-2 ${
                       isActive
-                        ? "bg-gray-700 border-gray-700 text-white"
-                        : "bg-white border-gray-300 text-gray-500"
+                        ? "bg-white border-[#343E49] text-[#343E49] font-bold"
+                        : "bg-[#ACACAC] border-[#ACACAC] text-white"
                     }`}
                   >
                     {step.number}
                   </div>
                 )}
                 <span
-                  className={`mt-2 ${
-                    isActive ? "text-gray-700" : "text-gray-500"
+                  className={`mt-2 mr-4 text-[#333] text-[16px] w-[1.63rem] h-[1.63rem] font-semibold  ${
+                    isActive ? "opacity-100" : "opacity-80"
                   }`}
                 >
                   {step.name}
@@ -51,7 +62,7 @@ export const CheckoutStepper = ({ currentStep }: { currentStep: number }) => {
               </div>
 
               {index < steps.length - 1 && (
-                <div className="flex-1 mx-4">
+                <div className="flex-1 mb-8">
                   <div
                     className={`h-1 ${
                       isPrevious ? "bg-gray-700" : "bg-gray-300"
@@ -59,7 +70,7 @@ export const CheckoutStepper = ({ currentStep }: { currentStep: number }) => {
                   ></div>
                 </div>
               )}
-            </>
+            </Fragment>
           );
         })}
       </div>
