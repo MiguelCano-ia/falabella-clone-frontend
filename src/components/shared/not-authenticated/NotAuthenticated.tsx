@@ -9,7 +9,7 @@ export const NotAuthenticated = () => {
 
   useEffect(() => {
     openLoginForm();
-  }, []);
+  }, [openLoginForm]);
 
   return (
     <div className="flex items-center">

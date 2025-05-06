@@ -1,5 +1,6 @@
 "use client";
 
+import { useCheckoutStore } from "@/store/checkout";
 import { useUIStore } from "@/store/ui";
 import { FormState } from "@/validations/auth/login";
 import { useEffect } from "react";
@@ -13,6 +14,10 @@ interface Props {
 export const Overlay = ({ children, onResetForm, state }: Props) => {
   const isLoginOpen = useUIStore((state) => state.isLoginOpen);
   const closeLogin = useUIStore((state) => state.closeLogin);
+  const setOpenLoginByDelivery = useCheckoutStore(
+    (state) => state.setOpenLoginByDelivery
+  );
+  const setVerifyCode = useCheckoutStore((state) => state.setVerifyCode);
 
   useEffect(() => {
     document.body.style.overflow = isLoginOpen ? "hidden" : "";
@@ -26,7 +31,11 @@ export const Overlay = ({ children, onResetForm, state }: Props) => {
       {isLoginOpen ? (
         <div
           onClick={() => {
-            setTimeout(() => closeLogin(), 0);
+            setTimeout(() => {
+              closeLogin();
+              setOpenLoginByDelivery(false);
+              setVerifyCode(false);
+            }, 0);
             onResetForm();
             if (state) state.errors = {};
           }}

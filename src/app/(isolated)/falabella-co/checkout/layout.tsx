@@ -8,7 +8,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="relative min-h-screen bg-gray-100">
       <header className="py-4 mx-4 md:mx-20 flex justify-between items-center">
         <div className="flex items-center">
           <Link
@@ -31,7 +31,7 @@ export default function Layout({
 
       <main className="container mx-auto px-4 py-8">
         <CheckoutStepper />
-        <div className="mt-8 bg-white rounded-md shadow p-8">{children}</div>
+        {children}
       </main>
     </div>
   );
