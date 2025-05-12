@@ -8,7 +8,7 @@ export async function pay(_: unknown, formData: FormData) {
   const cart = await getCart();
 
   if (!user) {
-    return { error: "User not found" };
+    return { error: "Usuario no encontrado" };
   }
 
   const { token, payment_id, precio_total } = Object.fromEntries(formData);
@@ -34,8 +34,11 @@ export async function pay(_: unknown, formData: FormData) {
     if (response.ok) {
       return { success: true };
     }
-  } catch (error) {
-    console.log(error);
+  } catch {
+    return {
+      error:
+        "Hubo un error a la hora del pago, revise su tarjeta y validela denuevo.",
+    };
   }
 
   console.log(token, payment_id, precio_total, user, cart);

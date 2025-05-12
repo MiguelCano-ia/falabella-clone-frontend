@@ -179,7 +179,7 @@ export const PaymenCardModal = ({
             type="submit"
             variant="clean"
             onClick={handleVerifyCard}
-            className={`w-full rounded-full text-lg py-3 font-medium font-bold ${
+            className={`w-full rounded-full text-lg py-3 font-bold ${
               !cardNumber || !expiration || !cvv
                 ? "bg-gray-300  text-gray-700"
                 : "bg-[#343E49] text-white"

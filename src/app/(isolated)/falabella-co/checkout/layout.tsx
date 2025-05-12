@@ -1,4 +1,3 @@
-import { getUser } from "@/actions/auth/helpers/getUser";
 import { getCart } from "@/actions/basket/cart";
 import { CheckoutStepper } from "@/components/checkout/CheckoutStepper";
 import Image from "next/image";
@@ -10,12 +9,7 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getUser();
   const cart = await getCart();
-
-  if (!user) {
-    redirect("/falabella-co");
-  }
 
   if (Object.keys(cart).length === 0) {
     redirect("/falabella-co/basket");

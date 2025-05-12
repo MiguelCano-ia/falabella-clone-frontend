@@ -13,8 +13,8 @@ import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { useOrderSummary } from "../hooks/useOrderSummary";
 import { startTransition, useActionState, useEffect, useState } from "react";
-import { redirect, usePathname } from "next/navigation";
-import { getCookie } from "cookies-next/client";
+import { redirect, usePathname, useRouter } from "next/navigation";
+import { getCookie, hasCookie, setCookie } from "cookies-next/client";
 import { pay } from "@/actions/checkout/payment/pay";
 interface Props {
   products: Products[];
@@ -24,6 +24,7 @@ export const OrderSummary = ({ products }: Props) => {
   const [statePay, payAction] = useActionState(pay, undefined);
   const [accordionOpen, setAccordionOpen] = useState(false);
   const [goToPayment, setGoToPayment] = useState(false);
+  const router = useRouter();
 
   const pathName = usePathname();
   const {
@@ -41,6 +42,22 @@ export const OrderSummary = ({ products }: Props) => {
     return products.some((product) => +product.cartQuantity! > product.stock);
   };
 
+  const handlePayment = () => {
+    if (!hasCookie("session_payment")) return;
+
+    const { token, payment_method_id } = JSON.parse(
+      getCookie("session_payment") as string
+    );
+    const formData = new FormData();
+    formData.set("token", token);
+    formData.set("payment_id", payment_method_id);
+    formData.set("precio_total", (total - totalDiscount).toString());
+
+    startTransition(() => {
+      payAction(formData);
+    });
+  };
+
   useEffect(() => {
     if (pathName === "/falabella-co/checkout/delivery") {
       setGoToPayment(true);
@@ -49,18 +66,14 @@ export const OrderSummary = ({ products }: Props) => {
     }
   }, [pathName]);
 
-  const handlePayment = () => {
-    const { token, payment_method_id } = JSON.parse(
-      getCookie("session_payment") as string
-    );
-    const formData = new FormData();
-    formData.set("token", token);
-    formData.set("payment_id", payment_method_id);
-    formData.set("precio_total", (total - totalDiscount).toString());
-    startTransition(() => {
-      payAction(formData);
-    });
-  };
+  useEffect(() => {
+    if (statePay?.success) {
+      setCookie("order_confirmation", "true", {
+        maxAge: 60,
+      });
+      router.replace("/falabella-co/checkout/orderConfirmation");
+    }
+  }, [statePay]);
 
   return (
     <div className="w-auto h-auto bg-white rounded-[10px] shadow-sm px-[22.5px] py-[16px] flex flex-col gap-5">
@@ -155,6 +168,10 @@ export const OrderSummary = ({ products }: Props) => {
             </div>
           )}
         </div>
+      )}
+
+      {statePay?.error && (
+        <div className="text-[#D60303]  text-[14px">{statePay.error}</div>
       )}
 
       <div className="pb-[18px]">

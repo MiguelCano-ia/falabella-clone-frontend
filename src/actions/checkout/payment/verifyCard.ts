@@ -13,7 +13,7 @@ export async function createSessionPayment(
   token: string,
   payment_method_id: string
 ) {
-  const expiresAt = new Date(Date.now() + 5 * 60 * 100000000);
+  const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
   const cookieStore = await cookies();
 
   cookieStore.set(
