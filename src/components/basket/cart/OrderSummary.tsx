@@ -12,15 +12,20 @@ import { formatCOP } from "@/lib/formatCop";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import { useOrderSummary } from "../hooks/useOrderSummary";
-import { useState } from "react";
-import { redirect } from "next/navigation";
-
+import { startTransition, useActionState, useEffect, useState } from "react";
+import { redirect, usePathname } from "next/navigation";
+import { getCookie } from "cookies-next/client";
+import { pay } from "@/actions/checkout/payment/pay";
 interface Props {
   products: Products[];
 }
 
 export const OrderSummary = ({ products }: Props) => {
+  const [statePay, payAction] = useActionState(pay, undefined);
   const [accordionOpen, setAccordionOpen] = useState(false);
+  const [goToPayment, setGoToPayment] = useState(false);
+
+  const pathName = usePathname();
   const {
     productsSummary,
     quantitySummary,
@@ -34,6 +39,27 @@ export const OrderSummary = ({ products }: Props) => {
 
   const hasExceededStock = () => {
     return products.some((product) => +product.cartQuantity! > product.stock);
+  };
+
+  useEffect(() => {
+    if (pathName === "/falabella-co/checkout/delivery") {
+      setGoToPayment(true);
+    } else {
+      setGoToPayment(false);
+    }
+  }, [pathName]);
+
+  const handlePayment = () => {
+    const { token, payment_method_id } = JSON.parse(
+      getCookie("session_payment") as string
+    );
+    const formData = new FormData();
+    formData.set("token", token);
+    formData.set("payment_id", payment_method_id);
+    formData.set("precio_total", (total - totalDiscount).toString());
+    startTransition(() => {
+      payAction(formData);
+    });
   };
 
   return (
@@ -132,15 +158,28 @@ export const OrderSummary = ({ products }: Props) => {
       )}
 
       <div className="pb-[18px]">
-        <Button
-          disabled={total <= 0 || hasExceededStock()}
-          className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold"
-          onClick={() => {
-            redirect("/falabella-co/checkout/delivery");
-          }}
-        >
-          Continuar compra
-        </Button>
+        {pathName === "/falabella-co/checkout/payment" ? (
+          <Button
+            className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold"
+            onClick={handlePayment}
+          >
+            Continuar
+          </Button>
+        ) : (
+          <Button
+            disabled={total <= 0 || hasExceededStock()}
+            className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold"
+            onClick={() => {
+              if (pathName === "/falabella-co/checkout/delivery") {
+                redirect("/falabella-co/checkout/payment");
+              } else {
+                redirect("/falabella-co/checkout/delivery");
+              }
+            }}
+          >
+            {goToPayment ? "Ir a pagar" : "Continuar compra"}
+          </Button>
+        )}
       </div>
     </div>
   );

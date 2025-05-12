@@ -6,8 +6,8 @@ import { Fragment } from "react";
 
 const steps = [
   { number: 1, name: "Carro", path: "/falabella-co/basket" },
-  { number: 2, name: "Entrega", path: "/checkout/delivery" },
-  { number: 3, name: "Pago", path: "/checkout/payment" },
+  { number: 2, name: "Entrega", path: "/falabella-co/checkout/delivery" },
+  { number: 3, name: "Pago", path: "/falabella-co/checkout/payment" },
 ];
 
 export const CheckoutStepper = () => {

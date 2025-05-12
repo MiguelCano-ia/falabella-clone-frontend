@@ -27,7 +27,6 @@ export const FloatingLabelSelect = ({
   disabled = false,
 }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
-  console.log(options);
 
   return (
     <div className="relative w-full">

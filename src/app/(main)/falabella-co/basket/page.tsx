@@ -9,6 +9,21 @@ import { getCart } from "@/actions/basket/cart";
 import { EmptyCart } from "@/components/basket/cart/EmptyCart";
 import { getProduct } from "../product/[id]/page";
 
+export const getCartProducts = async (
+  idItems: string[],
+  cart: Record<string, number>
+): Promise<Products[]> => {
+  return Promise.all(
+    idItems.map(async (id) => {
+      const product = await getProduct(+id);
+      return {
+        ...product,
+        cartQuantity: cart[id].toString(),
+      };
+    })
+  );
+};
+
 export default async function Page() {
   const user = await getUser();
   const cart = await getCart();
@@ -16,15 +31,7 @@ export default async function Page() {
   const idItems = Object.keys(cart);
   const totalItems = getTotalItems(cart);
 
-  const products: Products[] = await Promise.all(
-    idItems.map(async (id) => {
-      const product = await getProduct(+id);
-      return {
-        ...product,
-        cartQuantity: cart[id],
-      };
-    })
-  );
+  const products = await getCartProducts(idItems, cart);
 
   return (
     <>

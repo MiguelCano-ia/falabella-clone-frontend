@@ -6,7 +6,7 @@ interface Props {
   products: Products[];
   totalItems: number | string;
 }
-export const ShoppingCart = ({ products, totalItems }: Props) => {
+export const ShoppingCart = async ({ products, totalItems }: Props) => {
   const bySeller = products.reduce((acc, prod) => {
     const key = prod.sold_by;
     if (!acc[key]) acc[key] = [];

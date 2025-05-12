@@ -35,7 +35,7 @@ const headerLinks = [
   },
 ];
 
-const getDepartmentsAndCities = async (): Promise<
+export const getDepartmentsAndCities = async (): Promise<
   DepartmentAndCities[] | undefined
 > => {
   try {
