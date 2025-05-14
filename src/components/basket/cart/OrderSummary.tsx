@@ -16,14 +16,19 @@ import { startTransition, useActionState, useEffect, useState } from "react";
 import { redirect, usePathname, useRouter } from "next/navigation";
 import { getCookie, hasCookie, setCookie } from "cookies-next/client";
 import { pay } from "@/actions/checkout/payment/pay";
+import { useCheckoutStore } from "@/store/checkout";
+import { Address } from "@/interfaces/checkout/delivery/address";
 interface Props {
   products: Products[];
+  address?: Address | undefined;
 }
 
-export const OrderSummary = ({ products }: Props) => {
+export const OrderSummary = ({ products, address }: Props) => {
+  const setIsPaymentModalOpen = useCheckoutStore(
+    (state) => state.setIsPaymentModalOpen
+  );
   const [statePay, payAction] = useActionState(pay, undefined);
   const [accordionOpen, setAccordionOpen] = useState(false);
-  const [goToPayment, setGoToPayment] = useState(false);
   const router = useRouter();
 
   const pathName = usePathname();
@@ -43,7 +48,12 @@ export const OrderSummary = ({ products }: Props) => {
   };
 
   const handlePayment = () => {
-    if (!hasCookie("session_payment")) return;
+    if (!hasCookie("session_payment")) {
+      setIsPaymentModalOpen(true);
+      return;
+    }
+
+    setIsPaymentModalOpen(false);
 
     const { token, payment_method_id } = JSON.parse(
       getCookie("session_payment") as string
@@ -59,20 +69,13 @@ export const OrderSummary = ({ products }: Props) => {
   };
 
   useEffect(() => {
-    if (pathName === "/falabella-co/checkout/delivery") {
-      setGoToPayment(true);
-    } else {
-      setGoToPayment(false);
-    }
-  }, [pathName]);
-
-  useEffect(() => {
     if (statePay?.success) {
       setCookie("order_confirmation", "true", {
         maxAge: 60,
       });
       router.replace("/falabella-co/checkout/orderConfirmation");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statePay]);
 
   return (
@@ -171,7 +174,7 @@ export const OrderSummary = ({ products }: Props) => {
       )}
 
       {statePay?.error && (
-        <div className="text-[#D60303]  text-[14px">{statePay.error}</div>
+        <div className="text-[#D60303] text-[14px]">{statePay.error}</div>
       )}
 
       <div className="pb-[18px]">
@@ -182,19 +185,23 @@ export const OrderSummary = ({ products }: Props) => {
           >
             Continuar
           </Button>
+        ) : pathName === "/falabella-co/checkout/delivery" ? (
+          <Button
+            disabled={address?.addresses.length === 0}
+            className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold"
+            onClick={() => redirect("/falabella-co/checkout/payment")}
+          >
+            Ir a pagar
+          </Button>
         ) : (
           <Button
             disabled={total <= 0 || hasExceededStock()}
             className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold"
             onClick={() => {
-              if (pathName === "/falabella-co/checkout/delivery") {
-                redirect("/falabella-co/checkout/payment");
-              } else {
-                redirect("/falabella-co/checkout/delivery");
-              }
+              redirect("/falabella-co/checkout/delivery");
             }}
           >
-            {goToPayment ? "Ir a pagar" : "Continuar compra"}
+            {"Continuar compra"}
           </Button>
         )}
       </div>

@@ -6,6 +6,7 @@ import { RenderDeliveryOption } from "./RenderDeliveryOption";
 import { getAddress } from "@/actions/checkout/delivery/getAddress";
 import { Shipping } from "./Shipping";
 import { getCart } from "@/actions/basket/cart";
+import { OpenDeliveryModal } from "./OpenDeliveryModal";
 const DELIVERY_OPTIONS = [
   {
     id: 1,
@@ -56,11 +57,7 @@ export const DeliveryType = async ({
           </h1>
           <div className="flex flex-col gap-5 w-full">
             {DELIVERY_OPTIONS.map((option) => (
-              <RenderDeliveryOption
-                key={option.id}
-                option={option}
-                departmentsAndCities={departmentsAndCities}
-              />
+              <RenderDeliveryOption key={option.id} option={option} />
             ))}
           </div>
         </section>
@@ -68,11 +65,13 @@ export const DeliveryType = async ({
         <Shipping address={address!.addresses} cartProducts={cartProducts} />
       )}
 
+      <OpenDeliveryModal departmentsAndCities={departmentsAndCities} />
+
       <section>
         <h1 className="text-2xl text-[#4A4A4A] font-bold mb-5 text-start">
           Resumen de la compra
         </h1>
-        <OrderSummary products={products} />
+        <OrderSummary products={products} address={address} />
       </section>
     </main>
   );

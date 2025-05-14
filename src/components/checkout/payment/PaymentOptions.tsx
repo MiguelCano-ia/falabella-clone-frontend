@@ -4,6 +4,7 @@ import { useState } from "react";
 import { PaymentCard } from "./PaymentCard";
 import Image from "next/image";
 import { PaymenCardModal } from "./PaymenCardModal";
+import { useCheckoutStore } from "@/store/checkout";
 
 const CARDS = [
   {
@@ -122,7 +123,12 @@ const OTHER_OPTIONS = [
 ];
 
 export const PaymentOptions = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isPaymentModalOpen = useCheckoutStore(
+    (state) => state.isPaymentModalOpen
+  );
+  const setIsPaymentModalOpen = useCheckoutStore(
+    (state) => state.setIsPaymentModalOpen
+  );
   const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
 
   const handleSelectPayment = (paymentId: string) => {
@@ -145,7 +151,7 @@ export const PaymentOptions = () => {
             discount={null}
             onClick={() => {
               handleSelectPayment(card.id);
-              setIsModalOpen(true);
+              setIsPaymentModalOpen(true);
             }}
             selected={selectedPayment === card.id}
           />
@@ -168,8 +174,8 @@ export const PaymentOptions = () => {
       </div>
       <PaymenCardModal
         selectedCard={selectedPayment}
-        setIsModalOpen={setIsModalOpen}
-        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsPaymentModalOpen}
+        isModalOpen={isPaymentModalOpen}
       />
     </div>
   );

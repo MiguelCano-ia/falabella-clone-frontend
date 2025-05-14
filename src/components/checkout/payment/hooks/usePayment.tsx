@@ -45,5 +45,8 @@ export const usePayment = () => {
     handleExpirationChange,
     handleCvvChange,
     setShowCardNumber,
+    setCardNumber,
+    setExpiration,
+    setCvv,
   };
 };

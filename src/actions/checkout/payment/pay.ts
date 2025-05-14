@@ -31,15 +31,18 @@ export async function pay(_: unknown, formData: FormData) {
       }
     );
 
-    if (response.ok) {
-      return { success: true };
+    if (!response.ok) {
+      return {
+        error:
+          "Hubo un error a la hora del pago, revise su tarjeta y validela denuevo.",
+      };
     }
+
+    return { success: true };
   } catch {
     return {
       error:
         "Hubo un error a la hora del pago, revise su tarjeta y validela denuevo.",
     };
   }
-
-  console.log(token, payment_id, precio_total, user, cart);
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye } from "lucide-react";
@@ -33,6 +34,9 @@ export const PaymenCardModal = ({
     handleExpirationChange,
     handleCvvChange,
     setShowCardNumber,
+    setCardNumber,
+    setCvv,
+    setExpiration,
   } = usePayment();
   const [verifyCardState, verifyCardAction] = useActionState(verifyCard, null);
   const router = useRouter();
@@ -43,6 +47,9 @@ export const PaymenCardModal = ({
     }
     if (verifyCardState?.success) {
       router.refresh();
+      setCardNumber("");
+      setExpiration("");
+      setCvv("");
       setIsModalOpen(false);
     }
   }, [selectedCard, verifyCardState, router]);

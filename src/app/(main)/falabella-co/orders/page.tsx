@@ -7,7 +7,7 @@ export default async function Page() {
 
   return (
     <section className="flex h-auto min-h-[375px] justify-center bg-[#f1f1f1]">
-      {!user ? <NotAuthenticated /> : <UserOrders />}
+      {!user ? <NotAuthenticated /> : <UserOrders userId={user.user_id} />}
     </section>
   );
 }

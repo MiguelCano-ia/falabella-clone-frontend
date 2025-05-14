@@ -1,6 +1,7 @@
 import { getCartProducts } from "@/app/(main)/falabella-co/basket/page";
 import { AddressElement } from "@/interfaces/checkout/delivery/address";
-import { CircleAlert, MapPin, Pencil, Truck } from "lucide-react";
+import { CircleAlert, MapPin, Truck } from "lucide-react";
+import { ChangeAddress } from "./ChangeAddress";
 
 interface Props {
   address: AddressElement[];
@@ -27,18 +28,15 @@ export const Shipping = async ({ address, cartProducts }: Props) => {
           <p className="text-[#333] font-bold text-sm">
             Dirección -{" "}
             <span className="text-[#333] font-normal text-sm">
-              {address[0]?.reference}, {address[0]?.complement_1},{" "}
-              {address[0].neighborhood}, {address[0].department}
+              {address[address.length - 1]?.department},{" "}
+              {address[address.length - 1]?.neighborhood},{" "}
+              {address[address.length - 1]?.complement_1},{" "}
+              {address[address.length - 1]?.reference}{" "}
             </span>
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1">
-            <Pencil size={14} />
-            <span className="text-[#333] font-normal text-[12px] underline underline-offset-1">
-              Cambiar
-            </span>
-          </div>
+          <ChangeAddress />
           <CircleAlert size={20} className="text-[#333] ml-2" />
         </div>
       </section>
@@ -74,8 +72,8 @@ export const Shipping = async ({ address, cartProducts }: Props) => {
                       <span className="text-xs text-[#888]">de 8 a 20 h</span>
                     </span>
                   </div>
-                  <span className="ml-auto text-sm font-semibold">
-                    $ 14.280
+                  <span className="ml-auto text-sm font-semibold text-green-600">
+                    Envio gratis
                   </span>
                 </label>
               </div>
