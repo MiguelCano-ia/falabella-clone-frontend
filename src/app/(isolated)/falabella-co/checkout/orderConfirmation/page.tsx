@@ -26,7 +26,7 @@ export default async function Page() {
         </h1>
 
         <p className="text-gray-600 mb-6">
-          Te enviaremos los detalles y avances a:
+          Te enviaremos los detalles y avances
         </p>
 
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-left flex items-start">

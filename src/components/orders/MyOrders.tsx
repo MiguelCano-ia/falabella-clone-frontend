@@ -13,16 +13,11 @@ export const MyOrders = ({ orders }: Props) => {
       <div className="bg-white rounded-md shadow p-4 space-y-6">
         <div>
           {orders.map((order) => (
-            <div
-              className="text-sm font-medium text-gray-800 mb-4"
-              key={order.id}
-            >
+            <div className="text-sm font-medium text-gray-800" key={order.id}>
               <p className="text-sm font-medium">
                 Compra Nº {order.payment_id}
               </p>
-              <p className="text-xs text-gray-500">
-                Retira desde el 23 de Abril.
-              </p>
+              <p className="text-xs text-gray-500">Retira desde mañana.</p>
               <p className="text-xs mt-2 text-blue-500">Solicitud recibida</p>
 
               <div className="flex flex-wrap justify-between items-start gap-4 pb-4 w-full">
