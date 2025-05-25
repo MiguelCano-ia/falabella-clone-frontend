@@ -34,6 +34,16 @@ export const useOrderSummary = (products: Products[]) => {
     0
   );
 
+  const discountOnly = productsSummary.filter(
+    (p) => p.discount_price && !p.special_price
+  );
+
+  const totalDiscountOnly = discountOnly.reduce(
+    (acc, p) =>
+      acc + (Number(p.price) - Number(p.discount_price)) * +p.cartQuantity!,
+    0
+  );
+
   const specialDiscounts = productsSummary.filter((p) => p.special_price);
 
   const totalSpecialDiscount = specialDiscounts.reduce(
@@ -48,6 +58,7 @@ export const useOrderSummary = (products: Products[]) => {
     total,
     discounts,
     totalDiscount,
+    totalDiscountOnly,
     specialDiscounts,
     totalSpecialDiscount,
   };

@@ -10,14 +10,14 @@ export const getCookieCart = async () => {
   return {};
 };
 
-export const addProductToCart = async (id: string) => {
+export const addProductToCart = async (id: string, quantity?: number) => {
   const cookieStore = await cookies();
   const cookieCart = await getCookieCart();
 
   if (cookieCart[id]) {
-    cookieCart[id] += 1;
+    cookieCart[id] += quantity || 1;
   } else {
-    cookieCart[id] = 1;
+    cookieCart[id] = quantity || 1;
   }
   console.log("Estado nuevo del carrito:", cookieCart);
   cookieStore.set("cart", JSON.stringify(cookieCart));

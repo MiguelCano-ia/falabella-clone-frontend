@@ -14,7 +14,7 @@ export const ProductList = async ({ products }: Props) => {
     <>
       <div className="flex w-full flex-wrap items-start">
         {products?.map((product) => (
-          <ProductCard key={product.id_product} product={product} />
+          <ProductCard key={product.title} product={product} />
         ))}
       </div>
 

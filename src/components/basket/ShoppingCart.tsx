@@ -6,7 +6,7 @@ interface Props {
   products: Products[];
   totalItems: number | string;
 }
-export const ShoppingCart = ({ products, totalItems }: Props) => {
+export const ShoppingCart = async ({ products, totalItems }: Props) => {
   const bySeller = products.reduce((acc, prod) => {
     const key = prod.sold_by;
     if (!acc[key]) acc[key] = [];
@@ -20,8 +20,8 @@ export const ShoppingCart = ({ products, totalItems }: Props) => {
   }));
 
   return (
-    <div className="grid grid-cols-3 gap-8 bg-[#f1f1f1] ">
-      <section className="col-span-2">
+    <div className="flex flex-col sm:grid sm:grid-cols-3 gap-8 bg-[#f1f1f1] ">
+      <section className="sm:col-span-2">
         <div className="flex items-center pb-5 pt-4 gap-1">
           <p className="font-bold text-[24px] text-[#333]">Carro</p>
           <p className="text-[#4A4A4A] text-[18px]">({totalItems} productos)</p>

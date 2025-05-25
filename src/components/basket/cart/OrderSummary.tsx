@@ -11,15 +11,27 @@ import { Products } from "@/interfaces/categories/product";
 import { formatCOP } from "@/lib/formatCop";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
 import { useOrderSummary } from "../hooks/useOrderSummary";
-
+import { startTransition, useActionState, useEffect, useState } from "react";
+import { redirect, usePathname, useRouter } from "next/navigation";
+import { getCookie, hasCookie, setCookie } from "cookies-next/client";
+import { pay } from "@/actions/checkout/payment/pay";
+import { useCheckoutStore } from "@/store/checkout";
+import { Address } from "@/interfaces/checkout/delivery/address";
 interface Props {
   products: Products[];
+  address?: Address | undefined;
 }
 
-export const OrderSummary = ({ products }: Props) => {
+export const OrderSummary = ({ products, address }: Props) => {
+  const setIsPaymentModalOpen = useCheckoutStore(
+    (state) => state.setIsPaymentModalOpen
+  );
+  const [statePay, payAction] = useActionState(pay, undefined);
   const [accordionOpen, setAccordionOpen] = useState(false);
+  const router = useRouter();
+
+  const pathName = usePathname();
   const {
     productsSummary,
     quantitySummary,
@@ -28,7 +40,43 @@ export const OrderSummary = ({ products }: Props) => {
     totalDiscount,
     specialDiscounts,
     totalSpecialDiscount,
+    totalDiscountOnly,
   } = useOrderSummary(products);
+
+  const hasExceededStock = () => {
+    return products.some((product) => +product.cartQuantity! > product.stock);
+  };
+
+  const handlePayment = () => {
+    if (!hasCookie("session_payment")) {
+      setIsPaymentModalOpen(true);
+      return;
+    }
+
+    setIsPaymentModalOpen(false);
+
+    const { token, payment_method_id } = JSON.parse(
+      getCookie("session_payment") as string
+    );
+    const formData = new FormData();
+    formData.set("token", token);
+    formData.set("payment_id", payment_method_id);
+    formData.set("precio_total", (total - totalDiscount).toString());
+
+    startTransition(() => {
+      payAction(formData);
+    });
+  };
+
+  useEffect(() => {
+    if (statePay?.success) {
+      setCookie("order_confirmation", "true", {
+        maxAge: 60,
+      });
+      router.replace("/falabella-co/checkout/orderConfirmation");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [statePay]);
 
   return (
     <div className="w-auto h-auto bg-white rounded-[10px] shadow-sm px-[22.5px] py-[16px] flex flex-col gap-5">
@@ -65,6 +113,7 @@ export const OrderSummary = ({ products }: Props) => {
                     if (product.discount_price) {
                       const words = product.title.split(" ");
                       const label = words.slice(0, 3).join(" ");
+
                       return (
                         <div
                           className="flex justify-between gap-2"
@@ -110,7 +159,13 @@ export const OrderSummary = ({ products }: Props) => {
                   height={20}
                 />
                 <span className="text-[#D60303] font-bold text-[14px]">
-                  {formatCOP((total - totalSpecialDiscount).toString())}
+                  {formatCOP(
+                    (
+                      total -
+                      totalSpecialDiscount -
+                      totalDiscountOnly
+                    ).toString()
+                  )}
                 </span>
               </div>
             </div>
@@ -118,10 +173,37 @@ export const OrderSummary = ({ products }: Props) => {
         </div>
       )}
 
+      {statePay?.error && (
+        <div className="text-[#D60303] text-[14px]">{statePay.error}</div>
+      )}
+
       <div className="pb-[18px]">
-        <Button className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold">
-          Continuar compra
-        </Button>
+        {pathName === "/falabella-co/checkout/payment" ? (
+          <Button
+            className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold"
+            onClick={handlePayment}
+          >
+            Continuar
+          </Button>
+        ) : pathName === "/falabella-co/checkout/delivery" ? (
+          <Button
+            disabled={address?.addresses.length === 0}
+            className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold"
+            onClick={() => redirect("/falabella-co/checkout/payment")}
+          >
+            Ir a pagar
+          </Button>
+        ) : (
+          <Button
+            disabled={total <= 0 || hasExceededStock()}
+            className="bg-[#343E49] hover:bg-[#2F3842] text-white text-[18px] rounded-full w-full h-[42px] font-bold"
+            onClick={() => {
+              redirect("/falabella-co/checkout/delivery");
+            }}
+          >
+            {"Continuar compra"}
+          </Button>
+        )}
       </div>
     </div>
   );

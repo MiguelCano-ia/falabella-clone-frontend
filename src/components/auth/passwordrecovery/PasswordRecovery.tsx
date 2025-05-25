@@ -55,8 +55,6 @@ export const PasswordRecoveryForm = () => {
     }
   }, [state?.successSentCode]);
 
-  console.log(state?.successSentCode, state?.successVerifyCode, state?.errors);
-
   return (
     <form
       onSubmit={handleSubmit((data) => {

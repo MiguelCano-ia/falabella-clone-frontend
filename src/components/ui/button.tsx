@@ -18,6 +18,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         register: "w-full max-w-[343px]",
         login: "bg-icon-background text-primary-foreground w-full",
+        clean: "",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
+import { LoginForm } from "@/components/auth/login/LoginForm";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({
         className={`${lato.variable} font-sans antialiased flex space-between flex-col min-h-screen overflow-x-hidden`}
       >
         {children}
+        <LoginForm />
       </body>
     </html>
   );
