@@ -10,6 +10,7 @@ import { useCartStore } from "@/store/basket/cart.store";
 import { useSelectionStore } from "@/store/basket/selection.store";
 import { addToCart } from "@/actions/basket/cart";
 import ProductDiscount from "./shared/ProductDiscount";
+import Image from "next/image";
 
 interface Props {
   product: Products;
@@ -39,7 +40,7 @@ export const ProductCard = ({ product }: Props) => {
           onMouseEnter={() => setAdd(true)}
           onMouseLeave={() => setAdd(false)}
         >
-          <img
+          <Image
             src={`${process.env.NEXT_PUBLIC_API_URL}/images/${product.images[0]}`}
             alt={product.brand}
             width={227}
