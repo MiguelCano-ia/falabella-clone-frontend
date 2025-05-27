@@ -63,7 +63,11 @@ export const UserOrders = async ({ userId }: Props) => {
             </div>
           </div>
         </div>
-        <MyOrders orders={orders.orders} />
+        {orders.orders.length === 0 ? (
+          <div className="text-center mt-5">No tienes pedidos pendientes</div>
+        ) : (
+          <MyOrders orders={orders.orders} />
+        )}
       </div>
     </div>
   );

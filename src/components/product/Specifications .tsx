@@ -7,7 +7,6 @@ interface Props {
   specifications: Record<string, unknown>;
 }
 
-/* 2️⃣  Renderizador recursivo */
 const renderValue = (
   value: unknown,
   path: (string | number)[] = []

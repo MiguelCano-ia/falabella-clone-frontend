@@ -71,7 +71,7 @@ export default async function Page({
                   </Link>
                   <div className="w-[1px] h-[62px] bg-[#F1F1F1]"></div>
                   <Link
-                    href="#"
+                    href="/falabella-co/orders"
                     className="flex flex-col gap-2 items-center w-[95px]"
                   >
                     <Package size={24} />
