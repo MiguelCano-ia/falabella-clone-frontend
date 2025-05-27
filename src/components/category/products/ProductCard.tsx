@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Products } from "@/interfaces/categories/product";
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUIStore } from "@/store/ui";
@@ -40,7 +39,7 @@ export const ProductCard = ({ product }: Props) => {
           onMouseEnter={() => setAdd(true)}
           onMouseLeave={() => setAdd(false)}
         >
-          <Image
+          <img
             src={`${process.env.NEXT_PUBLIC_API_URL}/images/${product.images[0]}`}
             alt={product.brand}
             width={227}
