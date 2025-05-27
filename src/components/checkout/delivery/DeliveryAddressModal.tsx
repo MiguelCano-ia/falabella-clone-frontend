@@ -83,7 +83,7 @@ export function DeliveryAddressModal({
 
   return (
     <>
-      <div className="flex items-center px-4 py-0">
+      <div className="flex items-center px-4 py-0" data-testid="address-form">
         <DialogHeader>
           <div className="text-[18px] leading-[30px] font-normal text-[#4A4A4A]">
             <div className="flex items-center gap-2">

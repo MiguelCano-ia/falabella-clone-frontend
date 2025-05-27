@@ -107,6 +107,7 @@ export const LoginForm = () => {
           onSubmit={handleSubmit((data) => {
             startTransition(() => action(data));
           })}
+          data-testid="login-form"
         >
           {(state?.errors?.email || state?.errors?.password) && (
             <div className="pb-[15px]">
@@ -163,6 +164,7 @@ export const LoginForm = () => {
                 }}
                 placeholder="Ingresa una contraseña"
                 className="border-0 rounded-none p-0 text-sm  font-normal focus:outline-none focus-visible:ring-0"
+                data-testid="login-password-input"
                 style={{
                   WebkitBoxShadow: "0 0 0px 1000px white inset",
                 }}

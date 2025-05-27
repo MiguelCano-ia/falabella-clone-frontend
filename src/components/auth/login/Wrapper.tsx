@@ -37,6 +37,7 @@ export const Wrapper = ({ children, onResetForm, state }: Props) => {
     >
       <div className="flex flex-reverse justify-end">
         <X
+          data-testid="close-login-form"
           size={24}
           className="text-[#9CA3AF] cursor-pointer"
           onClick={() => {

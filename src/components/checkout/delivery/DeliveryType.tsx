@@ -52,7 +52,10 @@ export const DeliveryType = async ({
     <main className="container grid grid-cols-3 mx-auto max-w-7xl w-full gap-10 mt-10">
       {address!.addresses.length === 0 ? (
         <section className="flex flex-col col-span-2 items-start px-12 py-8 bg-white rounded-xl shadow gap-2 w-full">
-          <h1 className="text-2xl text-[#333] font-normal mb-2">
+          <h1
+            className="text-2xl text-[#333] font-normal mb-2"
+            data-testid="delivery-type-title"
+          >
             Elige un tipo de entrega
           </h1>
           <div className="flex flex-col gap-5 w-full">

@@ -38,5 +38,11 @@ export const Map = ({ coords }: { coords: { lat: number; lng: number } }) => {
     initMap();
   }, [coords]);
 
-  return <div ref={mapRef} className="w-full h-[280px] rounded-sm" />;
+  return (
+    <div
+      ref={mapRef}
+      className="w-full h-[280px] rounded-sm"
+      data-testid="map"
+    />
+  );
 };
