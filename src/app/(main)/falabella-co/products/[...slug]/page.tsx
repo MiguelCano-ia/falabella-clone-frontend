@@ -5,7 +5,7 @@ import {
   SideBarCateogory,
 } from "@/components";
 
-const getProducts = async (slug: string[]) => {
+export const getProducts = async (slug: string[]) => {
   try {
     if (slug[2] === "ver_todo") {
       slug = slug.filter((item) => item !== "ver_todo");

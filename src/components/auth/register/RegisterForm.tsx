@@ -61,6 +61,7 @@ export const RegisterForm = () => {
   return (
     <form
       ref={formRef}
+      role="form"
       onSubmit={handleSubmit((data) => {
         startTransition(() => action(data));
       })}

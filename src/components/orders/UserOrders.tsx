@@ -8,7 +8,7 @@ interface Props {
   userId: number;
 }
 
-const getUserOrders = async (userId: number): Promise<Orders> => {
+export const getUserOrders = async (userId: number): Promise<Orders> => {
   const response = await fetch(`${process.env.API_URL}/get_user_orders`, {
     method: "POST",
     headers: {

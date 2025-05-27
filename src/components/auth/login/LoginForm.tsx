@@ -96,6 +96,7 @@ export const LoginForm = () => {
     if (email) {
       setValue("email", email);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoginOpen, email, setValue]);
 
   return (
