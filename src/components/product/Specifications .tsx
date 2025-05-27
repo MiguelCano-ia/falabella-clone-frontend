@@ -1,15 +1,58 @@
 "use client";
 
 import { useState } from "react";
+import type { ReactNode } from "react";
 
 interface Props {
-  specifications: Record<string, number | string>;
+  specifications: Record<string, unknown>;
 }
+
+/* 2️⃣  Renderizador recursivo */
+const renderValue = (
+  value: unknown,
+  path: (string | number)[] = []
+): ReactNode => {
+  if (
+    value === null ||
+    typeof value === "string" ||
+    typeof value === "number" ||
+    typeof value === "boolean"
+  ) {
+    return value === null ? <em>–</em> : value.toString();
+  }
+
+  if (Array.isArray(value)) {
+    return (
+      <ul className="list-disc pl-4">
+        {value.map((v, i) => (
+          <li key={[...path, i].join(".")}>{renderValue(v, [...path, i])}</li>
+        ))}
+      </ul>
+    );
+  }
+
+  if (typeof value === "object") {
+    return (
+      <div className="pl-4 border-l border-gray-300 space-y-1">
+        {Object.entries(value as Record<string, unknown>).map(([k, v]) => (
+          <div key={[...path, k].join(".")} className="flex justify-between">
+            <span className="font-medium">
+              {k.charAt(0).toUpperCase() + k.slice(1)}
+            </span>
+            <span className="text-right w-[250px]">
+              {renderValue(v, [...path, k])}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return JSON.stringify(value);
+};
 
 export const Specifications = ({ specifications }: Props) => {
   const [expanded, setExpanded] = useState(false);
-
-  console.log(specifications);
 
   return (
     <div className="mt-12 bg-white p-6 rounded-lg shadow-md max-w-7xl mx-auto">
@@ -18,96 +61,27 @@ export const Specifications = ({ specifications }: Props) => {
           expanded ? "max-h-full" : "max-h-[400px]"
         }`}
       >
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="w-full">
-            <h3 className="text-lg font-semibold mb-4">Especificaciones</h3>
-            <div className="space-y-2 text-sm text-gray-700">
-              {/* {Object.entries(specifications).map((item, index) => (
-                <div
-                  key={index}
-                  className={`flex items-center justify-between p-3 rounded ${
-                    index % 2 === 0 ? "bg-gray-100" : "bg-white"
-                  }`}
-                >
-                  <span className="font-medium">
-                    {item[0].slice(0, 1).toUpperCase() + item[0].slice(1)}
-                  </span>
-                  <span className="text-right w-[250px]">{item[1]}</span>
-                </div>
-              ))} */}
-            </div>
+        <div className="w-full">
+          <h3 className="text-lg font-semibold mb-4">Especificaciones</h3>
+          <div className="space-y-2 text-sm text-gray-700">
+            {Object.entries(specifications).map(([k, v], idx) => (
+              <div
+                key={k}
+                className={`flex items-start justify-between p-3 rounded ${
+                  idx % 2 === 0 ? "bg-gray-100" : "bg-white"
+                }`}
+              >
+                <span className="font-medium">
+                  {k.charAt(0).toUpperCase() + k.slice(1)}
+                </span>
+                <span className="text-right w-[250px]">
+                  {renderValue(v, [k])}
+                </span>
+              </div>
+            ))}
           </div>
 
-          <div className="w-full">
-            <h3 className="text-lg font-semibold mb-4">
-              Información adicional
-            </h3>
-            {/* <p className="text-sm font-bold mb-2">Ficha técnica:</p>
-            <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
-              <li>Capacidad de almacenamiento: 256GB</li>
-              <li>Conectividad: 5G</li>
-              <li>Marca y modelo del procesador: Mediatek Dimensity 7300x</li>
-              <li>Sistema operativo: Android 14</li>
-              <li>Memoria RAM: 8GB</li>
-              <li>Cámara posterior: 50 MP</li>
-              <li>Carga rápida: Sí</li>
-              <li>Cámara frontal: 32 MP</li>
-              <li>Flash frontal: No</li>
-              <li>Núcleos del procesador: Octa core</li>
-              <li>Velocidad del procesador: 2.5 GHz</li>
-              <li>Memoria expandible: No aplica</li>
-              <li>Memoria externa incluida: No</li>
-              <li>Características de la pantalla: OLED</li>
-              <li>Tamaño de la pantalla: 6.3 pulgadas</li>
-              <li>Lector de huella: Sí</li>
-              <li>GPS integrado: Sí</li>
-              <li>Conexión Bluetooth: Sí</li>
-              <li>Resistente al agua: IP68 (Protegido contra inmersión)</li>
-            </ul>
-
-            <div className="mt-6 text-sm text-gray-700 space-y-4">
-              <div>
-                <p className="font-semibold">Garantía del proveedor</p>
-                <ul className="list-disc pl-5">
-                  <li>2 años.</li>
-                </ul>
-              </div>
-
-              <div>
-                <p className="font-semibold">Información adicional</p>
-                <ul className="list-disc pl-5">
-                  <li>Carga Turbo 68W</li>
-                </ul>
-              </div>
-
-              <div>
-                <p className="font-semibold">Dual SIM:</p>
-                <ul className="list-disc pl-5">
-                  <li>1 Física y 1 Virtual.</li>
-                </ul>
-              </div>
-
-              <div>
-                <p className="font-semibold">Información Adicional</p>
-                <ul className="list-disc pl-5">
-                  <li>
-                    La memoria interna y la RAM disponibles para el usuario
-                    dependen del sistema operativo y las aplicaciones
-                    precargadas.
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <Image
-                  src="https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCO/inpage_media/celulares_5g/w=699,h=353"
-                  alt="Redes móviles"
-                  width={699}
-                  height={353}
-                />
-              </div>
-            </div> */}
-          </div>
+          {/* Puedes mantener aquí tu “Información adicional” o lo que necesites */}
         </div>
       </div>
 

@@ -14,6 +14,17 @@ export const getProduct = async (id: number): Promise<Products> => {
   return response;
 };
 
+export const getSimilarProducts = async (section: string, category: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.API_URL}/collection/${section}/${category}`
+    );
+    return response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default async function Page({
   params,
 }: {
@@ -22,15 +33,17 @@ export default async function Page({
   const { id } = await params;
   const cart = await getCart();
   const product = await getProduct(id);
-
-  console.log(product);
+  const similarProducts = await getSimilarProducts(
+    product.section_slug,
+    product.category_slug
+  );
 
   return (
     <div className="w-full min-h-screen bg-gray-100 py-2">
       <ProductDetailPage product={product} cart={cart} />
       <Specifications specifications={product.specifications} />
       {/* <CarousselOtherProducts /> */}
-      <SimilarOptions />
+      <SimilarOptions products={similarProducts.products} />
       {/* <YouMightAlsoLike /> */}
       <ProductFeedback />
     </div>

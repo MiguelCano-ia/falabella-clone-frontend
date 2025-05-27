@@ -51,7 +51,7 @@ export const StarRating = ({ value }: { value: number }) => {
 
 export const ProductFeedback = () => {
   return (
-    <div className="mt-12 bg-white max-w-6xl mx-auto rounded-lg shadow-lg p-6">
+    <div className="mt-12 bg-white max-w-7xl mx-auto rounded-lg shadow-lg p-6 mb-10">
       <h3 className="text-xl font-semibold mb-4">
         Comentarios de este producto
       </h3>

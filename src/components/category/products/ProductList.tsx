@@ -13,8 +13,8 @@ export const ProductList = async ({ products }: Props) => {
   return (
     <>
       <div className="flex w-full flex-wrap items-start">
-        {products?.map((product) => (
-          <ProductCard key={product.title} product={product} />
+        {products?.map((product, idx) => (
+          <ProductCard key={idx} product={product} />
         ))}
       </div>
 

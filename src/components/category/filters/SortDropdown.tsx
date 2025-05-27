@@ -20,13 +20,6 @@ export const SortDropdown = () => {
         <SelectContent>
           <SelectGroup>
             <SelectItem
-              className="text-[14px] text-[#333] focus:text-[#333] focus:bg-[#e8e8e8] data-[state=checked]:bg-[#f8f8f8] data-[state=checked]:border-l-[3px] data-[state=checked]:border-l-[#343E49] rounded-none"
-              value="apple"
-            >
-              Apple
-            </SelectItem>
-
-            <SelectItem
               className="text-[14px] text-[#333]focus:text-[#333] focus:bg-[#e8e8e8] data-[state=checked]:bg-[#f8f8f8] data-[state=checked]:border-l-[3px] data-[state=checked]:border-l-[#343E49] rounded-none"
               value="recomendados"
             >
